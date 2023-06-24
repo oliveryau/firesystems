@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace Ithas
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameController : MonoBehaviour
     {
-        
-    }
+        public InputHandler inputHandler;
+        public GameObject player;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Start()
+        {
+            StartGame();
+        }
+
+        public void StartGame()
+        {
+            PlayerScript playerScript = player.GetComponent<PlayerScript>();
+            if (playerScript != null)
+            {
+                playerScript.Initialize(this);
+                inputHandler.SetInputReceiver((InputReceiver)playerScript);
+            }
+        }
     }
 }
