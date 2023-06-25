@@ -20,7 +20,7 @@ namespace Ithas
             if (playerScript != null)
             {
                 playerScript.Initialize(this);
-                inputHandler.SetInputReceiver((InputReceiver)playerScript);
+                inputHandler.SetInputReceiver((InputReceiver)playerScript); //cast playerScript as inputReceiver
             }
         }
     }
