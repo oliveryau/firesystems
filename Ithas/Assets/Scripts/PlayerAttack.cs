@@ -6,14 +6,16 @@ namespace Ithas
 {
     public class PlayerAttack : PlayerScript, InputReceiver
     {
+        private GameController gameController;
         private GameObject attackArea = default;
         private bool attacking = false;
         private float attackTime = 0.25f;
         private float timer = 0f;
 
-        private void Start()
+        public override void Initialize(GameController aController)
         {
-            attackArea = transform.GetChild(0).gameObject; //get attack area object from first child
+            gameController = aController; //set game controller reference
+            attackArea = transform.gameObject; //get attack area object from first child
         }
 
         private void Update()
@@ -21,17 +23,17 @@ namespace Ithas
             if (attacking) //from Attack()
             {
                 timer += Time.deltaTime;
-                Debug.Log("hi");
 
                 if (timer >= attackTime) //stop attack after past timer
                 {
                     timer = 0;
                     attacking = false;
-                    attackArea.SetActive(attacking);
-                    Debug.Log("bye");
+                    //attackArea.SetActive(attacking);
                 }
             }
         }
+
+        #region Input Handling
 
         public void DoMove(Vector2 action)
         {
@@ -40,11 +42,14 @@ namespace Ithas
 
         public void DoAttack()
         {
+            Debug.Log("PlayerAtk called");
             if (!attacking)
             {
                 attacking = true;
-                attackArea.SetActive(attacking);
+                //attackArea.SetActive(attacking);
             }
         }
+
+        #endregion
     }
 }

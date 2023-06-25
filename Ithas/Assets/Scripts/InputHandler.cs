@@ -4,51 +4,49 @@ using UnityEngine;
 
 namespace Ithas
 {
-    public class InputHandler : MonoBehaviour, InputReceiver
+    public class InputHandler : MonoBehaviour
     {
         private InputReceiver activeReceiver;
 
         public PlayerMovement playerMovement;
         public PlayerAttack playerAttack;
 
+        private void Start()
+        {
+            activeReceiver = playerMovement; //set initial inputReceiver
+        }
+
+        private void Update()
+        {
+            //input manager stuff
+            Vector2 movement = Vector2.zero;
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+
+            //apply move/attack based on active receiver
+            activeReceiver.DoMove(movement); //move
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+            {
+                if (activeReceiver == playerMovement)
+                {
+                    activeReceiver = playerAttack; //switch to playerAttack input
+                }
+
+                activeReceiver.DoAttack(); //click or Z to attack
+
+                activeReceiver = playerMovement; //switch back to playerMovement input after attacking
+            }
+        }
         public void SetInputReceiver(InputReceiver inputReceiver)
         {
             activeReceiver = inputReceiver; //for controlling only 1 input at a time
-        }
-
-        void Update()
-        {
-            //input manager stuff
-            Vector2 moving = Vector2.zero;
-            moving.x = Input.GetAxisRaw("Horizontal");
-            moving.y = Input.GetAxisRaw("Vertical");
-
-            //apply move/attack based on active receiver
-            if (activeReceiver != null)
-            {
-                activeReceiver.DoMove(moving);
-                if (Input.GetMouseButtonDown(0))
-                {
-                    activeReceiver.DoAttack();
-                }
-            }
-        }
-
-        public void DoMove(Vector2 movement)
-        {
-            //do nothing
-        }
-
-        public void DoAttack()
-        {
-            //do nothing
         }
     }
 
     public interface InputReceiver
     {
-        void DoMove(Vector2 action); //movement
+        public void DoMove(Vector2 moving); //movement
 
-        void DoAttack(); //attack
+        public void DoAttack(); //attack
     }
 }

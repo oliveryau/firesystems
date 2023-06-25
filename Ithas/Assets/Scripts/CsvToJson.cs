@@ -25,11 +25,12 @@ namespace Ithas
                 for (int j = 0; j < headers.Length; j++)
                 {
                     dataEntry.Add(headers[j], values[j]); //adding to dictionary based on headers
+                    //Debug.Log(dataEntry);
                 }
 
                 jsonData.Add(dataEntry); //add each data entry to json list
             }
-
+            //Debug.Log(jsonData);
             string json = JsonUtility.ToJson(jsonData, true); //converting the json data to json string
             File.WriteAllText(jsonFilePath, json); //writing json string to a file
         }

@@ -11,22 +11,18 @@ namespace Ithas
 
         public float movementSpeed;
 
-        #region Input Handling
-
-        public override void Initialize(GameController gameController)
+        public override void Initialize(GameController aController)
         {
             rb = GetComponent<Rigidbody2D>();
             movement = Vector2.zero;
         }
 
+        #region Input Handling
+
         public void DoMove(Vector2 moving)
         {
             movement = moving;
-
-            if (rb != null)
-            {
-                rb.velocity = movement.normalized * movementSpeed; //normalize to prevent faster diagonal movement
-            }
+            rb.velocity = movement.normalized * movementSpeed; //normalize to prevent faster diagonal movement
         }
 
         public void DoAttack()
