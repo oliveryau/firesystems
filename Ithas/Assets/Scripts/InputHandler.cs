@@ -7,6 +7,7 @@ namespace Ithas
     public class InputHandler : MonoBehaviour
     {
         private InputReceiver activeReceiver;
+        private Vector2 movement;
 
         public PlayerMovement playerMovement;
         public PlayerAttack playerAttack;
@@ -19,15 +20,24 @@ namespace Ithas
         private void Update()
         {
             //input manager stuff
-            Vector2 movement = Vector2.zero;
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
 
             //apply move/attack based on active receiver
-            activeReceiver.DoMove(movement); //move
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+            activeReceiver.DoMove(movement); // move
+
+            if (movement.x < 0 && playerMovement.facingRight) //moving left but facing right
             {
-                if (activeReceiver == playerMovement)
+                playerMovement.Flip();
+            }
+            if (movement.x > 0 && !playerMovement.facingRight) //moving right but facing left
+            {
+                playerMovement.Flip();
+            }
+
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+            {
+                if (activeReceiver == (InputReceiver)playerMovement)
                 {
                     activeReceiver = playerAttack; //switch to playerAttack input
                 }
