@@ -3,47 +3,86 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CsvReader : MonoBehaviour
+namespace Ithas
 {
-    public TextAsset textAssetData;
-
-    [System.Serializable]
-    public class Player
+    public class CsvReader : MonoBehaviour
     {
-        public int level;
-        public float hp;
-        public float moveSpeed;
-        public float exp;
-    }
+        [SerializeField] private TextAsset playerDataCsv;
+        [SerializeField] private TextAsset playerAttackDataCsv;
 
-    [System.Serializable]
-    public class PlayerLevel
-    {
-        public Player[] player;
-    }
-
-    public PlayerLevel myPlayerLevel = new PlayerLevel();
-
-    private void Awake()
-    {
-        ReadCsv();
-    }
-
-    private void ReadCsv()
-    {
-        string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-
-        int tableSize = (data.Length) / 4 - 1;
-        myPlayerLevel.player = new Player[tableSize];
-
-        for (int i = 0; i < tableSize; i++)
+        [System.Serializable]
+        public class PlayerData
         {
-            myPlayerLevel.player[i] = new Player();
+            public int level;
+            public float hp;
+            public float movementSpeed;
+            public float exp;
+        }
 
-            myPlayerLevel.player[i].level = int.Parse(data[4 * (i + 1)]);
-            myPlayerLevel.player[i].hp = float.Parse(data[4 * (i + 1) + 1]);
-            myPlayerLevel.player[i].moveSpeed = float.Parse(data[4 * (i + 1) + 2]);
-            myPlayerLevel.player[i].exp = float.Parse(data[4 * (i + 1) + 3]);
+        [System.Serializable]
+        public class PlayerDataArray
+        {
+            public PlayerData[] playerData;
+        }
+
+        [System.Serializable]
+        public class PlayerAttackData
+        {
+            public int level;
+            public float damage;
+            public float attackRange;
+        }
+
+        [System.Serializable]
+        public class PlayerAttackDataArray
+        {
+            public PlayerAttackData[] playerAttackData;
+        }
+
+        public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
+        public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
+
+        private void Awake()
+        {
+            ReadPlayerData();
+            ReadPlayerAttackData();
+        }
+
+        private void ReadPlayerData()
+        {
+            string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
+            int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
+            playerDataList.playerData = new PlayerData[tableSize]; //initialize playerDataList's playerData with an array of tableSize
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                playerDataList.playerData[i] = new PlayerData();
+
+                playerDataList.playerData[i].level = int.Parse(data[4 * (i + 1)]);
+                playerDataList.playerData[i].hp = float.Parse(data[4 * (i + 1) + 1]);
+                playerDataList.playerData[i].movementSpeed = float.Parse(data[4 * (i + 1) + 2]);
+                playerDataList.playerData[i].exp = float.Parse(data[4 * (i + 1) + 3]);
+            }
+        }
+
+        private void ReadPlayerAttackData()
+        {
+            string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
+            int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
+            playerAttackDataList.playerAttackData = new PlayerAttackData[tableSize]; //initialize playerAttackDataList's playerAttackData with an array of tableSize
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                playerAttackDataList.playerAttackData[i] = new PlayerAttackData();
+
+                playerAttackDataList.playerAttackData[i].level = int.Parse(data[3 * (i + 1)]);
+                playerAttackDataList.playerAttackData[i].damage = float.Parse(data[3 * (i + 1) + 1]);
+                playerAttackDataList.playerAttackData[i].attackRange = float.Parse(data[3 * (i + 1) + 2]);
+
+            }
         }
     }
+
 }

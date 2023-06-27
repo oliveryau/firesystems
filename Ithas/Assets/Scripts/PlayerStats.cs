@@ -16,10 +16,10 @@ namespace Ithas
             Debug.Log("Stats Initialized");
             this.gameController = gameController;
 
-            level = gameController.GetPlayerLevelFromCSV();
-            movementSpeed = gameController.GetMovementSpeed(level);
+            level = gameController.GetPlayerLevel();
+            movementSpeed = gameController.GetPlayerMovementSpeed(level);
 
-            base.Initialize(gameController);
+            //base.Initialize(gameController);
 
             PlayerMovement playerMovement = GetComponent<PlayerMovement>();
             if (playerMovement != null)

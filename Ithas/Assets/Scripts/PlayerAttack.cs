@@ -10,12 +10,20 @@ namespace Ithas
 
         //[SerializeField] private Animator animator;
         [SerializeField] private Transform attackArea;
-        [SerializeField] private float attackRange;
         [SerializeField] private LayerMask enemyLayers;
+
+        public float damage;
+        public float attackRange;
 
         public override void Initialize(GameController gameController)
         {
+            Debug.Log("Attack Initialized");
             this.gameController = gameController; //set game controller reference
+
+            damage = gameController.GetPlayerDamage();
+            attackRange = gameController.GetPlayerAttackRange();
+
+            base.Initialize(gameController);
         }
 
         private void Attack()
