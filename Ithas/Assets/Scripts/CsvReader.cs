@@ -48,7 +48,7 @@ namespace Ithas
             ReadPlayerAttackData();
         }
 
-        private void ReadPlayerData()
+        private void ReadPlayerData() //playerDataCsv
         {
             string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
@@ -66,7 +66,7 @@ namespace Ithas
             }
         }
 
-        private void ReadPlayerAttackData()
+        private void ReadPlayerAttackData() //playerAttackDataCsv
         {
             string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 

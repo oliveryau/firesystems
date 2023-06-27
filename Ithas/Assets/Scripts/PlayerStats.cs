@@ -14,18 +14,12 @@ namespace Ithas
         public override void Initialize(GameController gameController)
         {
             Debug.Log("Stats Initialized");
-            this.gameController = gameController;
+            this.gameController = gameController; //set game controller reference
 
             level = gameController.GetPlayerLevel();
-            movementSpeed = gameController.GetPlayerMovementSpeed(level);
+            movementSpeed = gameController.GetPlayerMovementSpeed();
 
             //base.Initialize(gameController);
-
-            PlayerMovement playerMovement = GetComponent<PlayerMovement>();
-            if (playerMovement != null)
-            {
-                gameController.SetMovementSpeed(playerMovement, movementSpeed);
-            }
         }
     }
 }

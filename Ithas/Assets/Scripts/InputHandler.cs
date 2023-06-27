@@ -35,7 +35,7 @@ namespace Ithas
                 playerMovement.Flip();
             }
 
-                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
             {
                 if (activeReceiver == (InputReceiver)playerMovement)
                 {

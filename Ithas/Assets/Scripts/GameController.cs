@@ -23,7 +23,7 @@ namespace Ithas
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
 
-            if (playerStats != null && playerMovement != null && playerAttack != null)
+            if (playerStats != null && playerMovement != null && playerAttack != null) //initialize all methods
             {
                 playerStats.Initialize(this); //set level and movement speed first
                 playerMovement.Initialize(this); //initialize player movement
@@ -41,7 +41,7 @@ namespace Ithas
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
             if (playerScript != null)
             {
-                playerScript.Initialize(this);
+                //playerScript.Initialize(this);
                 inputHandler.SetInputReceiver((InputReceiver)playerScript);
             }
         }
@@ -51,20 +51,19 @@ namespace Ithas
             return currentPlayerLevel;
         }
 
-        public float GetPlayerMovementSpeed(int level) //based on level
+        public float GetPlayerMovementSpeed() //based on currentPlayerlevel
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.playerDataList.playerData.Length > 0)
             {
                 foreach (var playerData in csvReader.playerDataList.playerData)
                 {
-                    if (playerData.level == level) //check level
+                    if (playerData.level == currentPlayerLevel) //check level
                     {
                         return playerData.movementSpeed; //get movement speed based
                     }
                 }
             }
-
             return 0f; //if nothing
         }
 
@@ -86,7 +85,6 @@ namespace Ithas
                     }
                 }
             }
-
             return 0f; //if nothing
         }
 
@@ -97,14 +95,13 @@ namespace Ithas
             {
                 foreach (var playerAttackData in csvReader.playerAttackDataList.playerAttackData)
                 {
-                    if (playerAttackData.level == currentPlayerLevel) // Check level against the current player level
+                    if (playerAttackData.level == currentPlayerLevel) //check if level tally with currentPlayerLevel
                     {
-                        return playerAttackData.attackRange; // Get attack range
+                        return playerAttackData.attackRange; //get attack range
                     }
                 }
             }
-
-            return 0f; // If nothing
+            return 0f; //if nothing
         }
     }
 }

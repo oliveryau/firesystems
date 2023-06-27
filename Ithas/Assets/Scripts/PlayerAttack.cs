@@ -7,8 +7,8 @@ namespace Ithas
     public class PlayerAttack : PlayerScript, InputReceiver
     {
         private GameController gameController;
+        private Animator animator;
 
-        //[SerializeField] private Animator animator;
         [SerializeField] private Transform attackArea;
         [SerializeField] private LayerMask enemyLayers;
 
@@ -20,15 +20,17 @@ namespace Ithas
             Debug.Log("Attack Initialized");
             this.gameController = gameController; //set game controller reference
 
+            animator = GetComponent<Animator>();
+
             damage = gameController.GetPlayerDamage();
             attackRange = gameController.GetPlayerAttackRange();
 
-            base.Initialize(gameController);
+            //base.Initialize(gameController);
         }
 
         private void Attack()
         {
-            //animator.setTrigger("Attack"); //play atk animation
+            animator.SetTrigger("Attack"); //play atk animation
 
             //detect enemies in range of attack
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers);
@@ -56,7 +58,6 @@ namespace Ithas
 
         public void DoAttack()
         {
-            Debug.Log("PlayerAtk called");
             Attack();
         }
 
