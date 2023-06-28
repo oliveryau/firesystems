@@ -19,7 +19,7 @@ namespace Ithas
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Stats Initialized");
+            Debug.Log("Get base stats");
             this.gameController = gameController; //set game controller reference
 
             level = gameController.GetPlayerLevel();

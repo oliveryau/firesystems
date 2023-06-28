@@ -28,15 +28,6 @@ namespace Ithas
             //apply move/attack based on active receiver
             activeReceiver.DoMove(movement); // move
 
-            if (movement.x < 0 && playerMovement.facingRight) //moving left but facing right
-            {
-                playerMovement.Flip();
-            }
-            if (movement.x > 0 && !playerMovement.facingRight) //moving right but facing left
-            {
-                playerMovement.Flip();
-            }
-
             #endregion
 
             #region Attack Setups

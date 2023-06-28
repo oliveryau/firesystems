@@ -8,6 +8,7 @@ namespace Ithas
     {
         private GameController gameController;
         private Animator animator;
+        private PlayerMovement playerMovement;
 
         [SerializeField] private Transform attackArea;
         [SerializeField] private LayerMask enemyLayers;
@@ -19,10 +20,11 @@ namespace Ithas
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Attack Initialized");
+            Debug.Log("Get attack values");
             this.gameController = gameController; //set game controller reference
 
             animator = GetComponent<Animator>();
+            playerMovement = GetComponent<PlayerMovement>(); //for animation
 
             damage = gameController.GetPlayerDamage();
             attackRange = gameController.GetPlayerAttackRange();
@@ -38,7 +40,9 @@ namespace Ithas
 
         private void Attack()
         {
-            animator.SetTrigger("Attack"); //play atk animation
+            animator.SetFloat("Horizontal", playerMovement.movement.x); //get movement.x direction
+            animator.SetFloat("Vertical", playerMovement.movement.y); //get movement.y direction
+            animator.SetTrigger("Attack"); //play atk animation based on direction
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers); //detect enemies in range
 
@@ -65,6 +69,7 @@ namespace Ithas
         public void DoAttack()
         {
             Attack();
+
             nextAttackTime = Time.time + 1f / attackRate; //higher attackRate = faster attack speed
         }
 
