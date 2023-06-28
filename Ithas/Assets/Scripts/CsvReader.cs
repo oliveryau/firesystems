@@ -31,6 +31,7 @@ namespace Ithas
             public int level;
             public float damage;
             public float attackRange;
+            public float attackRate;
         }
 
         [System.Serializable]
@@ -70,17 +71,17 @@ namespace Ithas
         {
             string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
-            int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
+            int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             playerAttackDataList.playerAttackData = new PlayerAttackData[tableSize]; //initialize playerAttackDataList's playerAttackData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
                 playerAttackDataList.playerAttackData[i] = new PlayerAttackData();
 
-                playerAttackDataList.playerAttackData[i].level = int.Parse(data[3 * (i + 1)]);
-                playerAttackDataList.playerAttackData[i].damage = float.Parse(data[3 * (i + 1) + 1]);
-                playerAttackDataList.playerAttackData[i].attackRange = float.Parse(data[3 * (i + 1) + 2]);
-
+                playerAttackDataList.playerAttackData[i].level = int.Parse(data[4 * (i + 1)]);
+                playerAttackDataList.playerAttackData[i].damage = float.Parse(data[4 * (i + 1) + 1]);
+                playerAttackDataList.playerAttackData[i].attackRange = float.Parse(data[4 * (i + 1) + 2]);
+                playerAttackDataList.playerAttackData[i].attackRate = float.Parse(data[4 * (i + 1) + 3]);
             }
         }
     }

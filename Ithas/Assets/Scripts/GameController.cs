@@ -22,13 +22,12 @@ namespace Ithas
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-
             if (playerStats != null && playerMovement != null && playerAttack != null) //initialize all methods
             {
                 playerStats.Initialize(this); //set level and movement speed first
-                playerMovement.Initialize(this); //initialize player movement
 
-                SetMovementSpeed(playerMovement, playerStats.movementSpeed); //set movement speed for player movement input
+                playerMovement.Initialize(this); //initialize player movement
+                SetPlayerMovementSpeed(playerMovement, playerStats.movementSpeed); //set movement speed for player movement input
 
                 playerAttack.Initialize(this); //set up damage and range
             }
@@ -36,50 +35,106 @@ namespace Ithas
             StartGame();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                currentPlayerLevel += 1;
+
+                PlayerStats playerStats = player.GetComponent<PlayerStats>();
+                if (playerStats != null)
+                {
+                    playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
+                }
+
+                PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+                if (playerAttack != null)
+                {
+                    playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                DamagePlayer(10); //call DamagePlayer to decrease player HP
+            }
+        }
+
         public void StartGame()
         {
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
             if (playerScript != null)
             {
-                //playerScript.Initialize(this);
                 inputHandler.SetInputReceiver((InputReceiver)playerScript);
             }
         }
 
-        public int GetPlayerLevel() //based on currentPlayerLevel
+        public int GetPlayerLevel()
         {
             return currentPlayerLevel;
         }
 
-        public float GetPlayerMovementSpeed() //based on currentPlayerlevel
+        public void SetPlayerMovementSpeed(PlayerMovement playerMovement, float speed)
+        {
+            playerMovement.SetMovementSpeed(speed);
+        }
+
+        public void DamagePlayer(float damage)
+        {
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats != null)
+            {
+                playerStats.hp -= damage; //-hp when damaged
+                playerStats.SetHealthBar(playerStats.hp); //set hpBar value
+            }
+        }
+
+        #region Player Stats CSV Retrieval
+
+        public float GetPlayerHp() //based on currentPlayerLevel
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.playerDataList.playerData.Length > 0)
             {
                 foreach (var playerData in csvReader.playerDataList.playerData)
                 {
-                    if (playerData.level == currentPlayerLevel) //check level
+                    if (playerData.level == currentPlayerLevel) //based on currentPlayerlevel
                     {
-                        return playerData.movementSpeed; //get movement speed based
+                        return playerData.hp; //get hp
                     }
                 }
             }
             return 0f; //if nothing
         }
 
-        public void SetMovementSpeed(PlayerMovement playerMovement, float speed)
+        public float GetPlayerMovementSpeed()
         {
-            playerMovement.SetMovementSpeed(speed);
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.playerDataList.playerData.Length > 0)
+            {
+                foreach (var playerData in csvReader.playerDataList.playerData)
+                {
+                    if (playerData.level == currentPlayerLevel) //based on currentPlayerlevel
+                    {
+                        return playerData.movementSpeed; //get movement speed
+                    }
+                }
+            }
+            return 0f; //if nothing
         }
 
-        public float GetPlayerDamage() //based on level
+        #endregion
+
+        #region Player Attack CSV Retrieval
+
+        public float GetPlayerDamage()
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.playerAttackDataList.playerAttackData.Length > 0)
             {
                 foreach (var playerAttackData in csvReader.playerAttackDataList.playerAttackData)
                 {
-                    if (playerAttackData.level == currentPlayerLevel) //check level
+                    if (playerAttackData.level == currentPlayerLevel) //based on currentPlayerLevel
                     {
                         return playerAttackData.damage; //get damage
                     }
@@ -88,14 +143,14 @@ namespace Ithas
             return 0f; //if nothing
         }
 
-        public float GetPlayerAttackRange()
+        public float GetPlayerAttackRange() //based on level
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.playerAttackDataList.playerAttackData.Length > 0)
             {
                 foreach (var playerAttackData in csvReader.playerAttackDataList.playerAttackData)
                 {
-                    if (playerAttackData.level == currentPlayerLevel) //check if level tally with currentPlayerLevel
+                    if (playerAttackData.level == currentPlayerLevel) //based on currentPlayerLevel
                     {
                         return playerAttackData.attackRange; //get attack range
                     }
@@ -103,5 +158,23 @@ namespace Ithas
             }
             return 0f; //if nothing
         }
+
+        public float GetPlayerAttackRate()
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.playerAttackDataList.playerAttackData.Length > 0)
+            {
+                foreach (var playerAttackData in csvReader.playerAttackDataList.playerAttackData)
+                {
+                    if (playerAttackData.level == currentPlayerLevel) //based on currentPlayerLevel
+                    {
+                        return playerAttackData.attackRate; //get attack rate
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        #endregion
     }
 }

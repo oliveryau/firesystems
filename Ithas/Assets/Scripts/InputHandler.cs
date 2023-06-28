@@ -19,6 +19,8 @@ namespace Ithas
 
         private void Update()
         {
+            #region Movement Setups
+
             //input manager stuff
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
@@ -35,18 +37,28 @@ namespace Ithas
                 playerMovement.Flip();
             }
 
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+            #endregion
+
+            #region Attack Setups
+
+            if (Time.time >= playerAttack.nextAttackTime) //if current time >= nextAttackTime
             {
-                if (activeReceiver == (InputReceiver)playerMovement)
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) //attack
                 {
-                    activeReceiver = playerAttack; //switch to playerAttack input
+                    if (activeReceiver == (InputReceiver)playerMovement)
+                    {
+                        activeReceiver = playerAttack; //switch to playerAttack input
+                    }
+
+                    activeReceiver.DoAttack(); //click or spacebar to attack
+
+                    activeReceiver = playerMovement; //switch back to playerMovement input after attacking
                 }
-
-                activeReceiver.DoAttack(); //click or Z to attack
-
-                activeReceiver = playerMovement; //switch back to playerMovement input after attacking
             }
+
+            #endregion
         }
+
         public void SetInputReceiver(InputReceiver inputReceiver)
         {
             activeReceiver = inputReceiver; //for controlling only 1 input at a time

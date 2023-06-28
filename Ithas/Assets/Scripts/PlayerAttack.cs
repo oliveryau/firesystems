@@ -14,6 +14,8 @@ namespace Ithas
 
         public float damage;
         public float attackRange;
+        public float attackRate;
+        public float nextAttackTime = 0f;
 
         public override void Initialize(GameController gameController)
         {
@@ -24,19 +26,23 @@ namespace Ithas
 
             damage = gameController.GetPlayerDamage();
             attackRange = gameController.GetPlayerAttackRange();
+            attackRate = gameController.GetPlayerAttackRate();
+        }
 
-            //base.Initialize(gameController);
+        public void UpdatePlayerAttackStats() //everytime when level up
+        {
+            damage = gameController.GetPlayerDamage();
+            attackRange = gameController.GetPlayerAttackRange();
+            attackRate = gameController.GetPlayerAttackRate();
         }
 
         private void Attack()
         {
             animator.SetTrigger("Attack"); //play atk animation
 
-            //detect enemies in range of attack
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers); //detect enemies in range
 
-            //damage
-            foreach (Collider2D enemy in hitEnemies)
+            foreach (Collider2D enemy in hitEnemies) //damage code
             {
                 Debug.Log("Hit enemy");
             }
@@ -59,6 +65,7 @@ namespace Ithas
         public void DoAttack()
         {
             Attack();
+            nextAttackTime = Time.time + 1f / attackRate; //higher attackRate = faster attack speed
         }
 
         #endregion
