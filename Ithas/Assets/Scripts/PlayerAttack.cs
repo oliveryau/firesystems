@@ -10,17 +10,19 @@ namespace Ithas
         private Animator animator;
         private PlayerMovement playerMovement;
 
-        [SerializeField] private Transform attackArea;
-        [SerializeField] private LayerMask enemyLayers;
-
+        [Header("Stats")]
         public float damage;
         public float attackRange;
         public float attackRate;
-        public float nextAttackTime = 0f;
+        public float nextAttackTime = 0f; //tracker
+
+        [Header("Others")]
+        [SerializeField] private Transform attackArea;
+        [SerializeField] private LayerMask enemyLayers;
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Get attack values");
+            Debug.Log("Getting and setting attack values");
             this.gameController = gameController; //set game controller reference
 
             animator = GetComponent<Animator>();
@@ -38,18 +40,34 @@ namespace Ithas
             attackRate = gameController.GetPlayerAttackRate();
         }
 
-        private void Attack()
+        private void UpdateAnimations()
         {
             animator.SetFloat("Horizontal", playerMovement.movement.x); //get movement.x direction
             animator.SetFloat("Vertical", playerMovement.movement.y); //get movement.y direction
             animator.SetTrigger("Attack"); //play atk animation based on direction
+        }
+
+        private void Attack()
+        {
+            UpdateAnimations();
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers); //detect enemies in range
 
             foreach (Collider2D enemy in hitEnemies) //damage code
             {
-                Debug.Log("Hit enemy");
+                EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+
+                if (enemyScript != null)
+                {
+                    GameController gameController = FindObjectOfType<GameController>();
+                    if (gameController != null)
+                    {
+                        gameController.DamageEnemy(enemyScript, damage);
+                    }
+                }
             }
+
+            ChangeState(PlayerState.attack);
         }
 
         private void OnDrawGizmosSelected()

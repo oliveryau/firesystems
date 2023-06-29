@@ -65,6 +65,7 @@ namespace Ithas
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
             if (playerScript != null)
             {
+                Debug.Log("Setting input receiver");
                 inputHandler.SetInputReceiver((InputReceiver)playerScript);
             }
         }
@@ -86,6 +87,16 @@ namespace Ithas
             {
                 playerStats.hp -= damage; //-hp when damaged
                 playerStats.SetHealthBar(playerStats.hp); //set hpBar value
+            }
+        }
+
+        public void DamageEnemy(EnemyScript enemy, float damage)
+        {
+            enemy.hp -= damage;
+
+            if (enemy.hp <= 0) //enemy is defeated
+            {
+                Destroy(enemy.gameObject); //destroy
             }
         }
 

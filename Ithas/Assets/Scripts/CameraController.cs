@@ -5,9 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private float smoothing;
 
-    private void Update()
+    private void LateUpdate()
     {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z); //(player.x, player.y, camera.z)
+        if (transform.position != player.position)
+        {
+            Vector3 targetPosition = new Vector3(player.position.x, player.position.y, transform.position.z); //(player.x, player.y, camera.z)
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
+        }
     }
 }

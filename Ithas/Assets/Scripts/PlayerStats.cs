@@ -9,6 +9,7 @@ namespace Ithas
     {
         private GameController gameController;
 
+        [Header("Stats")]
         public int level;
         public float hp;
         public float maxHp;
@@ -19,7 +20,7 @@ namespace Ithas
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Get base stats");
+            Debug.Log("Getting and setting base stats");
             this.gameController = gameController; //set game controller reference
 
             level = gameController.GetPlayerLevel();

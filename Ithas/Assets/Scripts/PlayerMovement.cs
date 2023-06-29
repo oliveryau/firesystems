@@ -6,8 +6,8 @@ namespace Ithas
 {
     public class PlayerMovement : PlayerScript, InputReceiver
     {
-        private Animator animator;
         private Rigidbody2D rb;
+        private Animator animator;
         private float movementSpeed;
 
         public Vector2 movement;
@@ -17,11 +17,36 @@ namespace Ithas
             Debug.Log("Setting up movement");
             movement = Vector2.zero; //set to Vector2.zero first
             animator = GetComponent<Animator>();
+
+            currentState = PlayerState.idle; //set initial state
         }
 
         public void SetMovementSpeed(float speed)
         {
             movementSpeed = speed;
+        }
+
+        private void UpdateAnimationAndMovement()
+        {
+            rb = GetComponent<Rigidbody2D>();
+
+            if (movement != Vector2.zero) //if movement input is read
+            {
+                rb.velocity = movement.normalized * movementSpeed; //normalize to prevent faster diagonal movement
+                animator.SetFloat("Horizontal", movement.x); //get movement.x direction
+                animator.SetFloat("Vertical", movement.y); //get movement.y direction
+                animator.SetBool("Moving", true); //play moving animation based on direction
+
+                ChangeState(PlayerState.move);
+            }
+
+            if (movement == Vector2.zero) //if movement input is not read
+            {
+                rb.velocity = Vector2.zero; //since movement by velocity, set speed back to zero
+                animator.SetBool("Moving", false); //stop moving animation
+
+                ChangeState(PlayerState.idle);
+            }
         }
 
         #region Input Handling
@@ -30,12 +55,7 @@ namespace Ithas
         {
             movement = moving;
 
-            rb = GetComponent<Rigidbody2D>();
-            rb.velocity = movement.normalized * movementSpeed; //normalize to prevent faster diagonal movement
-
-            animator.SetFloat("Horizontal", movement.x); //check movement.x
-            animator.SetFloat("Vertical", movement.y); //check movement.y
-            animator.SetFloat("Speed", movement.sqrMagnitude); //check speed with sqrMagnitude
+            UpdateAnimationAndMovement();
         }
 
         public void DoAttack()

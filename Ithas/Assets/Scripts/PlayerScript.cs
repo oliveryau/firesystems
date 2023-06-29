@@ -20,5 +20,22 @@ namespace Ithas
         }
 
         public virtual void Initialize(GameController gameController) { }
+
+        [HideInInspector] public PlayerState currentState;
+
+        public void ChangeState(PlayerState newState)
+        {
+            if (currentState != newState)
+            {
+                currentState = newState;
+            }
+        }
+    }
+
+    public enum PlayerState
+    {
+        idle,
+        move,
+        attack
     }
 }
