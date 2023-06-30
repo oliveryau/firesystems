@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace Ithas
 {
@@ -17,12 +18,11 @@ namespace Ithas
         public float nextAttackTime = 0f; //tracker
 
         [Header("Others")]
-        [SerializeField] private Transform attackArea;
         [SerializeField] private LayerMask enemyLayers;
+        public TextMeshProUGUI damageText;
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Getting and setting attack values");
             this.gameController = gameController; //set game controller reference
 
             animator = GetComponent<Animator>();
@@ -31,13 +31,17 @@ namespace Ithas
             damage = gameController.GetPlayerDamage();
             attackRange = gameController.GetPlayerAttackRange();
             attackRate = gameController.GetPlayerAttackRate();
+
+            damageText.text = "Damage: " + damage.ToString();
         }
 
-        public void UpdatePlayerAttackStats() //everytime when level up
+        public void UpdatePlayerAttackStats() //level up, update new stats
         {
             damage = gameController.GetPlayerDamage();
             attackRange = gameController.GetPlayerAttackRange();
             attackRate = gameController.GetPlayerAttackRate();
+
+            damageText.text = "Damage: " + damage.ToString();
         }
 
         private void UpdateAnimations()
@@ -51,9 +55,9 @@ namespace Ithas
         {
             UpdateAnimations();
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemyLayers); //detect enemies in range
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayers); //detect enemies in range
 
-            foreach (Collider2D enemy in hitEnemies) //damage code
+            foreach (Collider2D enemy in hitEnemies) //damage enemies
             {
                 EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
 
@@ -68,13 +72,13 @@ namespace Ithas
             }
 
             ChangeState(PlayerState.attack);
+
+            nextAttackTime = Time.time + 1f / attackRate; //for controlling attack speed, higher attackRate = faster attack speed
         }
 
         private void OnDrawGizmosSelected()
         {
-            if (attackArea == null) return;
-
-            Gizmos.DrawWireSphere(attackArea.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
         }
 
         #region Input Handling
@@ -87,8 +91,6 @@ namespace Ithas
         public void DoAttack()
         {
             Attack();
-
-            nextAttackTime = Time.time + 1f / attackRate; //higher attackRate = faster attack speed
         }
 
         #endregion

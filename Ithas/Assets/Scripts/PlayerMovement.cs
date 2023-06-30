@@ -6,6 +6,7 @@ namespace Ithas
 {
     public class PlayerMovement : PlayerScript, InputReceiver
     {
+        private GameController gameController;
         private Rigidbody2D rb;
         private Animator animator;
         private float movementSpeed;
@@ -14,7 +15,8 @@ namespace Ithas
 
         public override void Initialize(GameController gameController)
         {
-            Debug.Log("Setting up movement");
+            this.gameController = gameController;
+
             movement = Vector2.zero; //set to Vector2.zero first
             animator = GetComponent<Animator>();
 

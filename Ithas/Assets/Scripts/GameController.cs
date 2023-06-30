@@ -32,16 +32,20 @@ namespace Ithas
                 playerAttack.Initialize(this); //set up damage and range
             }
 
-            StartGame();
+            PlayerScript playerScript = player.GetComponent<PlayerScript>();
+            if (playerScript != null)
+            {
+                inputHandler.SetInputReceiver((InputReceiver)playerScript);
+            }
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            if (Input.GetKeyDown(KeyCode.F1) || playerStats.currentExp >= playerStats.maxExp) //cheat code: F1 key to level up
             {
                 currentPlayerLevel += 1;
 
-                PlayerStats playerStats = player.GetComponent<PlayerStats>();
                 if (playerStats != null)
                 {
                     playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
@@ -52,21 +56,6 @@ namespace Ithas
                 {
                     playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                DamagePlayer(10); //call DamagePlayer to decrease player HP
-            }
-        }
-
-        public void StartGame()
-        {
-            PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            if (playerScript != null)
-            {
-                Debug.Log("Setting input receiver");
-                inputHandler.SetInputReceiver((InputReceiver)playerScript);
             }
         }
 
@@ -90,17 +79,34 @@ namespace Ithas
             }
         }
 
-        public void DamageEnemy(EnemyScript enemy, float damage)
+        public void PlayerDie()
         {
-            enemy.hp -= damage;
+            Destroy(player); //player die
+        }
 
-            if (enemy.hp <= 0) //enemy is defeated
+        public void DamageEnemy(EnemyScript enemyScript, float damage)
+        {
+            enemyScript.hp -= damage; //-hp when damaged
+
+            if (enemyScript.hp <= 0)
             {
-                Destroy(enemy.gameObject); //destroy
+                EnemyDie(enemyScript);
             }
         }
 
-        #region Player Stats CSV Retrieval
+        private void EnemyDie(EnemyScript enemyScript)
+        {
+            Destroy(enemyScript.gameObject); //destroy enemy when die
+
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats != null)
+            {
+                playerStats.currentExp += enemyScript.exp; //add enemy's exp to player
+                playerStats.SetExpBar(playerStats.currentExp); //set exp value of player
+            }
+        }
+
+        #region Player Data CSV Retrieval
 
         public float GetPlayerHp() //based on currentPlayerLevel
         {
@@ -134,9 +140,25 @@ namespace Ithas
             return 0f; //if nothing
         }
 
+        public float GetPlayerExp()
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.playerDataList.playerData.Length > 0)
+            {
+                foreach (var playerData in csvReader.playerDataList.playerData)
+                {
+                    if (playerData.level == currentPlayerLevel) //based on currentPlayerlevel
+                    {
+                        return playerData.exp; //get movement speed
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
         #endregion
 
-        #region Player Attack CSV Retrieval
+        #region Player Attack Data CSV Retrieval
 
         public float GetPlayerDamage()
         {
@@ -184,6 +206,202 @@ namespace Ithas
                 }
             }
             return 0f; //if nothing
+        }
+
+        #endregion
+
+        #region Enemy Type Data CSV Retrieval
+
+        public string GetEnemyName(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.enemyName; //get enemyName
+                    }
+                }
+            }
+            return " "; //if nothing
+        }
+
+        public float GetEnemyHp(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.hp; //get hp
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyDamage(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.damage; //get damage
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyMoveSpeed(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.moveSpeed; //get moveSpeed
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyExp(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.exp; //get exp
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyChaseRadius(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.chaseRadius; //get chaseRadius
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyChaseEndRadius(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.chaseEndRadius; //get chaseEndRadius
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyAttackRadius(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.attackRadius; //get attackRadius
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyAttackRange(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.attackRange; //get attackRange
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyAttackRate(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.attackRate; //get attackRate
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public float GetEnemyAttackDelay(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.attackDelay; //get attackDelay
+                    }
+                }
+            }
+            return 0f; //if nothing
+        }
+
+        public Vector2 GetEnemyHomePosition(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
+            {
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                {
+                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    {
+                        return enemyData.homePosition; //get homePosition
+                    }
+                }
+            }
+            return Vector2.zero; //if nothing
         }
 
         #endregion
