@@ -8,8 +8,6 @@ namespace Ithas
 {
     public class PlayerStats : PlayerScript
     {
-        private GameController gameController;
-
         [Header("Stats")]
         public int level;
         public float hp;
@@ -18,66 +16,57 @@ namespace Ithas
         public float currentExp;
         public float maxExp;
 
-        [Header("Others")]
-        public Slider hpBar;
-        public TextMeshProUGUI hpText;
-        public Slider expBar;
-        public TextMeshProUGUI expText;
-        public TextMeshProUGUI moveSpeedText;
+        [Header("SO")]
+        public PlayerStatsSO playerStatsSO;
+
+        private GameController gameController;
+        private PlayerUi playerUi;
 
         public override void Initialize(GameController gameController)
         {
             this.gameController = gameController; //set game controller reference
 
-            level = gameController.GetPlayerLevel();
-            maxHp = gameController.GetPlayerHp();
-            movementSpeed = gameController.GetPlayerMovementSpeed();
-            maxExp = gameController.GetPlayerExp();
+            //set SO stats by getting from gameController
+            playerStatsSO.level = gameController.GetPlayerLevel();
+            playerStatsSO.maxHp = gameController.GetPlayerHp();
+            playerStatsSO.movementSpeed = gameController.GetPlayerMovementSpeed();
+            playerStatsSO.currentExp = gameController.currentPlayerExp;
+            playerStatsSO.maxExp = gameController.GetPlayerExp();
 
-            hp = maxHp; //set hp to maxHp
-            hpBar.maxValue = maxHp; //set hpBar values
-            SetHealthBar(maxHp);
+            playerStatsSO.hp = playerStatsSO.maxHp;
 
-            currentExp = 0; //set currentExp to 0
-            expBar.maxValue = maxExp;
-            SetExpBar(currentExp);
-
-            moveSpeedText.text = "Speed: " + movementSpeed.ToString();
+            //set public variables based on SO
+            level = playerStatsSO.level;
+            hp = playerStatsSO.hp;
+            maxHp = playerStatsSO.maxHp;
+            movementSpeed = playerStatsSO.movementSpeed;
+            currentExp = playerStatsSO.currentExp;
+            maxExp = playerStatsSO.maxExp;
         }
 
         public void UpdatePlayerStats(int newLevel) //level up, update new stats
         {
-            level = newLevel;
-            maxHp = gameController.GetPlayerHp();
-            movementSpeed = gameController.GetPlayerMovementSpeed();
-            maxExp = gameController.GetPlayerExp();
+            gameController = FindObjectOfType<GameController>();
+            playerUi = GetComponent<PlayerUi>();
 
-            hp = maxHp; //maxHp when level up
-            hpBar.maxValue = maxHp;
-            SetHealthBar(maxHp);
+            //set SO stats by getting from gameController
+            playerStatsSO.level = newLevel;
+            playerStatsSO.maxHp = gameController.GetPlayerHp();
+            playerStatsSO.movementSpeed = gameController.GetPlayerMovementSpeed();
+            playerStatsSO.maxExp = gameController.GetPlayerExp();
 
-            currentExp = 0; //reset back to 0 exp
-            expBar.maxValue = maxExp;
-            SetExpBar(currentExp);
+            playerStatsSO.hp = playerStatsSO.maxHp;
+            playerStatsSO.currentExp = 0; //set exp to 0
 
-            moveSpeedText.text = "Speed: " + movementSpeed.ToString();
-        }
+            //set public variables based on SO
+            level = playerStatsSO.level;
+            hp = playerStatsSO.hp;
+            maxHp = playerStatsSO.maxHp;
+            movementSpeed = playerStatsSO.movementSpeed;
+            currentExp = playerStatsSO.currentExp;
+            maxExp = playerStatsSO.maxExp;
 
-        public void SetHealthBar(float hp)
-        {
-            hpBar.value = hp;
-            hpText.text = "HP: " + hp.ToString();
-
-            if (hp <= 0) //player death
-            {
-                gameController.PlayerDie();
-            }
-        }
-
-        public void SetExpBar(float exp)
-        {
-            expBar.value = exp;
-            expText.text = "EXP: " + exp.ToString();
+            playerUi.UpdateStatsUi();
         }
     }
 }

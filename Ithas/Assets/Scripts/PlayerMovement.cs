@@ -6,31 +6,30 @@ namespace Ithas
 {
     public class PlayerMovement : PlayerScript, InputReceiver
     {
-        private GameController gameController;
+        public Vector2 movement;
+
+        private PlayerStats playerStats;
         private Rigidbody2D rb;
         private Animator animator;
         private float movementSpeed;
 
-        public Vector2 movement;
-
         public override void Initialize(GameController gameController)
         {
-            this.gameController = gameController;
-
-            movement = Vector2.zero; //set to Vector2.zero first
+            playerStats = GetComponent<PlayerStats>();
             animator = GetComponent<Animator>();
+
+            movement = Vector2.zero; //set movement input to Vector2.zero first
+            movementSpeed = playerStats.movementSpeed; //set movement speed
 
             currentState = PlayerState.idle; //set initial state
         }
 
-        public void SetMovementSpeed(float speed)
-        {
-            movementSpeed = speed;
-        }
-
         private void UpdateAnimationAndMovement()
         {
+            playerStats = GetComponent<PlayerStats>();
             rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            movementSpeed = playerStats.movementSpeed;
 
             if (movement != Vector2.zero) //if movement input is read
             {

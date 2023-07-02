@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 8797338797399346875}
   - component: {fileID: 8797338797399346873}
   - component: {fileID: 8797338797399346872}
+  - component: {fileID: 8210367329042051980}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -206,7 +207,8 @@ MonoBehaviour:
   hp: 0
   maxHp: 0
   movementSpeed: 0
-  hpBar: {fileID: 0}
+  currentExp: 0
+  maxExp: 0
 --- !u!114 &8797338797399346873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +240,26 @@ MonoBehaviour:
   attackRange: 0
   attackRate: 0
   nextAttackTime: 0
-  attackArea: {fileID: 8797338797022201531}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+  damageText: {fileID: 0}
+--- !u!114 &8210367329042051980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797338797399346853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f6dfcab4f471749bd9c3ff60b17587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  hpBar: {fileID: 0}
+  hpText: {fileID: 0}
+  expBar: {fileID: 0}
+  expText: {fileID: 0}
+  moveSpeedText: {fileID: 0}
+  damageText: {fileID: 0}

@@ -7,10 +7,6 @@ namespace Ithas
 {
     public class PlayerAttack : PlayerScript, InputReceiver
     {
-        private GameController gameController;
-        private Animator animator;
-        private PlayerMovement playerMovement;
-
         [Header("Stats")]
         public float damage;
         public float attackRange;
@@ -19,33 +15,54 @@ namespace Ithas
 
         [Header("Others")]
         [SerializeField] private LayerMask enemyLayers;
-        public TextMeshProUGUI damageText;
+
+        [Header("SO")]
+        public PlayerStatsSO playerStatsSO;
+
+        private GameController gameController;
+        private PlayerMovement playerMovement;
+        private PlayerUi playerUi;
+        private Animator animator;
 
         public override void Initialize(GameController gameController)
         {
             this.gameController = gameController; //set game controller reference
-
-            animator = GetComponent<Animator>();
             playerMovement = GetComponent<PlayerMovement>(); //for animation
 
-            damage = gameController.GetPlayerDamage();
-            attackRange = gameController.GetPlayerAttackRange();
-            attackRate = gameController.GetPlayerAttackRate();
+            //set SO stats by getting from gameController
+            playerStatsSO.damage = gameController.GetPlayerDamage();
+            playerStatsSO.attackRange = gameController.GetPlayerAttackRange();
+            playerStatsSO.attackRate = gameController.GetPlayerAttackRate();
 
-            damageText.text = "Damage: " + damage.ToString();
+            //set public variables based on SO
+            damage = playerStatsSO.damage;
+            attackRange = playerStatsSO.attackRange;
+            attackRate = playerStatsSO.attackRate;
         }
 
         public void UpdatePlayerAttackStats() //level up, update new stats
         {
-            damage = gameController.GetPlayerDamage();
-            attackRange = gameController.GetPlayerAttackRange();
-            attackRate = gameController.GetPlayerAttackRate();
+            gameController = FindObjectOfType<GameController>();
+            playerUi = GetComponent<PlayerUi>();
 
-            damageText.text = "Damage: " + damage.ToString();
+            //set SO stats by getting from gameController
+            playerStatsSO.damage = gameController.GetPlayerDamage();
+            playerStatsSO.attackRange = gameController.GetPlayerAttackRange();
+            playerStatsSO.attackRate = gameController.GetPlayerAttackRate();
+
+            //set public variables based on SO
+            damage = playerStatsSO.damage;
+            attackRange = playerStatsSO.attackRange;
+            attackRate = playerStatsSO.attackRate;
+
+            playerUi.UpdateAttackUi();
         }
 
         private void UpdateAnimations()
         {
+            playerMovement = GetComponent<PlayerMovement>(); //for animation
+            animator = GetComponent<Animator>();
+
             animator.SetFloat("Horizontal", playerMovement.movement.x); //get movement.x direction
             animator.SetFloat("Vertical", playerMovement.movement.y); //get movement.y direction
             animator.SetTrigger("Attack"); //play atk animation based on direction

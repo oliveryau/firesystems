@@ -6,14 +6,16 @@ namespace Ithas
 {
     public class InputHandler : MonoBehaviour
     {
+        private PlayerMovement playerMovement;
+        private PlayerAttack playerAttack;
         private InputReceiver activeReceiver;
         private Vector2 movement;
 
-        public PlayerMovement playerMovement;
-        public PlayerAttack playerAttack;
-
         private void Start()
         {
+            playerMovement = FindObjectOfType<PlayerMovement>(); //find playerMovement by findObjectOfType
+            playerAttack = FindObjectOfType<PlayerAttack>(); //find playerAttack by findObjectOfType
+
             activeReceiver = playerMovement; //set initial inputReceiver
         }
 

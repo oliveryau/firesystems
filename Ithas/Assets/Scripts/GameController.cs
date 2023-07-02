@@ -6,45 +6,45 @@ namespace Ithas
 {
     public class GameController : MonoBehaviour
     {
-        private int currentPlayerLevel;
-
         public InputHandler inputHandler;
         public GameObject player;
+        public int currentPlayerLevel;
+        public float currentPlayerExp;
+
+        [Header("SO")]
+        public PlayerStatsSO playerStatsSO;
 
         private void Start()
         {
-            CsvReader csvReader = FindObjectOfType<CsvReader>();
-            if (csvReader != null && csvReader.playerDataList.playerData.Length > 0)
-            {
-                currentPlayerLevel = csvReader.playerDataList.playerData[0].level; //set currentPlayerLevel first from CSV
-            }
+            currentPlayerLevel = playerStatsSO.level;
+            currentPlayerExp = playerStatsSO.currentExp;
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            if (playerStats != null && playerMovement != null && playerAttack != null) //initialize all methods
+            PlayerUi playerUi = player.GetComponent<PlayerUi>();
+            if (playerStats != null && playerMovement != null && playerAttack != null && playerUi != null) //initialize all methods
             {
                 playerStats.Initialize(this); //set level and movement speed first
-
                 playerMovement.Initialize(this); //initialize player movement
-                SetPlayerMovementSpeed(playerMovement, playerStats.movementSpeed); //set movement speed for player movement input
-
                 playerAttack.Initialize(this); //set up damage and range
+                playerUi.Initialize(this);
             }
 
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
             if (playerScript != null)
             {
-                inputHandler.SetInputReceiver((InputReceiver)playerScript);
+                inputHandler.SetInputReceiver(player.GetComponent<PlayerMovement>());
             }
         }
 
         private void Update()
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
-            if (Input.GetKeyDown(KeyCode.F1) || playerStats.currentExp >= playerStats.maxExp) //cheat code: F1 key to level up
+            if (Input.GetKeyDown(KeyCode.F1) || playerStats.currentExp >= playerStats.maxExp) //cheat code: F1 key to level up  
             {
                 currentPlayerLevel += 1;
+                currentPlayerExp = 0;
 
                 if (playerStats != null)
                 {
@@ -64,18 +64,15 @@ namespace Ithas
             return currentPlayerLevel;
         }
 
-        public void SetPlayerMovementSpeed(PlayerMovement playerMovement, float speed)
-        {
-            playerMovement.SetMovementSpeed(speed);
-        }
-
         public void DamagePlayer(float damage)
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerUi playerUi = player.GetComponent<PlayerUi>();
             if (playerStats != null)
             {
                 playerStats.hp -= damage; //-hp when damaged
-                playerStats.SetHealthBar(playerStats.hp); //set hpBar value
+                playerStatsSO.hp = playerStats.hp; //set it to playerStatsSO
+                playerUi.SetHealthBar(playerStats.hp); //set hpBar value
             }
         }
 
@@ -99,10 +96,12 @@ namespace Ithas
             Destroy(enemyScript.gameObject); //destroy enemy when die
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerUi playerUi = player.GetComponent<PlayerUi>();
             if (playerStats != null)
             {
                 playerStats.currentExp += enemyScript.exp; //add enemy's exp to player
-                playerStats.SetExpBar(playerStats.currentExp); //set exp value of player
+                playerStatsSO.currentExp = playerStats.currentExp; //set it to playerStatsSO
+                playerUi.SetExpBar(playerStats.currentExp); //set exp value of player
             }
         }
 
