@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Enemies
-  - InputHandler
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -13,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - 
   - Enemy
-  - Burnables
+  - 
   - 
   - 
   - 
@@ -43,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+<<<<<<< Updated upstream
+=======
   - name: Characters
     uniqueID: 2817087045
     locked: 0
+  - name: Decoration
+    uniqueID: 4197540889
+    locked: 0
+>>>>>>> Stashed changes
