@@ -28,6 +28,7 @@ namespace Ithas
 
         private void Start()
         {
+            Debug.Log("haha");
             playerStatsSO.ResetStats(); //for resetting between game sessions in unity editor only
 
             CsvReader csvReader = FindObjectOfType<CsvReader>();
