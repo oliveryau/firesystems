@@ -10969,6 +10969,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 681184847}
+    - target: {fileID: 8298427904121432680, guid: 4f8300c0d476735408d3605ee22b0f39, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8298427904121432681, guid: 4f8300c0d476735408d3605ee22b0f39, type: 3}
       propertyPath: m_RootOrder
       value: 9
