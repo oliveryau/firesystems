@@ -30,10 +30,10 @@ namespace Ithas
             playerStatsSO.level = gameController.GetPlayerLevel();
             playerStatsSO.maxHp = gameController.GetPlayerHp();
             playerStatsSO.movementSpeed = gameController.GetPlayerMovementSpeed();
-            playerStatsSO.currentExp = gameController.currentPlayerExp;
             playerStatsSO.maxExp = gameController.GetPlayerExp();
 
-            playerStatsSO.hp = playerStatsSO.maxHp;
+            playerStatsSO.hp = gameController.currentPlayerHp;
+            playerStatsSO.currentExp = gameController.currentPlayerExp;
 
             //set public variables based on SO
             level = playerStatsSO.level;

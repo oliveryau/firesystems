@@ -19,9 +19,16 @@ namespace Ithas
 
         public void ResetStats()
         {
+            Debug.Log("Hi");
             level = 1;
-            hp = maxHp;
+            hp = 10;
+            maxHp = 10;
+            movementSpeed = 6;
             currentExp = 0;
+            maxExp = 10;
+            damage = 10;
+            attackRange = 1;
+            attackRate = 1;
         }
     }
 }

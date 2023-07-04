@@ -9,15 +9,20 @@ namespace Ithas
         public InputHandler inputHandler;
         public GameObject player;
         public int currentPlayerLevel;
-        public float currentPlayerExp;
+        [HideInInspector] public float currentPlayerHp;
+        [HideInInspector] public float currentPlayerExp;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
 
         private void Start()
         {
-            currentPlayerLevel = playerStatsSO.level;
-            currentPlayerExp = playerStatsSO.currentExp;
+            if (playerStatsSO != null)
+            {
+                currentPlayerLevel = playerStatsSO.level;
+                currentPlayerHp = playerStatsSO.hp;
+                currentPlayerExp = playerStatsSO.currentExp; //get from SO
+            }
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
@@ -28,7 +33,7 @@ namespace Ithas
                 playerStats.Initialize(this); //set level and movement speed first
                 playerMovement.Initialize(this); //initialize player movement
                 playerAttack.Initialize(this); //set up damage and range
-                playerUi.Initialize(this);
+                playerUi.Initialize(this); //set up ui
             }
 
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
@@ -41,20 +46,23 @@ namespace Ithas
         private void Update()
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
-            if (Input.GetKeyDown(KeyCode.F1) || playerStats.currentExp >= playerStats.maxExp) //cheat code: F1 key to level up  
+            if (currentPlayerLevel < 10) //max level is 10
             {
-                currentPlayerLevel += 1;
-                currentPlayerExp = 0;
-
-                if (playerStats != null)
+                if (playerStats.currentExp >= playerStats.maxExp || Input.GetKeyDown(KeyCode.F1)) //cheat code: F1 key to level up  
                 {
-                    playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
-                }
+                    currentPlayerLevel += 1; //+1 player level
+                    currentPlayerExp = 0; //reset current exp
 
-                PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-                if (playerAttack != null)
-                {
-                    playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
+                    if (playerStats != null)
+                    {
+                        playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
+                    }
+
+                    PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+                    if (playerAttack != null)
+                    {
+                        playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
+                    }
                 }
             }
         }
@@ -97,7 +105,7 @@ namespace Ithas
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerUi playerUi = player.GetComponent<PlayerUi>();
-            if (playerStats != null)
+            if (playerStats != null && currentPlayerLevel < 10)
             {
                 playerStats.currentExp += enemyScript.exp; //add enemy's exp to player
                 playerStatsSO.currentExp = playerStats.currentExp; //set it to playerStatsSO
@@ -218,7 +226,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.enemyName; //get enemyName
                     }
@@ -234,7 +242,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.hp; //get hp
                     }
@@ -250,7 +258,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.damage; //get damage
                     }
@@ -266,7 +274,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.moveSpeed; //get moveSpeed
                     }
@@ -282,7 +290,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.exp; //get exp
                     }
@@ -298,7 +306,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.chaseRadius; //get chaseRadius
                     }
@@ -314,7 +322,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.chaseEndRadius; //get chaseEndRadius
                     }
@@ -330,7 +338,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.attackRadius; //get attackRadius
                     }
@@ -346,7 +354,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.attackRange; //get attackRange
                     }
@@ -362,7 +370,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.attackRate; //get attackRate
                     }
@@ -378,7 +386,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.attackDelay; //get attackDelay
                     }
@@ -394,7 +402,7 @@ namespace Ithas
             {
                 foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
                 {
-                    if (enemyData.id == enemyScript.id) //based on enemy id
+                    if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
                         return enemyData.homePosition; //get homePosition
                     }

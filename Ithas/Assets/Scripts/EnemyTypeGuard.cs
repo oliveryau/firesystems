@@ -18,7 +18,7 @@ namespace Ithas
             rb = GetComponent<Rigidbody2D>();
             player = GameObject.FindWithTag("Player").transform;
 
-            id = 1;
+            enemyId = 1; //set what type of enemy
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
             {
@@ -68,7 +68,7 @@ namespace Ithas
 
                 AttackPlayer();
             }
-            
+
             if (Vector3.Distance(player.position, transform.position) > chaseRadius) //player out of range
             {
                 rb.velocity = Vector2.zero; //since movement by velocity, set speed back to zero when player out of range

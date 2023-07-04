@@ -14,6 +14,11 @@ namespace Ithas
         public TextMeshProUGUI expText;
         public TextMeshProUGUI moveSpeedText;
         public TextMeshProUGUI damageText;
+        public TextMeshProUGUI attackRangeText;
+        public TextMeshProUGUI attackRateText;
+
+        [Header("SO")]
+        public PlayerStatsSO playerStatsSO;
 
         private GameController gameController;
         private PlayerStats playerStats;
@@ -23,18 +28,18 @@ namespace Ithas
         {
             this.gameController = gameController;
 
-            playerStats = GetComponent<PlayerStats>();
-            playerAttack = GetComponent<PlayerAttack>();
+            hpBar.maxValue = playerStatsSO.maxHp; //set hpBar values
+            hpBar.value = playerStatsSO.hp; //for scene switching
+            hpText.text = "HP: " + playerStatsSO.hp.ToString() + "/" + playerStatsSO.maxHp.ToString();
 
-            hpBar.maxValue = playerStats.maxHp; //set hpBar values
-            SetHealthBar(playerStats.maxHp);
+            expBar.maxValue = playerStatsSO.maxExp; //set expBar values
+            SetExpBar(playerStatsSO.currentExp);
 
-            expBar.maxValue = playerStats.maxExp; //set expBar values
-            SetExpBar(playerStats.currentExp);
+            moveSpeedText.text = "Speed: " + playerStatsSO.movementSpeed.ToString(); //movespeed ui
 
-            moveSpeedText.text = "Speed: " + playerStats.movementSpeed.ToString(); //movespeed ui
-
-            damageText.text = "Damage: " + playerAttack.damage.ToString(); //attack ui
+            damageText.text = "Damage: " + playerStatsSO.damage.ToString(); //attack ui
+            attackRangeText.text = "Atk Range: " + playerStatsSO.attackRange.ToString();
+            attackRateText.text = "Atk Rate: " + playerStatsSO.attackRate.ToString();
         }
 
         public void UpdateStatsUi()
@@ -55,12 +60,14 @@ namespace Ithas
             playerAttack = GetComponent<PlayerAttack>();
 
             damageText.text = "Damage: " + playerAttack.damage.ToString(); //attack ui
+            attackRangeText.text = "Atk Range: " + playerAttack.attackRange.ToString();
+            attackRateText.text = "Atk Rate: " + playerAttack.attackRate.ToString();
         }
 
         public void SetHealthBar(float hp)
         {
             hpBar.value = hp;
-            hpText.text = "HP: " + hp.ToString();
+            hpText.text = "HP: " + hp.ToString() + "/" + playerStatsSO.maxHp.ToString();
 
             if (hp <= 0) //player death
             {
@@ -71,7 +78,7 @@ namespace Ithas
         public void SetExpBar(float exp)
         {
             expBar.value = exp;
-            expText.text = "EXP: " + exp.ToString();
+            expText.text = "EXP: " + exp.ToString() + "/" + playerStatsSO.maxExp.ToString();
         }
     }
 

@@ -8,15 +8,44 @@ namespace Ithas
     public class SceneController : MonoBehaviour
     {
         public string SceneToLoad;
+
+        public float fadeDelay;
+        public GameObject fadeInPanel;
+        public GameObject fadeOutPanel;
+
+        [Header("SO")]
         public PlayerStatsSO playerStatsSO;
+
+        private void Awake()
+        {
+            if (fadeInPanel != null)
+            {
+                GameObject panel = Instantiate(fadeInPanel, Vector3.zero, Quaternion.identity);
+                Destroy(panel, 1f);
+            }
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player") && !collision.isTrigger)
             {
-                GameSaveManager.Instance.SaveData(playerStatsSO);
+                GameSaveManager.Instance.SaveData(playerStatsSO); //save data into SO
 
-                SceneManager.LoadScene(SceneToLoad);
+                StartCoroutine(FadeCoroutine());
+            }
+        }
+
+        public IEnumerator FadeCoroutine()
+        {
+            if (fadeOutPanel != null)
+            {
+                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(fadeDelay);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneToLoad);
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
             }
         }
     }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f790d7d4b74e44ca991562a4ae67bb, type: 3}
+  m_Name: Nurse May
+  m_EditorClassIdentifier: 
+  speakerLeft: {fileID: 11400000, guid: 79714fcbcbde3a14daae501b1f6441dc, type: 2}
+  speakerRight: {fileID: 11400000, guid: 387ddfa36a7348c48b1581657db0aafe, type: 2}
+  lines:
+  - characterSO: {fileID: 11400000, guid: 387ddfa36a7348c48b1581657db0aafe, type: 2}
+    text: Hello, would you like to heal yourself? Free of charge.
+  - characterSO: {fileID: 11400000, guid: 79714fcbcbde3a14daae501b1f6441dc, type: 2}
+    text: Yes.
+  - characterSO: {fileID: 11400000, guid: 387ddfa36a7348c48b1581657db0aafe, type: 2}
+    text: Follow me into the building, I will heal you.
+  - characterSO: {fileID: 11400000, guid: 79714fcbcbde3a14daae501b1f6441dc, type: 2}
+    text: Thanks.

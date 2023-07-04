@@ -10,6 +10,7 @@ namespace Ithas
         [SerializeField] private TextAsset playerDataCsv;
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
+        [SerializeField] private TextAsset characterDataCsv;
 
         [System.Serializable]
         public class PlayerData
@@ -44,7 +45,7 @@ namespace Ithas
         [System.Serializable]
         public class EnemyTypeData
         {
-            public int id;
+            public int enemyId;
             public string enemyName;
             public float hp;
             public float damage;
@@ -65,9 +66,24 @@ namespace Ithas
             public EnemyTypeData[] enemyTypeData;
         }
 
+        [System.Serializable]
+        public class CharacterData
+        {
+            public int characterId;
+            public string fullName;
+            public string portrait;
+        }
+
+        [System.Serializable]
+        public class CharacterDataArray
+        {
+            public CharacterData[] characterData;
+        }
+
         public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
+        public CharacterDataArray characterDataList = new CharacterDataArray(); //instance of characterDataArray
 
         private void Awake()
         {
@@ -76,7 +92,7 @@ namespace Ithas
             ReadEnemyTypeData();
         }
 
-        private void ReadPlayerData() //playerDataCsv
+        private void ReadPlayerData()
         {
             string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
@@ -94,7 +110,7 @@ namespace Ithas
             }
         }
 
-        private void ReadPlayerAttackData() //playerAttackDataCsv
+        private void ReadPlayerAttackData()
         {
             string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
@@ -112,7 +128,7 @@ namespace Ithas
             }
         }
 
-        private void ReadEnemyTypeData() //enemyTypeDataCsv
+        private void ReadEnemyTypeData()
         {
             string[] data = enemyTypeDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
@@ -123,7 +139,7 @@ namespace Ithas
             {
                 enemyTypeDataList.enemyTypeData[i] = new EnemyTypeData();
 
-                enemyTypeDataList.enemyTypeData[i].id = int.Parse(data[13 * (i + 1)]);
+                enemyTypeDataList.enemyTypeData[i].enemyId = int.Parse(data[13 * (i + 1)]);
                 enemyTypeDataList.enemyTypeData[i].enemyName = (data[13 * (i + 1) + 1]);
                 enemyTypeDataList.enemyTypeData[i].hp = float.Parse(data[13 * (i + 1) + 2]);
                 enemyTypeDataList.enemyTypeData[i].damage = float.Parse(data[13 * (i + 1) + 3]);
@@ -140,6 +156,23 @@ namespace Ithas
                 float x = float.Parse(homePos[0]);
                 float y = float.Parse(homePos[1]);
                 enemyTypeDataList.enemyTypeData[i].homePosition = new Vector2(x, y);
+            }
+        }
+
+        private void ReadCharacterData()
+        {
+            string[] data = characterDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
+            int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
+            characterDataList.characterData = new CharacterData[tableSize]; //initialize characterDataList's characterData with an array of tableSize
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                characterDataList.characterData[i] = new CharacterData();
+
+                characterDataList.characterData[i].characterId = int.Parse(data[3 * (i + 1)]);
+                characterDataList.characterData[i].fullName = (data[3 * (i + 1) + 1]);
+                characterDataList.characterData[i].portrait = (data[3 * (i + 1) + 2]);
             }
         }
     }

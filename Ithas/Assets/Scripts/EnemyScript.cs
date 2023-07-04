@@ -7,20 +7,13 @@ namespace Ithas
     //base class for all enemy scripts to inherit
     public class EnemyScript : MonoBehaviour
     {
-        private static EnemyScript instance;
-
-        public static EnemyScript Instance
-        {
-            get { return instance; }
-        }
-
+        public Transform player;
         private bool isAttacking = false;
         private float attackStartTime = 0f;
         private float nextAttackTime = 0f; //tracker
-        public Transform player;
 
         [Header("Stats")]
-        public int id;
+        public int enemyId;
         public string enemyName;
         public float hp;
         public float damage;
