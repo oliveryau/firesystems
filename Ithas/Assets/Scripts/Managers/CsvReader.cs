@@ -70,7 +70,7 @@ namespace Ithas
         {
             public int characterId;
             public string fullName;
-            public string portrait;
+            public Sprite portrait;
         }
 
         [System.Serializable]
@@ -89,6 +89,7 @@ namespace Ithas
             ReadPlayerData();
             ReadPlayerAttackData();
             ReadEnemyTypeData();
+            ReadCharacterData();
         }
 
         private void ReadPlayerData()
@@ -171,9 +172,23 @@ namespace Ithas
 
                 characterDataList.characterData[i].characterId = int.Parse(data[3 * (i + 1)]);
                 characterDataList.characterData[i].fullName = (data[3 * (i + 1) + 1]);
-                characterDataList.characterData[i].portrait = (data[3 * (i + 1) + 2]);
+                //characterDataList.characterData[i].portrait = (data[3 * (i + 1) + 2]);
+
+                string imagePath = "Art Assets/Characters/" + data[3 * (i + 1) + 2];
+                characterDataList.characterData[i].portrait = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(imagePath);
+
+                //string imagePath = "Art Assets/Characters/" + characterDataList.characterData[i].portrait;
+                //characterDataList.characterData[i].portraitSprite = Resources.Load<Sprite>(characterDataList.characterData[i].portrait);
             }
         }
+
+        private CharacterSO CreateCharacterSO()
+        {
+            CharacterSO characterSO = ScriptableObject.CreateInstance<CharacterSO>();
+            return characterSO;
+        }
+
+        
     }
 
 }

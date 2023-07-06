@@ -7,9 +7,11 @@ namespace Ithas
     public class StartLevel : MonoBehaviour
     {
         public GameObject startLevelScreen;
+        public GameObject inputHandler;
 
         private void Start()
         {
+            inputHandler.SetActive(false);
             Time.timeScale = 0f;
             startLevelScreen.SetActive(true);
         }
@@ -18,6 +20,8 @@ namespace Ithas
         {
             Time.timeScale = 1f;
             startLevelScreen.SetActive(false);
+            inputHandler.SetActive(true);   
+            
         }
     }
 }

@@ -42,6 +42,11 @@ namespace Ithas
             }
         }
 
+        public void BackToOutdoor()
+        {
+            StartCoroutine(FadeCoroutine());
+        }
+
         public IEnumerator FadeCoroutine()
         {
             if (fadeOutPanel != null)

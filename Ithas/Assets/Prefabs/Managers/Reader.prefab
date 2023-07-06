@@ -47,9 +47,12 @@ MonoBehaviour:
   playerDataCsv: {fileID: 4900000, guid: 460b9ea689b8e6a40af402e204eb5741, type: 3}
   playerAttackDataCsv: {fileID: 4900000, guid: 245bc0b96b3283d45b5487599adeedb5, type: 3}
   enemyTypeDataCsv: {fileID: 4900000, guid: 79e7bc00cf58e1b4a8a37d9848cec612, type: 3}
+  characterDataCsv: {fileID: 4900000, guid: ef2c08096194144e4b77bf9cb31c0eab, type: 3}
   playerDataList:
     playerData: []
   playerAttackDataList:
     playerAttackData: []
   enemyTypeDataList:
     enemyTypeData: []
+  characterDataList:
+    characterData: []
