@@ -6,7 +6,6 @@ namespace Ithas
 {
     public class EnemyTypeObjectStrong : EnemyScript
     {
-        private Animator animator;
         private CompletionBar completionBar;
 
         private void Start()

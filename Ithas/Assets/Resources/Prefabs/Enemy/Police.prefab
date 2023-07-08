@@ -277,7 +277,7 @@ MonoBehaviour:
   homePosition: {x: 0, y: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   currentState: 0
 --- !u!1 &3290374252507586201
 GameObject:

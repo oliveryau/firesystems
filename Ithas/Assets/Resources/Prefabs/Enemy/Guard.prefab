@@ -513,6 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   hpBar: {fileID: 1099944591775698882}
+  enemyNo: 0
   enemyId: 0
   enemyName: 
   hp: 0
@@ -525,8 +526,9 @@ MonoBehaviour:
   attackRange: 0
   attackRate: 0
   attackDelay: 0
+  enemyPrefabName: 
   homePosition: {x: 0, y: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   currentState: 0
