@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ithas
 {
-    public class EnemyTypeGuard : EnemyScript
+    public class EnemyTypePolice : EnemyScript
     {
         private Animator animator;
         private Rigidbody2D rb;

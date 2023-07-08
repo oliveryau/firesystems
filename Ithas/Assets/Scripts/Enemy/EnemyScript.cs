@@ -15,6 +15,7 @@ namespace Ithas
 
         public Transform player;
         public Slider hpBar;
+        public int enemyNo;
 
         [Header("Stats")]
         public int enemyId;
@@ -35,6 +36,7 @@ namespace Ithas
         public float attackDelay;
 
         [Header("Others")]
+        public string enemyPrefabName;
         public Vector2 homePosition;
         public LayerMask playerLayer;
 
@@ -46,6 +48,81 @@ namespace Ithas
             if (currentState != newState)
             {
                 currentState = newState;
+            }
+        }
+
+        public void ReadSpawnEnemyPrefab()
+        {
+            gameController = FindObjectOfType<GameController>();
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            StartLevel startLevel = FindObjectOfType<StartLevel>();
+            enemyNo = gameController.currentEnemyNo;
+            if (csvReader != null && csvReader.levelDataList.levelData.Length > 0)
+            {
+                foreach (var levelData in csvReader.levelDataList.levelData)
+                {
+                    if (levelData.enemyNo == enemyNo)
+                    {
+                        enemyPrefabName = gameController.GetEnemyPrefabName(startLevel);
+                        homePosition = gameController.GetEnemyHomePosition(startLevel);
+                        InstantiateEnemyPrefabs();
+                    }
+                }
+            }
+        }
+
+        public void InstantiateEnemyPrefabs()
+        {
+            GameObject enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy/" + enemyPrefabName);
+            if (enemyPrefab != null)
+            {
+                GameObject enemyInstance = Instantiate(enemyPrefab, homePosition, Quaternion.identity); //instantiate
+                EnemyScript enemy = enemyInstance.GetComponent<EnemyScript>(); //get component of instantiated enemy
+                if (enemy != null)
+                {
+                    if (enemy is EnemyTypeGuard guardScript)
+                    {
+                        guardScript.player = player;
+                        guardScript.enemyId = 1;
+                        guardScript.ReadEnemyData();
+                        guardScript.SetEnemyHpBar();
+                        guardScript.enemyPrefabName = enemyPrefabName;
+                        guardScript.homePosition = homePosition;
+                        guardScript.enemyNo = enemyNo;
+                    }
+                    else if (enemy is EnemyTypePolice policeScript)
+                    {
+                        policeScript.player = player;
+                        policeScript.enemyId = 2;
+                        policeScript.ReadEnemyData();
+                        policeScript.SetEnemyHpBar();
+                        policeScript.enemyPrefabName = enemyPrefabName;
+                        policeScript.homePosition = homePosition;
+                        policeScript.enemyNo = enemyNo;
+                    }
+                    else if (enemy is EnemyTypeObjectWeak weakObjectScript)
+                    {
+                        weakObjectScript.player = player;
+                        weakObjectScript.enemyId = 99;
+                        weakObjectScript.ReadEnemyData();
+                        weakObjectScript.SetEnemyHpBar();
+                        weakObjectScript.enemyPrefabName = enemyPrefabName;
+                        weakObjectScript.homePosition = homePosition;
+                        weakObjectScript.enemyNo = enemyNo;
+                    }
+                    else if (enemy is EnemyTypeObjectStrong strongObjectScript)
+                    {
+                        strongObjectScript.player = player;
+                        strongObjectScript.enemyId = 98;
+                        strongObjectScript.ReadEnemyData();
+                        strongObjectScript.SetEnemyHpBar();
+                        strongObjectScript.enemyPrefabName = enemyPrefabName;
+                        strongObjectScript.homePosition = homePosition;
+                        strongObjectScript.enemyNo = enemyNo;
+                    }
+                    enemyNo++;
+                    gameController.currentEnemyNo++;
+                }
             }
         }
 
@@ -84,7 +161,6 @@ namespace Ithas
 
         public void AttackPlayer()
         {
-
             if (!isAttacking && Time.time >= nextAttackTime) //if not already attacking and current time >= nextAttackTime
             {
                 isAttacking = true;

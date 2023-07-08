@@ -17,27 +17,24 @@ namespace Ithas
 
         [SerializeField] TextMeshProUGUI completionText;
 
-        private void Start()
+        public void SetCompletionPercentage() // Only for starting
         {
             burnableObjects = GameObject.FindGameObjectsWithTag("Burnables");
             totalObjects = burnableObjects.Length;
-            UpdateCompletionPercentage();
-        }
-
-        private void Update() //update or fixed update ?
-        {
+            completionPercentage = (float)destroyedObjects / totalObjects * 100f;
             SetCompletionBar();
         }
 
-        public void SetCompletionBar()
+        public void UpdateCompletionPercentage() // Actual value
+        {
+            completionPercentage = (float)destroyedObjects / totalObjects * 100f;
+            SetCompletionBar();
+        }
+
+        public void SetCompletionBar() // UI
         {
             completionBar.value = completionPercentage/100;
             completionText.text = "Completion Rate: " + completionPercentage.ToString("0.00") + "%";
-        }
-
-        public void UpdateCompletionPercentage()
-        {
-            completionPercentage = (float)destroyedObjects / totalObjects * 100f;
         }
 
         public void ObjectDestroyed()

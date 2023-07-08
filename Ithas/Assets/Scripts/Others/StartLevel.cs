@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Ithas
 {
@@ -8,9 +9,23 @@ namespace Ithas
     {
         public GameObject startLevelScreen;
         public GameObject inputHandler;
+        public int levelId;
 
         private void Start()
         {
+            Scene currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name == "Level")
+            {
+                levelId = 1;
+            }
+
+            GameObject enemyManager = new GameObject("EnemyManager");
+            EnemyScript enemyScript = enemyManager.AddComponent<EnemyScript>();
+            enemyScript.ReadSpawnEnemyPrefab();
+
+            CompletionBar completionBar = FindObjectOfType<CompletionBar>();
+            completionBar.SetCompletionPercentage();
+
             inputHandler.SetActive(false);
             Time.timeScale = 0f;
             startLevelScreen.SetActive(true);

@@ -11,6 +11,7 @@ namespace Ithas
         [HideInInspector] public int currentPlayerLevel;
         [HideInInspector] public float currentPlayerHp;
         [HideInInspector] public float currentPlayerExp;
+        [HideInInspector] public int currentEnemyNo;
 
         [Header("Others")]
         public GameOverMenu gameOverMenu;
@@ -26,6 +27,8 @@ namespace Ithas
                 currentPlayerHp = playerStatsSO.hp;
                 currentPlayerExp = playerStatsSO.currentExp; //get from SO
             }
+
+            currentEnemyNo = 1;
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
@@ -405,6 +408,42 @@ namespace Ithas
                 }
             }
             return 0f; //if nothing
+        }
+
+        #endregion
+
+        #region Level Data CSV Retrieval
+
+        public string GetEnemyPrefabName(StartLevel startLevel)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.levelDataList.levelData.Length > 0)
+            {
+                foreach (var levelData in csvReader.levelDataList.levelData)
+                {
+                    if (levelData.levelId == startLevel.levelId && levelData.enemyNo == currentEnemyNo)
+                    {
+                        return levelData.enemyPrefabName; //get enemyPrefabName
+                    }
+                }
+            }
+            return " "; //if nothing
+        }
+
+        public Vector2 GetEnemyHomePosition(StartLevel startLevel)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.levelDataList.levelData.Length > 0)
+            {
+                foreach (var levelData in csvReader.levelDataList.levelData)
+                {
+                    if (levelData.levelId == startLevel.levelId && levelData.enemyNo == currentEnemyNo)
+                    {
+                        return levelData.homePosition; //get enemyHomePos
+                    }
+                }
+            }
+            return Vector2.zero; //if nothing
         }
 
         #endregion

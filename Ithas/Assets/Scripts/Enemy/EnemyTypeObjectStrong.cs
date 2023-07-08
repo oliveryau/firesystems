@@ -6,7 +6,6 @@ namespace Ithas
 {
     public class EnemyTypeObjectStrong : EnemyScript
     {
-        //private GameController gameController;
         private Animator animator;
         private CompletionBar completionBar;
 
@@ -14,10 +13,6 @@ namespace Ithas
         {
             //animator = GetComponent<Animator>();
             completionBar = FindObjectOfType<CompletionBar>();
-
-            enemyId = 98;
-            ReadEnemyData();
-            SetEnemyHpBar();
 
             ChangeState(EnemyState.idle);
         }

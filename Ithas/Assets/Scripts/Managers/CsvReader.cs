@@ -10,7 +10,10 @@ namespace Ithas
         [SerializeField] private TextAsset playerDataCsv;
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
+        [SerializeField] private TextAsset levelDataCsv;
         [SerializeField] private TextAsset characterDataCsv;
+
+        #region PlayerData Classes
 
         [System.Serializable]
         public class PlayerData
@@ -27,6 +30,10 @@ namespace Ithas
             public PlayerData[] playerData;
         }
 
+        #endregion
+
+        #region PlayerAttack Classes
+
         [System.Serializable]
         public class PlayerAttackData
         {
@@ -41,6 +48,10 @@ namespace Ithas
         {
             public PlayerAttackData[] playerAttackData;
         }
+
+        #endregion
+
+        #region EnemyType Classes
 
         [System.Serializable]
         public class EnemyTypeData
@@ -65,6 +76,29 @@ namespace Ithas
             public EnemyTypeData[] enemyTypeData;
         }
 
+        #endregion
+
+        #region Level Classes
+
+        [System.Serializable]
+        public class LevelData
+        {
+            public int levelId;
+            public int enemyNo;
+            public string enemyPrefabName;
+            public Vector2 homePosition;
+        }
+
+        [System.Serializable]
+        public class LevelDataArray
+        {
+            public LevelData[] levelData;
+        }
+
+        #endregion
+
+        #region Character Classes
+
         [System.Serializable]
         public class CharacterData
         {
@@ -79,9 +113,12 @@ namespace Ithas
             public CharacterData[] characterData;
         }
 
+        #endregion
+
         public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
+        public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public CharacterDataArray characterDataList = new CharacterDataArray(); //instance of characterDataArray
 
         private void Awake()
@@ -89,6 +126,7 @@ namespace Ithas
             ReadPlayerData();
             ReadPlayerAttackData();
             ReadEnemyTypeData();
+            ReadLevelData();
             ReadCharacterData();
         }
 
@@ -156,6 +194,28 @@ namespace Ithas
                 //float x = float.Parse(homePos[0]);
                 //float y = float.Parse(homePos[1]);
                 //enemyTypeDataList.enemyTypeData[i].homePosition = new Vector2(x, y);
+            }
+        }
+
+        private void ReadLevelData()
+        {
+            string[] data = levelDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
+            int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
+            levelDataList.levelData = new LevelData[tableSize]; //initialize playerDataList's playerData with an array of tableSize
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                levelDataList.levelData[i] = new LevelData();
+
+                levelDataList.levelData[i].levelId = int.Parse(data[4 * (i + 1)]);
+                levelDataList.levelData[i].enemyNo = int.Parse(data[4 * (i + 1) + 1]);
+                levelDataList.levelData[i].enemyPrefabName = (data[4 * (i + 1) + 2]);
+
+                string[] homePos = data[4 * (i + 1) + 3].Split('#'); //split with #
+                float x = float.Parse(homePos[0]);
+                float y = float.Parse(homePos[1]);
+                levelDataList.levelData[i].homePosition = new Vector2(x, y);
             }
         }
 
