@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ithas
 {
-    public class Dialogue //do i have to monobehaviour
+    public class Dialogue : MonoBehaviour
     {
         public int dialogueId;
         public int cutscene;

@@ -728,7 +728,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 352176153}
-  - component: {fileID: 352176154}
   m_Layer: 5
   m_Name: Speaker Right
   m_TagString: Untagged
@@ -760,21 +759,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -190}
   m_SizeDelta: {x: 1500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &352176154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352176152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c45c27556b1424c832379cf86c8b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portrait: {fileID: 1285229450}
-  fullName: {fileID: 908903487}
-  dialogue: {fileID: 844979305}
 --- !u!114 &398619760 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9017627912622512248, guid: c4d5430ce6ff8d540aa79f878a36631c, type: 3}
@@ -3768,7 +3752,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1376896126}
-  - component: {fileID: 1376896127}
   m_Layer: 5
   m_Name: Nurse May
   m_TagString: Untagged
@@ -3798,21 +3781,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1376896127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376896125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af64472b4bb8ec4ca06797a454b911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversation: {fileID: 11400000, guid: a7daa27ff51268d4fadf56ff73c63252, type: 2}
-  speakerLeft: {fileID: 1605695976}
-  speakerRight: {fileID: 352176152}
 --- !u!1 &1413035115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3825,7 +3793,6 @@ GameObject:
   - component: {fileID: 1413035116}
   - component: {fileID: 1413035118}
   - component: {fileID: 1413035120}
-  - component: {fileID: 1413035119}
   m_Layer: 0
   m_Name: Nurse
   m_TagString: Untagged
@@ -3927,19 +3894,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &1413035119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413035115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e6ea93483e57b43bff01fbf6a394fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicatorBubble: {fileID: 897184481}
 --- !u!61 &1413035120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4497,7 +4451,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1605695977}
-  - component: {fileID: 1605695978}
   m_Layer: 5
   m_Name: Speaker Left
   m_TagString: Untagged
@@ -4529,21 +4482,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -190}
   m_SizeDelta: {x: 1500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1605695978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605695976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c45c27556b1424c832379cf86c8b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portrait: {fileID: 470539686}
-  fullName: {fileID: 1923081967}
-  dialogue: {fileID: 1143008152}
 --- !u!1 &1606264796
 GameObject:
   m_ObjectHideFlags: 0

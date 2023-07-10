@@ -11,7 +11,7 @@ namespace Ithas
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
         [SerializeField] private TextAsset levelDataCsv;
-        [SerializeField] private TextAsset characterDataCsv;
+        [SerializeField] private TextAsset dialogueDataCsv;
 
         #region PlayerData Classes
 
@@ -97,20 +97,25 @@ namespace Ithas
 
         #endregion
 
-        #region Character Classes
+        #region Dialogue Classes
 
         [System.Serializable]
-        public class CharacterData
+        public class DialogueData
         {
-            public int characterId;
-            public string fullName;
-            public Sprite portrait;
+            public int dialogueId;
+            public int cutscene;
+            public int cutsceneRef;
+            public string speakerLeft;
+            public string speakerRight;
+            public string currentSpeaker;
+            public string text;
+            public string choice;
         }
 
         [System.Serializable]
-        public class CharacterDataArray
+        public class DialogueDataArray
         {
-            public CharacterData[] characterData;
+            public DialogueData[] dialogueData;
         }
 
         #endregion
@@ -119,9 +124,7 @@ namespace Ithas
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
-        public CharacterDataArray characterDataList = new CharacterDataArray(); //instance of characterDataArray
-
-        List<Dialogue> dialogues = new List<Dialogue>();
+        public DialogueDataArray dialogueDataList = new DialogueDataArray(); //instance of dialogueDataArray
 
         private void Awake()
         {
@@ -129,7 +132,6 @@ namespace Ithas
             ReadPlayerAttackData();
             ReadEnemyTypeData();
             ReadLevelData();
-            ReadCharacterData();
             ReadDialogueData();
         }
 
@@ -192,11 +194,6 @@ namespace Ithas
                 enemyTypeDataList.enemyTypeData[i].attackRange = float.Parse(data[12 * (i + 1) + 9]);
                 enemyTypeDataList.enemyTypeData[i].attackRate = float.Parse(data[12 * (i + 1) + 10]);
                 enemyTypeDataList.enemyTypeData[i].attackDelay = float.Parse(data[12 * (i + 1) + 11]);
-
-                //string[] homePos = data[13 * (i + 1) + 12].Split('#'); //split with #
-                //float x = float.Parse(homePos[0]);
-                //float y = float.Parse(homePos[1]);
-                //enemyTypeDataList.enemyTypeData[i].homePosition = new Vector2(x, y);
             }
         }
 
@@ -205,7 +202,7 @@ namespace Ithas
             string[] data = levelDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
-            levelDataList.levelData = new LevelData[tableSize]; //initialize playerDataList's playerData with an array of tableSize
+            levelDataList.levelData = new LevelData[tableSize]; //initialize levelDataList's levelData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
@@ -215,69 +212,34 @@ namespace Ithas
                 levelDataList.levelData[i].enemyNo = int.Parse(data[4 * (i + 1) + 1]);
                 levelDataList.levelData[i].enemyPrefabName = (data[4 * (i + 1) + 2]);
 
-                string[] homePos = data[4 * (i + 1) + 3].Split('#'); //split with #
+                string[] homePos = data[4 * (i + 1) + 3].Split('#'); //split based on # in csv
                 float x = float.Parse(homePos[0]);
                 float y = float.Parse(homePos[1]);
                 levelDataList.levelData[i].homePosition = new Vector2(x, y);
             }
         }
 
-        private void ReadCharacterData()
+        private void ReadDialogueData()
         {
-            string[] data = characterDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = dialogueDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
-            int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
-            characterDataList.characterData = new CharacterData[tableSize]; //initialize characterDataList's characterData with an array of tableSize
+            int tableSize = (data.Length) / 8 - 1; //noOfColumns - headerRow
+            dialogueDataList.dialogueData = new DialogueData[tableSize]; //initialize dialogueDataList's dialogueData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
-                characterDataList.characterData[i] = new CharacterData();
+                dialogueDataList.dialogueData[i] = new DialogueData();
 
-                characterDataList.characterData[i].characterId = int.Parse(data[3 * (i + 1)]);
-                characterDataList.characterData[i].fullName = (data[3 * (i + 1) + 1]);
-                //characterDataList.characterData[i].portrait = (data[3 * (i + 1) + 2]);
-
-                string imagePath = "Art Assets/Characters/" + data[3 * (i + 1) + 2];
-                characterDataList.characterData[i].portrait = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(imagePath);
-
-                //string imagePath = "Art Assets/Characters/" + characterDataList.characterData[i].portrait;
-                //characterDataList.characterData[i].portraitSprite = Resources.Load<Sprite>(characterDataList.characterData[i].portrait);
+                dialogueDataList.dialogueData[i].dialogueId = int.Parse(data[8 * (i + 1)]);
+                dialogueDataList.dialogueData[i].cutscene = int.Parse(data[8 * (i + 1) + 1]);
+                dialogueDataList.dialogueData[i].cutsceneRef = int.Parse(data[8 * (i + 1) + 2]);
+                dialogueDataList.dialogueData[i].speakerLeft = (data[8 * (i + 1) + 3]);
+                dialogueDataList.dialogueData[i].speakerRight = (data[8 * (i + 1) + 4]);
+                dialogueDataList.dialogueData[i].currentSpeaker = (data[8 * (i + 1) + 5]);
+                dialogueDataList.dialogueData[i].text = (data[8 * (i + 1) + 6]);
+                dialogueDataList.dialogueData[i].choice = (data[8 * (i + 1) + 7]);
             }
         }
-
-        private void ReadDialogueData()
-        {
-            TextAsset dialogueData = Resources.Load<TextAsset>("DialogueData");
-
-            string[] data = dialogueData.text.Split(new char[] { '\n' });
-
-            for (int i = 1; i < data.Length -1; i++)
-            {
-                string[] row = data[i].Split(new char[] { ',' });
-
-                if (row[1] != "")
-                {
-                    Dialogue d = new Dialogue();
-
-                    int.TryParse(row[0], out d.dialogueId);
-                    int.TryParse(row[1], out d.cutscene);
-                    int.TryParse(row[2], out d.cutsceneRef);
-                    d.speakerLeft = row[3];
-                    d.speakerRight = row[4];
-                    d.currentSpeaker = row[5];
-                    d.text = row[6];
-                    d.choice = row[7];
-
-                    dialogues.Add(d);
-                }
-            }
-            foreach (Dialogue d in dialogues)
-            {
-                Debug.Log(d.cutscene + "," + d.currentSpeaker);
-            }
-        }
-
-        
     }
 
 }
