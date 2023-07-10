@@ -121,6 +121,8 @@ namespace Ithas
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public CharacterDataArray characterDataList = new CharacterDataArray(); //instance of characterDataArray
 
+        List<Dialogue> dialogues = new List<Dialogue>();
+
         private void Awake()
         {
             ReadPlayerData();
@@ -128,6 +130,7 @@ namespace Ithas
             ReadEnemyTypeData();
             ReadLevelData();
             ReadCharacterData();
+            ReadDialogueData();
         }
 
         private void ReadPlayerData()
@@ -242,10 +245,36 @@ namespace Ithas
             }
         }
 
-        private CharacterSO CreateCharacterSO()
+        private void ReadDialogueData()
         {
-            CharacterSO characterSO = ScriptableObject.CreateInstance<CharacterSO>();
-            return characterSO;
+            TextAsset dialogueData = Resources.Load<TextAsset>("DialogueData");
+
+            string[] data = dialogueData.text.Split(new char[] { '\n' });
+
+            for (int i = 1; i < data.Length -1; i++)
+            {
+                string[] row = data[i].Split(new char[] { ',' });
+
+                if (row[1] != "")
+                {
+                    Dialogue d = new Dialogue();
+
+                    int.TryParse(row[0], out d.dialogueId);
+                    int.TryParse(row[1], out d.cutscene);
+                    int.TryParse(row[2], out d.cutsceneRef);
+                    d.speakerLeft = row[3];
+                    d.speakerRight = row[4];
+                    d.currentSpeaker = row[5];
+                    d.text = row[6];
+                    d.choice = row[7];
+
+                    dialogues.Add(d);
+                }
+            }
+            foreach (Dialogue d in dialogues)
+            {
+                Debug.Log(d.cutscene + "," + d.currentSpeaker);
+            }
         }
 
         
