@@ -11,7 +11,10 @@ namespace Ithas
         float currentTime = 0f;
         float startingTime = 60f;
 
+        public GameObject levelFailPopUp;
         [SerializeField] TextMeshProUGUI countdownText;
+
+        public GameObject inputHandler;
 
         private void Start()
         {
@@ -31,6 +34,8 @@ namespace Ithas
             if (currentTime <= 0)
             {
                 currentTime = 0;
+                levelFailPopUp.SetActive(true);
+                inputHandler.SetActive(false);
             }
         }
     }

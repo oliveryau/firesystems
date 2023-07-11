@@ -14,8 +14,9 @@ namespace Ithas
         public float completionPercentage; // Completion percentage
         public GameObject[] burnableObjects;
         public GameObject levelCompletionPopUp;
-
         [SerializeField] TextMeshProUGUI completionText;
+
+        public GameObject inputHandler;
 
         public void SetCompletionPercentage() // Only for starting
         {
@@ -46,6 +47,7 @@ namespace Ithas
             if (completionPercentage >= 100)
             {
                 levelCompletionPopUp.SetActive(true);
+                inputHandler.SetActive(false);
             }
         }
     }

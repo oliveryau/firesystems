@@ -35,7 +35,7 @@ namespace Ithas
         {
             Time.timeScale = 1f;
             startLevelScreen.SetActive(false);
-            inputHandler.SetActive(true);   
+            inputHandler.SetActive(true);
             
         }
     }

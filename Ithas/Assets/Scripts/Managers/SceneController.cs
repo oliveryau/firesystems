@@ -17,6 +17,9 @@ namespace Ithas
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
 
+        [Header("Others")]
+        public GameObject inputHandler;
+
         private void Awake()
         {
             if (fadeInPanel != null)
@@ -42,6 +45,11 @@ namespace Ithas
             }
         }
 
+        public void RetryLevel() //when fail and retry button
+        {
+            StartCoroutine(RetryFadeCoroutine());
+        }
+
         public void BackToOutdoor()
         {
             StartCoroutine(FadeCoroutine());
@@ -49,12 +57,29 @@ namespace Ithas
 
         public IEnumerator FadeCoroutine()
         {
+            inputHandler.SetActive(true);
             if (fadeOutPanel != null)
             {
                 Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
             }
             yield return new WaitForSeconds(fadeDelay);
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+        }
+
+        public IEnumerator RetryFadeCoroutine() //when fail and retry button
+        {
+            playerStatsSO.ResetToInitialStats();
+            inputHandler.SetActive(true);
+            if (fadeOutPanel != null)
+            {
+                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(fadeDelay);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
             while (!asyncOperation.isDone)
             {
                 yield return null;
