@@ -57,7 +57,7 @@ namespace Ithas
                 if (playerStats.currentExp >= playerStats.maxExp || Input.GetKeyDown(KeyCode.F1)) //cheat code: F1 key to level up  
                 {
                     currentPlayerLevel += 1; //+1 player level
-                    currentPlayerExp = 0; //reset current exp
+                    currentPlayerExp = playerStats.currentExp - playerStats.maxExp; //reset current exp with difference
 
                     if (playerStats != null)
                     {

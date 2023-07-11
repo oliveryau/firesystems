@@ -8,22 +8,25 @@ namespace Ithas
 {
     public class CompletionBar : MonoBehaviour
     {
-        public Slider completionBar;
+        [Header("Values")]
         public int totalObjects; // Total number of specific static game objects in the level
         public int destroyedObjects; // Number of destroyed game objects
         public float completionPercentage; // Completion percentage
-        public GameObject[] burnableObjects;
-        public GameObject levelCompletionPopUp;
-        [SerializeField] TextMeshProUGUI completionText;
+        public GameObject[] burnableObjects; // To store all burnable objects
 
+        [Header("UI")]
+        public Slider completionBar;
+        public GameObject levelCompletionPopUp; // Finish Screen
+        [SerializeField] TextMeshProUGUI completionText; // Finish Text
+
+        [Header("Others")]
         public GameObject inputHandler;
 
         public void SetCompletionPercentage() // Only for starting
         {
             burnableObjects = GameObject.FindGameObjectsWithTag("Burnables");
-            totalObjects = burnableObjects.Length;
-            completionPercentage = (float)destroyedObjects / totalObjects * 100f;
-            SetCompletionBar();
+            totalObjects = burnableObjects.Length; // Set total amount of burnable objects
+            UpdateCompletionPercentage();
         }
 
         public void UpdateCompletionPercentage() // Actual value
@@ -47,7 +50,7 @@ namespace Ithas
             if (completionPercentage >= 100)
             {
                 levelCompletionPopUp.SetActive(true);
-                inputHandler.SetActive(false);
+                inputHandler.SetActive(false); //player input disabled when UI is shown
             }
         }
     }

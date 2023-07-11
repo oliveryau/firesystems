@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 namespace Ithas
 {
     public class Timer : MonoBehaviour
     {
-        float currentTime = 0f;
-        float startingTime = 60f;
+        private float currentTime = 0f;
+        private float startingTime = 60f;
 
         public GameObject levelFailPopUp;
         [SerializeField] TextMeshProUGUI countdownText;
@@ -26,16 +25,16 @@ namespace Ithas
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = "Timer: " + currentTime.ToString("0");
 
-            if (currentTime <= 10)
+            if (currentTime <= 10f)
             {
                 countdownText.color = Color.red;
             }
 
-            if (currentTime <= 0)
+            if (currentTime <= 0f)
             {
-                currentTime = 0;
+                currentTime = 0f;
                 levelFailPopUp.SetActive(true);
-                inputHandler.SetActive(false);
+                inputHandler.SetActive(false); //player input disabled when UI is shown
             }
         }
     }
