@@ -412,18 +412,18 @@ namespace Ithas
 
         #endregion
 
-        #region Level Data CSV Retrieval
+        #region Level Enemy Data CSV Retrieval
 
         public string GetEnemyPrefabName(StartLevel startLevel)
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.levelDataList.levelData.Length > 0)
             {
-                foreach (var levelData in csvReader.levelDataList.levelData)
+                foreach (var levelEnemyData in csvReader.levelDataList.levelData)
                 {
-                    if (levelData.levelId == startLevel.levelId && levelData.enemyNo == currentEnemyNo)
+                    if (levelEnemyData.levelId == startLevel.levelId && levelEnemyData.enemyNo == currentEnemyNo)
                     {
-                        return levelData.enemyPrefabName; //get enemyPrefabName
+                        return levelEnemyData.enemyPrefabName; //get enemyPrefabName
                     }
                 }
             }
@@ -435,11 +435,11 @@ namespace Ithas
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.levelDataList.levelData.Length > 0)
             {
-                foreach (var levelData in csvReader.levelDataList.levelData)
+                foreach (var levelEnemyData in csvReader.levelDataList.levelData)
                 {
-                    if (levelData.levelId == startLevel.levelId && levelData.enemyNo == currentEnemyNo)
+                    if (levelEnemyData.levelId == startLevel.levelId && levelEnemyData.enemyNo == currentEnemyNo)
                     {
-                        return levelData.homePosition; //get enemyHomePos
+                        return levelEnemyData.homePosition; //get enemyHomePos
                     }
                 }
             }

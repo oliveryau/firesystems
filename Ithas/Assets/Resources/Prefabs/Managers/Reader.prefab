@@ -47,7 +47,7 @@ MonoBehaviour:
   playerDataCsv: {fileID: 4900000, guid: 460b9ea689b8e6a40af402e204eb5741, type: 3}
   playerAttackDataCsv: {fileID: 4900000, guid: 245bc0b96b3283d45b5487599adeedb5, type: 3}
   enemyTypeDataCsv: {fileID: 4900000, guid: 79e7bc00cf58e1b4a8a37d9848cec612, type: 3}
-  levelDataCsv: {fileID: 4900000, guid: a345090dceb5f144d81a13c8970ace3e, type: 3}
+  levelEnemyDataCsv: {fileID: 4900000, guid: a345090dceb5f144d81a13c8970ace3e, type: 3}
   dialogueDataCsv: {fileID: 4900000, guid: 320d4e6b3e10d4ba3a844b529af1578f, type: 3}
   playerDataList:
     playerData: []

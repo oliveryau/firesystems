@@ -10,7 +10,7 @@ namespace Ithas
         [SerializeField] private TextAsset playerDataCsv;
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
-        [SerializeField] private TextAsset levelDataCsv;
+        [SerializeField] private TextAsset levelEnemyDataCsv;
         [SerializeField] private TextAsset dialogueDataCsv;
 
         #region PlayerData Classes
@@ -81,7 +81,7 @@ namespace Ithas
         #region Level Classes
 
         [System.Serializable]
-        public class LevelData
+        public class LevelEnemyData
         {
             public int levelId;
             public int enemyNo;
@@ -92,7 +92,7 @@ namespace Ithas
         [System.Serializable]
         public class LevelDataArray
         {
-            public LevelData[] levelData;
+            public LevelEnemyData[] levelData;
         }
 
         #endregion
@@ -199,14 +199,14 @@ namespace Ithas
 
         private void ReadLevelData()
         {
-            string[] data = levelDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = levelEnemyDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
-            levelDataList.levelData = new LevelData[tableSize]; //initialize levelDataList's levelData with an array of tableSize
+            levelDataList.levelData = new LevelEnemyData[tableSize]; //initialize levelDataList's levelData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
-                levelDataList.levelData[i] = new LevelData();
+                levelDataList.levelData[i] = new LevelEnemyData();
 
                 levelDataList.levelData[i].levelId = int.Parse(data[4 * (i + 1)]);
                 levelDataList.levelData[i].enemyNo = int.Parse(data[4 * (i + 1) + 1]);
