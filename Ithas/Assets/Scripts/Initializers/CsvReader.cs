@@ -12,6 +12,7 @@ namespace Ithas
         [SerializeField] private TextAsset enemyTypeDataCsv;
         [SerializeField] private TextAsset levelEnemyDataCsv;
         [SerializeField] private TextAsset dialogueDataCsv;
+        [SerializeField] private TextAsset actorDataCsv;
 
         #region PlayerData Classes
 
@@ -120,11 +121,31 @@ namespace Ithas
 
         #endregion
 
+        #region ActorData Classes
+
+        [System.Serializable]
+        public class ActorData
+        {
+            public int actorId;
+            public string actorName;
+            public Sprite actorImg;
+        }
+
+        [System.Serializable]
+        public class ActorDataArray
+        {
+            public ActorData [] actorData;
+        }
+
+        #endregion
+
         public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public DialogueDataArray dialogueDataList = new DialogueDataArray(); //instance of dialogueDataArray
+        public ActorDataArray actorDataList = new ActorDataArray(); //instance of dialogueDataArray
+
 
         private void Awake()
         {
@@ -133,6 +154,7 @@ namespace Ithas
             ReadEnemyTypeData();
             ReadLevelData();
             ReadDialogueData();
+            ReadActorData();
         }
 
         private void ReadPlayerData()
@@ -240,6 +262,24 @@ namespace Ithas
                 dialogueDataList.dialogueData[i].choice = (data[8 * (i + 1) + 7]);
             }
         }
+
+        private void ReadActorData()
+        {
+            string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
+            int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
+            actorDataList.actorData = new ActorData[tableSize];
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                actorDataList.actorData[i] = new ActorData();
+
+                actorDataList.actorData[i].actorId = int.Parse(data[3 * (i + 1)]);
+                actorDataList.actorData[i].actorName = (data[3 * (i + 1) + 1]);
+                actorDataList.actorData[i].actorImg = Resources.Load<Sprite>(data[3 * (i + 1) + 2]);
+            }
+        }
+
     }
 
 }
