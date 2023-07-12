@@ -9,6 +9,9 @@ namespace Ithas
         public DialogueActivator trigger;
         private bool playerInRange;
 
+        //boolean check
+        public DialogueManager dialogueManager;
+
         private void Start()
         {
             FindObjectOfType<DialogueManager>().OnDialogueEnd += EndDialogue;
@@ -16,7 +19,7 @@ namespace Ithas
 
         void Update()
         {
-            if (playerInRange && Input.GetKeyDown(KeyCode.E))
+            if (playerInRange && Input.GetKeyDown(KeyCode.E) && !dialogueManager.isTalking)
             {
                 trigger.StartDialogue();
             }

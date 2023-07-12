@@ -4093,6 +4093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 1413035121}
+  dialogueManager: {fileID: 1905518537}
 --- !u!1 &1470720141
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,6 +5259,7 @@ MonoBehaviour:
   messageText: {fileID: 1470720143}
   backgroundBox: {fileID: 1820991792}
   trigger: {fileID: 0}
+  isTalking: 0
 --- !u!4 &1905518538
 Transform:
   m_ObjectHideFlags: 0

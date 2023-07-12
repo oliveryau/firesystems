@@ -21,6 +21,8 @@ namespace Ithas
         int activeMessage = 0;
         public static bool isActive = false;
 
+        public bool isTalking = false; //boolean check
+
         public event Action OnDialogueEnd; // Event for ending the dialogue
 
         private void Update()
@@ -58,12 +60,14 @@ namespace Ithas
             if (activeMessage < currentMessages.Length)
             {
                 DisplayMessage();
+                isTalking = true;
             }
             else
             {
                 Debug.Log("Convo ended!");
                 isActive = false;
                 OnDialogueEnd?.Invoke(); // Invoke the dialogue end event
+                isTalking = false;
             }
         }
         
