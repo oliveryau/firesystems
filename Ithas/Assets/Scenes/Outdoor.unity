@@ -5257,6 +5257,7 @@ MonoBehaviour:
   actorName: {fileID: 1544967573}
   messageText: {fileID: 1470720143}
   backgroundBox: {fileID: 1820991792}
+  trigger: {fileID: 0}
 --- !u!4 &1905518538
 Transform:
   m_ObjectHideFlags: 0

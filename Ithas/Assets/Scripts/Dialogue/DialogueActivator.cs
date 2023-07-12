@@ -12,19 +12,16 @@ namespace Ithas
         public Message[] messages;
         public Actor[] actors;
 
-        //void Update()
-        //{
-        //    if (playerInRange && Input.GetKeyDown(KeyCode.E))
-        //    {
-        //        StartDialogue();
-        //    }
-        //}
-
         public void StartDialogue()
         {
             dialogue.SetActive(true);
             FindObjectOfType<DialogueManager>().OpenDialogue(messages, actors);
-        } 
+        }
+
+        public void EndDialogue()
+        {
+            dialogue.SetActive(false);
+        }
     }
     [System.Serializable]
     public class Message

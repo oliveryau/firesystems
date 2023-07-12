@@ -9,6 +9,11 @@ namespace Ithas
         public DialogueActivator trigger;
         private bool playerInRange;
 
+        private void Start()
+        {
+            FindObjectOfType<DialogueManager>().OnDialogueEnd += EndDialogue;
+        }
+
         void Update()
         {
             if (playerInRange && Input.GetKeyDown(KeyCode.E))
@@ -25,12 +30,17 @@ namespace Ithas
             }
         }
 
-        //private void OnTriggerExit2D(Collider2D collision)
-        //{
-        //    if (collision.CompareTag("Player"))
-        //    {
-        //        playerInRange = false;
-        //    }
-        //}
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                playerInRange = false;
+            }
+        }
+
+        private void EndDialogue()
+        {
+            trigger.EndDialogue();
+        }
     }
 }

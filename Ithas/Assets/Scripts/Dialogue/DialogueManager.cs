@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,14 @@ namespace Ithas
         public TextMeshProUGUI actorName;
         public TextMeshProUGUI messageText;
         public RectTransform backgroundBox;
+        public DialogueActivator trigger;
 
         Message[] currentMessages;
         Actor[] currentActors;
         int activeMessage = 0;
         public static bool isActive = false;
+
+        public event Action OnDialogueEnd; // Event for ending the dialogue
 
         private void Update()
         {
@@ -59,7 +63,9 @@ namespace Ithas
             {
                 Debug.Log("Convo ended!");
                 isActive = false;
+                OnDialogueEnd?.Invoke(); // Invoke the dialogue end event
             }
         }
+        
     }
 }
