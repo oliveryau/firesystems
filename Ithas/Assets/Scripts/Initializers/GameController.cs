@@ -450,14 +450,14 @@ namespace Ithas
 
         #region Dialogue Data CSV Retrieval
 
-        public int GetDialogueId()
+        public int GetDialogueId(NPC npc)
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
             {
                 foreach (var dialogueData in csvReader.dialogueDataList.dialogueData)
                 {
-                    if (dialogueData.actorId == 0) //based on actor id
+                    if (dialogueData.actorId == 0) //based on actor id (npc.id)
                     {
                         return dialogueData.dialogueId; //get dialogue id
                     }

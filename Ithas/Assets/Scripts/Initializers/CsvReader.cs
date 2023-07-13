@@ -272,7 +272,7 @@ namespace Ithas
 
         private void ReadActorData()
         {
-            string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = actorDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
             actorDataList.actorData = new ActorData[tableSize];

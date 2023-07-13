@@ -4064,7 +4064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd913372212a41bb80389ac7801b595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
+  trigger: {fileID: 1565749906}
   dialogueManager: {fileID: 1905518537}
 --- !u!1 &1470720141
 GameObject:
@@ -5302,7 +5302,7 @@ MonoBehaviour:
   actorName: {fileID: 1544967573}
   messageText: {fileID: 1470720143}
   backgroundBox: {fileID: 1820991792}
-  trigger: {fileID: 0}
+  trigger: {fileID: 1565749906}
   isTalking: 0
 --- !u!4 &1905518538
 Transform:
