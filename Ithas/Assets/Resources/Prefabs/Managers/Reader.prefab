@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataCsv: {fileID: 4900000, guid: 460b9ea689b8e6a40af402e204eb5741, type: 3}
+  playerDataCsvTest:
+    m_AssetGUID: 460b9ea689b8e6a40af402e204eb5741
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   playerAttackDataCsv: {fileID: 4900000, guid: 245bc0b96b3283d45b5487599adeedb5, type: 3}
   enemyTypeDataCsv: {fileID: 4900000, guid: 79e7bc00cf58e1b4a8a37d9848cec612, type: 3}
   levelEnemyDataCsv: {fileID: 4900000, guid: bd1fa8b1975201c4abddf764e3d0fb74, type: 3}

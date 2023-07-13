@@ -445,11 +445,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713679fa283c94269a7e9d4fc8960c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  completionBar: {fileID: 90836207}
   totalObjects: 0
   destroyedObjects: 0
   completionPercentage: 0
   burnableObjects: []
+  completionBar: {fileID: 90836207}
   levelCompletionPopUp: {fileID: 2139888192}
   completionText: {fileID: 22119073}
   inputHandler: {fileID: 1669290323}

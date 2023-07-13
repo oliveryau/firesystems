@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0c948f0058dc04a5f857093ef65e05b0
+  m_SerializeEntries:
+  - m_GUID: fb81fe3643935c04192a2fad5aa94765
+    m_Address: ActorData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 320d4e6b3e10d4ba3a844b529af1578f
+    m_Address: DialogueData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 79e7bc00cf58e1b4a8a37d9848cec612
+    m_Address: EnemyTypeData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd1fa8b1975201c4abddf764e3d0fb74
+    m_Address: LevelEnemyData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 245bc0b96b3283d45b5487599adeedb5
+    m_Address: PlayerAttackData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 460b9ea689b8e6a40af402e204eb5741
+    m_Address: PlayerData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1a2221525da6148d39cf0a84f9b8418d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1ff03d5258ee84d3390d430b0e28dc36, type: 2}
+    - {fileID: 11400000, guid: 6af24bca3a93d4e6fa058a8b5be18fb9, type: 2}

@@ -255,7 +255,7 @@ namespace Ithas
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.enemyTypeDataList.enemyTypeData.Length > 0)
             {
-                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData)
+                foreach (var enemyData in csvReader.enemyTypeDataList.enemyTypeData) //enemyTypeDataList.Find(x=>x.enemyId == enemyScript.enemyId);
                 {
                     if (enemyData.enemyId == enemyScript.enemyId) //based on enemy id
                     {
@@ -448,6 +448,77 @@ namespace Ithas
 
         #endregion
 
+        #region Dialogue Data CSV Retrieval
+
+        public int GetDialogueId()
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
+            {
+                foreach (var dialogueData in csvReader.dialogueDataList.dialogueData)
+                {
+                    if (dialogueData.actorId == 0) //based on actor id
+                    {
+                        return dialogueData.dialogueId; //get dialogue id
+                    }
+                }
+            }
+            return 0; //if nothing
+        }
+
+        public Message[] GetDialogueMessages(int actorId)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
+            {
+                List<Message> messages = new List<Message>();
+                foreach (var dialogueData in csvReader.dialogueDataList.dialogueData)
+                {
+                    messages.Add(new Message { actorId = actorId, message = dialogueData.text });
+                    
+                }
+                return messages.ToArray();
+            }
+            return new Message[0]; // If no dialogue messages are found or CSV reader is not present
+        }
+
+        #endregion
+
+        #region Actor Data CSV Retrieval
+
+        public string GetActorName(int actorId) 
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.actorDataList.actorData.Length > 0)
+            {
+                foreach (var actorData in csvReader.actorDataList.actorData)
+                {
+                    if (actorData.actorId == actorId) //do i take id or name
+                    {
+                        return actorData.actorName; //get name help
+                    }
+                }
+            }
+            return ""; //if nothing
+        }
+
+        public Sprite GetActorSprite(int actorId)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.actorDataList.actorData.Length > 0)
+            {
+                foreach (var actorData in csvReader.actorDataList.actorData)
+                {
+                    if (actorData.actorId == actorId)
+                    {
+                        return actorData.actorImg;
+                    }
+                }
+            }
+            return null; //if nothing
+        }
+
+        #endregion
 
     }
 }

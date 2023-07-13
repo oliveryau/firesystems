@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.AddressableAssets;
 
 namespace Ithas
 {
     public class CsvReader : MonoBehaviour
     {
         [SerializeField] private TextAsset playerDataCsv;
+        //[SerializeField] private AssetReference playerDataCsvTest; //
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
         [SerializeField] private TextAsset levelEnemyDataCsv;
@@ -104,6 +106,7 @@ namespace Ithas
         public class DialogueData
         {
             public int dialogueId;
+            public int actorId;
             public int cutscene;
             public int cutsceneRef;
             public string speakerLeft;
@@ -134,7 +137,7 @@ namespace Ithas
         [System.Serializable]
         public class ActorDataArray
         {
-            public ActorData [] actorData;
+            public ActorData[] actorData;
         }
 
         #endregion
@@ -159,7 +162,10 @@ namespace Ithas
 
         private void ReadPlayerData()
         {
-            string[] data = playerDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            //var test = playerDataCsvTest.LoadAsset<TextAsset>();
+            //var test2 = Addressables.LoadAsset<TextAsset>("PlayerData");
+            //string[] data = test2.Result.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             playerDataList.playerData = new PlayerData[tableSize]; //initialize playerDataList's playerData with an array of tableSize
@@ -177,7 +183,7 @@ namespace Ithas
 
         private void ReadPlayerAttackData()
         {
-            string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             playerAttackDataList.playerAttackData = new PlayerAttackData[tableSize]; //initialize playerAttackDataList's playerAttackData with an array of tableSize
@@ -195,7 +201,7 @@ namespace Ithas
 
         private void ReadEnemyTypeData()
         {
-            string[] data = enemyTypeDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = enemyTypeDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 12 - 1; //noOfColumns - headerRow
             enemyTypeDataList.enemyTypeData = new EnemyTypeData[tableSize]; //initialize enemyTypeDataList's enemyTypeData with an array of tableSize
@@ -221,7 +227,7 @@ namespace Ithas
 
         private void ReadLevelData()
         {
-            string[] data = levelEnemyDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = levelEnemyDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             levelDataList.levelData = new LevelEnemyData[tableSize]; //initialize levelDataList's levelData with an array of tableSize
@@ -245,27 +251,28 @@ namespace Ithas
         {
             string[] data = dialogueDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
-            int tableSize = (data.Length) / 8 - 1; //noOfColumns - headerRow
+            int tableSize = (data.Length) / 9 - 1; //noOfColumns - headerRow
             dialogueDataList.dialogueData = new DialogueData[tableSize]; //initialize dialogueDataList's dialogueData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
                 dialogueDataList.dialogueData[i] = new DialogueData();
 
-                dialogueDataList.dialogueData[i].dialogueId = int.Parse(data[8 * (i + 1)]);
-                dialogueDataList.dialogueData[i].cutscene = int.Parse(data[8 * (i + 1) + 1]);
-                dialogueDataList.dialogueData[i].cutsceneRef = int.Parse(data[8 * (i + 1) + 2]);
-                dialogueDataList.dialogueData[i].speakerLeft = (data[8 * (i + 1) + 3]);
-                dialogueDataList.dialogueData[i].speakerRight = (data[8 * (i + 1) + 4]);
-                dialogueDataList.dialogueData[i].currentSpeaker = (data[8 * (i + 1) + 5]);
-                dialogueDataList.dialogueData[i].text = (data[8 * (i + 1) + 6]);
-                dialogueDataList.dialogueData[i].choice = (data[8 * (i + 1) + 7]);
+                dialogueDataList.dialogueData[i].dialogueId = int.Parse(data[9 * (i + 1)]);
+                dialogueDataList.dialogueData[i].actorId = int.Parse(data[9 * (i + 1) + 1]);
+                dialogueDataList.dialogueData[i].cutscene = int.Parse(data[9 * (i + 1) + 2]);
+                dialogueDataList.dialogueData[i].cutsceneRef = int.Parse(data[9 * (i + 1) + 3]);
+                dialogueDataList.dialogueData[i].speakerLeft = (data[9 * (i + 1) + 4]);
+                dialogueDataList.dialogueData[i].speakerRight = (data[9 * (i + 1) + 5]);
+                dialogueDataList.dialogueData[i].currentSpeaker = (data[9 * (i + 1) + 6]);
+                dialogueDataList.dialogueData[i].text = (data[9 * (i + 1) + 7]);
+                dialogueDataList.dialogueData[i].choice = (data[9 * (i + 1) + 8]);
             }
         }
 
         private void ReadActorData()
         {
-            string[] data = actorDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
             actorDataList.actorData = new ActorData[tableSize];
@@ -281,7 +288,5 @@ namespace Ithas
                 actorDataList.actorData[i].actorImg = Resources.Load<Sprite>(filePath);
             }
         }
-
     }
-
 }

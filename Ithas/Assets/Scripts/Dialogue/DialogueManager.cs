@@ -66,7 +66,7 @@ namespace Ithas
             {
                 Debug.Log("Convo ended!");
                 isActive = false;
-                OnDialogueEnd?.Invoke(); // Invoke the dialogue end event
+                OnDialogueEnd?.Invoke();
                 isTalking = false;
             }
         }
