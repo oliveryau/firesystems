@@ -144,7 +144,7 @@ namespace Ithas
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public DialogueDataArray dialogueDataList = new DialogueDataArray(); //instance of dialogueDataArray
-        public ActorDataArray actorDataList = new ActorDataArray(); //instance of dialogueDataArray
+        public ActorDataArray actorDataList = new ActorDataArray(); //instance of ActorDataArray
 
 
         private void Awake()
@@ -159,7 +159,7 @@ namespace Ithas
 
         private void ReadPlayerData()
         {
-            string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = playerDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             playerDataList.playerData = new PlayerData[tableSize]; //initialize playerDataList's playerData with an array of tableSize
@@ -177,7 +177,7 @@ namespace Ithas
 
         private void ReadPlayerAttackData()
         {
-            string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = playerAttackDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             playerAttackDataList.playerAttackData = new PlayerAttackData[tableSize]; //initialize playerAttackDataList's playerAttackData with an array of tableSize
@@ -195,7 +195,7 @@ namespace Ithas
 
         private void ReadEnemyTypeData()
         {
-            string[] data = enemyTypeDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = enemyTypeDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 12 - 1; //noOfColumns - headerRow
             enemyTypeDataList.enemyTypeData = new EnemyTypeData[tableSize]; //initialize enemyTypeDataList's enemyTypeData with an array of tableSize
@@ -221,7 +221,7 @@ namespace Ithas
 
         private void ReadLevelData()
         {
-            string[] data = levelEnemyDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = levelEnemyDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow
             levelDataList.levelData = new LevelEnemyData[tableSize]; //initialize levelDataList's levelData with an array of tableSize
@@ -265,7 +265,7 @@ namespace Ithas
 
         private void ReadActorData()
         {
-            string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+            string[] data = actorDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
             actorDataList.actorData = new ActorData[tableSize];
@@ -276,7 +276,9 @@ namespace Ithas
 
                 actorDataList.actorData[i].actorId = int.Parse(data[3 * (i + 1)]);
                 actorDataList.actorData[i].actorName = (data[3 * (i + 1) + 1]);
-                actorDataList.actorData[i].actorImg = Resources.Load<Sprite>(data[3 * (i + 1) + 2]);
+
+                string filePath = (data[3 * (i + 1) + 2]);
+                actorDataList.actorData[i].actorImg = Resources.Load<Sprite>(filePath);
             }
         }
 
