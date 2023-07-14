@@ -82,46 +82,30 @@ namespace Ithas
                 EnemyScript enemy = enemyInstance.GetComponent<EnemyScript>(); //get component of instantiated enemy
                 if (enemy != null)
                 {
+                    enemy.player = player; //finding player first
                     if (enemy is EnemyTypeGuard guardScript)
                     {
-                        guardScript.player = player;
                         guardScript.enemyId = 1;
-                        guardScript.ReadEnemyData();
-                        guardScript.SetEnemyHpBar();
-                        guardScript.enemyPrefabName = enemyPrefabName;
-                        guardScript.homePosition = homePosition;
-                        guardScript.enemyNo = enemyNo;
                     }
                     else if (enemy is EnemyTypePolice policeScript)
                     {
-                        policeScript.player = player;
                         policeScript.enemyId = 2;
-                        policeScript.ReadEnemyData();
-                        policeScript.SetEnemyHpBar();
-                        policeScript.enemyPrefabName = enemyPrefabName;
-                        policeScript.homePosition = homePosition;
-                        policeScript.enemyNo = enemyNo;
                     }
                     else if (enemy is EnemyTypeObjectWeak weakObjectScript)
                     {
-                        weakObjectScript.player = player;
                         weakObjectScript.enemyId = 99;
-                        weakObjectScript.ReadEnemyData();
-                        weakObjectScript.SetEnemyHpBar();
-                        weakObjectScript.enemyPrefabName = enemyPrefabName;
-                        weakObjectScript.homePosition = homePosition;
-                        weakObjectScript.enemyNo = enemyNo;
                     }
                     else if (enemy is EnemyTypeObjectStrong strongObjectScript)
                     {
-                        strongObjectScript.player = player;
                         strongObjectScript.enemyId = 98;
-                        strongObjectScript.ReadEnemyData();
-                        strongObjectScript.SetEnemyHpBar();
-                        strongObjectScript.enemyPrefabName = enemyPrefabName;
-                        strongObjectScript.homePosition = homePosition;
-                        strongObjectScript.enemyNo = enemyNo;
                     }
+
+                    enemy.ReadEnemyData();
+                    enemy.SetEnemyHpBar();
+                    enemy.enemyPrefabName = enemyPrefabName;
+                    enemy.homePosition = homePosition;
+                    enemy.enemyNo = enemyNo;
+
                     enemyNo++;
                     gameController.currentEnemyNo++;
                 }

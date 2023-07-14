@@ -54,7 +54,7 @@ namespace Ithas
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             if (currentPlayerLevel < 10) //max level is 10
             {
-                if (playerStats.currentExp >= playerStats.maxExp || Input.GetKeyDown(KeyCode.F1)) //cheat code: F1 key to level up  
+                if (playerStats.currentExp >= playerStats.maxExp) //level up
                 {
                     currentPlayerLevel += 1; //+1 player level
                     currentPlayerExp = playerStats.currentExp - playerStats.maxExp; //reset current exp with difference
@@ -70,6 +70,27 @@ namespace Ithas
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
                 }
+
+                #region Cheat Code
+
+                if (Input.GetKeyDown(KeyCode.F1)) //cheat code F1 to level up
+                {
+                    currentPlayerLevel += 1; //+1 player level
+                    currentPlayerExp = 0; //reset to 0
+
+                    if (playerStats != null)
+                    {
+                        playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
+                    }
+
+                    PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+                    if (playerAttack != null)
+                    {
+                        playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
+                    }
+                }
+
+                #endregion
             }
         }
 

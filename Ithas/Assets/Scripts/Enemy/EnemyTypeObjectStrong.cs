@@ -10,15 +10,9 @@ namespace Ithas
 
         private void Start()
         {
-            //animator = GetComponent<Animator>();
             completionBar = FindObjectOfType<CompletionBar>();
 
             ChangeState(EnemyState.idle);
-        }
-
-        private void Update()
-        {
-            //UpdateAnimations();
         }
 
         private void OnDestroy()

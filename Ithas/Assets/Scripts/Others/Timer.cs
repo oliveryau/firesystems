@@ -7,7 +7,7 @@ namespace Ithas
 {
     public class Timer : MonoBehaviour
     {
-        private float currentTime = 0f;
+        [HideInInspector] public float currentTime = 0f;
         private float startingTime = 60f;
 
         public GameObject levelFailPopUp;

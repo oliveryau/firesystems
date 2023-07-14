@@ -58,6 +58,7 @@ namespace Ithas
         public IEnumerator FadeCoroutine()
         {
             inputHandler.SetActive(true);
+            Time.timeScale = 1f;
             if (fadeOutPanel != null)
             {
                 Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
