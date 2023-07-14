@@ -12,8 +12,6 @@ namespace Ithas
         public PlayerMovement playerMovement;
         public PlayerAttack playerAttack;
         public PauseMenu pauseMenu;
-        public GameObject npc;
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))

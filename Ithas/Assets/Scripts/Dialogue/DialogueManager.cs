@@ -9,12 +9,16 @@ namespace Ithas
 {
     public class DialogueManager : MonoBehaviour
     {
-        public Image actorImage;
-        //public Image speakerRImage;
+        public Image actorLImage;
+        public Image actorRImage;
         public TextMeshProUGUI actorName;
         public TextMeshProUGUI messageText;
+        public Button firstOption;
+        public Button secondOption;
         public RectTransform backgroundBox;
         public DialogueActivator trigger;
+        public GameObject inputHandler;
+        private int nextCutscene; 
 
         Message[] currentMessages;
         Actor[] currentActors;
@@ -22,12 +26,10 @@ namespace Ithas
         public static bool isActive = false;
 
         public bool isTalking = false; //boolean check
-
-        public event Action OnDialogueEnd; // Event for ending the dialogue
-
+        public bool hasChoice = false;
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && isActive == true)
+            if (Input.GetMouseButtonDown(0) && isActive == true && !hasChoice)
             {
                 NextMessage();
             }
@@ -35,40 +37,108 @@ namespace Ithas
 
         public void OpenDialogue(Message[] messages, Actor[] actors)
         {
+            inputHandler.SetActive(false);
             currentMessages = messages;
             currentActors = actors;
             activeMessage = 0;
             isActive = true;
-
-            Debug.Log("Started conversation! Loaded messages: " + messages.Length);
-            DisplayMessage();
-        }
-
-        void DisplayMessage()
-        {
-            Message messageToDisplay = currentMessages[activeMessage];
-            messageText.text = messageToDisplay.message;
-
-            Actor actorToDisplay = currentActors[messageToDisplay.actorId];
-            actorName.text = actorToDisplay.name;
-            actorImage.sprite = actorToDisplay.sprite;
-        }
-
-        public void NextMessage()
-        {
-            activeMessage++;
-            if (activeMessage < currentMessages.Length)
+            if (currentMessages[activeMessage].cutsceneRef == 0)
             {
-                DisplayMessage();
-                isTalking = true;
+                
+                Choice currentChoice = new Choice();
+                currentChoice.choiceText = currentMessages[activeMessage].choice;
+                string[] splits = currentChoice.choiceText.Split("*");
+                foreach (string split in splits)
+                {
+                    string[] secondSplit = split.Split("#");
+                    currentChoice.choicesDict.Add(secondSplit[0],Int32.Parse(secondSplit[1]));
+                }
             }
             else
             {
-                Debug.Log("Convo ended!");
-                isActive = false;
-                OnDialogueEnd?.Invoke();
-                isTalking = false;
+                nextCutscene = currentMessages[activeMessage].cutsceneRef;
             }
+
+            DisplayMessage(currentMessages[activeMessage].cutscene);
+        }
+
+        public void DisplayMessage(int cutsceneToGo)
+        {
+            foreach (Message message in currentMessages) //runs thru all messages
+            {
+                if (message.cutscene == cutsceneToGo) //
+                {
+                    isTalking = true;
+                    hasChoice = false;
+                    messageText.text = message.message;
+
+                    Actor actorToDisplayName = currentActors[message.currentSpeaker]; //name change
+                    actorName.text = actorToDisplayName.name;
+                    Actor actorToDisplayLeft = currentActors[message.speakerLeft]; //to show on dialogue box
+                    actorLImage.sprite = actorToDisplayLeft.sprite;
+                    Actor actorToDisplayRight = currentActors[message.speakerRight]; //to show on dialogue box
+                    actorRImage.sprite = actorToDisplayRight.sprite;
+
+                    if (message.currentSpeaker == message.speakerLeft)
+                    {
+                        actorLImage.GetComponent<Image>().color = Color.white;
+                        actorRImage.GetComponent<Image>().color = Color.grey;
+                    }
+                    else if (message.currentSpeaker == message.speakerRight)
+                    {
+                        actorLImage.GetComponent<Image>().color = Color.grey;
+                        actorRImage.GetComponent<Image>().color = Color.white;
+                    }
+                    else
+                    {
+                        Debug.Log("Current Speakers do not match left/right speakers!");
+                    }
+
+                    isTalking = true;
+                    nextCutscene = message.cutsceneRef;
+                    if (nextCutscene == -1) //to check if have choice
+                    {
+                        hasChoice = true;
+                        Choice currentChoice = new Choice();
+                        currentChoice.choiceText = message.choice;
+                        string[] splits = currentChoice.choiceText.Split("*");
+                        foreach (string split in splits)
+                        {
+                            string[] secondSplit = split.Split("#");
+                            currentChoice.choicesDict.Add(secondSplit[0],Int32.Parse(secondSplit[1]));
+                        }
+                        firstOption.gameObject.SetActive(true);
+                        secondOption.gameObject.SetActive(true);
+                        List<string> choices = new List<string>();
+                        List<int> cutsceneOptions = new List<int>();
+                        foreach (var choiceOption in currentChoice.choicesDict)
+                        {
+                            choices.Add(choiceOption.Key);
+                            cutsceneOptions.Add(choiceOption.Value);
+                        }
+                        firstOption.gameObject.GetComponent<TMP_Text>().text = choices[0];
+                        secondOption.gameObject.GetComponent<TMP_Text>().text = choices[1];
+                        firstOption.gameObject.GetComponent<ButtonSceneSelector>().sceneToLoad = cutsceneOptions[0];
+                        secondOption.gameObject.GetComponent<ButtonSceneSelector>().sceneToLoad = cutsceneOptions[1];
+                    }
+                    else
+                    {
+                        firstOption.gameObject.SetActive(false);
+                        secondOption.gameObject.SetActive(false);
+                    }
+                    return;
+                }
+            }
+            isActive = false;
+            trigger.EndDialogue();
+            isTalking = false;
+            inputHandler.SetActive(true);
+        }        
+            
+
+        public void NextMessage()
+        {
+            DisplayMessage(nextCutscene);
         }
         
     }

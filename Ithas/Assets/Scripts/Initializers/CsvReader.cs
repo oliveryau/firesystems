@@ -105,13 +105,12 @@ namespace Ithas
         [System.Serializable]
         public class DialogueData
         {
-            public int dialogueId;
             public int actorId;
             public int cutscene;
             public int cutsceneRef;
-            public string speakerLeft;
-            public string speakerRight;
-            public string currentSpeaker;
+            public int speakerLeft;
+            public int speakerRight;
+            public int currentSpeaker;
             public string text;
             public string choice;
         }
@@ -251,22 +250,21 @@ namespace Ithas
         {
             string[] data = dialogueDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
-            int tableSize = (data.Length) / 9 - 1; //noOfColumns - headerRow
+            int tableSize = (data.Length) / 8 - 1; //noOfColumns - headerRow
             dialogueDataList.dialogueData = new DialogueData[tableSize]; //initialize dialogueDataList's dialogueData with an array of tableSize
 
             for (int i = 0; i < tableSize; i++)
             {
                 dialogueDataList.dialogueData[i] = new DialogueData();
 
-                dialogueDataList.dialogueData[i].dialogueId = int.Parse(data[9 * (i + 1)]);
-                dialogueDataList.dialogueData[i].actorId = int.Parse(data[9 * (i + 1) + 1]);
-                dialogueDataList.dialogueData[i].cutscene = int.Parse(data[9 * (i + 1) + 2]);
-                dialogueDataList.dialogueData[i].cutsceneRef = int.Parse(data[9 * (i + 1) + 3]);
-                dialogueDataList.dialogueData[i].speakerLeft = (data[9 * (i + 1) + 4]);
-                dialogueDataList.dialogueData[i].speakerRight = (data[9 * (i + 1) + 5]);
-                dialogueDataList.dialogueData[i].currentSpeaker = (data[9 * (i + 1) + 6]);
-                dialogueDataList.dialogueData[i].text = (data[9 * (i + 1) + 7]);
-                dialogueDataList.dialogueData[i].choice = (data[9 * (i + 1) + 8]);
+                dialogueDataList.dialogueData[i].actorId = int.Parse(data[8 * (i + 1)]);
+                dialogueDataList.dialogueData[i].cutscene = int.Parse(data[8 * (i + 1) + 1]);
+                dialogueDataList.dialogueData[i].cutsceneRef = int.Parse(data[8 * (i + 1) + 2]);
+                dialogueDataList.dialogueData[i].speakerLeft = int.Parse(data[8 * (i + 1) + 3]);
+                dialogueDataList.dialogueData[i].speakerRight = int.Parse(data[8 * (i + 1) + 4]);
+                dialogueDataList.dialogueData[i].currentSpeaker = int.Parse(data[8 * (i + 1) + 5]);
+                dialogueDataList.dialogueData[i].text = (data[8 * (i + 1) + 6]);
+                dialogueDataList.dialogueData[i].choice = (data[8 * (i + 1) + 7]);
             }
         }
 

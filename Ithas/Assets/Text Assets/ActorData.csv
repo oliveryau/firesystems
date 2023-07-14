@@ -1,3 +1,4 @@
 actorId,actorName,actorImg
-0,Nurse May,Sprite/Nurse/tile_0105
-1,Ithas,Sprite/Player/tile_0186
+0,Ithas,Sprite/Player/ithas
+1,Nurse May,Sprite/Nurse/nurse
+2,IthasDemon,Sprite/IthasDemon/ithasdemon

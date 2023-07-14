@@ -7,21 +7,19 @@ namespace Ithas
     public class NPC : MonoBehaviour
     {
         public DialogueActivator trigger;
+        public int actorId;
         private bool playerInRange;
 
         //boolean check
         public DialogueManager dialogueManager;
-
-        private void Start()
-        {
-            FindObjectOfType<DialogueManager>().OnDialogueEnd += EndDialogue;
-        }
-
         void Update()
         {
             if (playerInRange && Input.GetKeyDown(KeyCode.E) && !dialogueManager.isTalking)
             {
-                trigger.StartDialogue();
+                 
+                Message[] filteredMessages = trigger.FilterMessagesByActorId(actorId); 
+                Debug.Log(actorId);
+                trigger.StartDialogue(filteredMessages);    
             }
         }
 
@@ -40,7 +38,6 @@ namespace Ithas
                 playerInRange = false;
             }
         }
-
         private void EndDialogue()
         {
             trigger.EndDialogue();

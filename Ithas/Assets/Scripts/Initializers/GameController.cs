@@ -471,36 +471,22 @@ namespace Ithas
 
         #region Dialogue Data CSV Retrieval
 
-        public int GetDialogueId(NPC npc)
+        public Message[] GetDialogueMessages()
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
-            if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
-            {
-                foreach (var dialogueData in csvReader.dialogueDataList.dialogueData)
-                {
-                    if (dialogueData.actorId == 0) //based on actor id (npc.id)
-                    {
-                        return dialogueData.dialogueId; //get dialogue id
-                    }
-                }
-            }
-            return 0; //if nothing
-        }
-
-        public Message[] GetDialogueMessages(int actorId)
-        {
-            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            NPC npc = FindObjectOfType<NPC>();
             if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
             {
                 List<Message> messages = new List<Message>();
                 foreach (var dialogueData in csvReader.dialogueDataList.dialogueData)
                 {
-                    messages.Add(new Message { actorId = actorId, message = dialogueData.text });
-                    
+                    messages.Add(new Message { actorId = dialogueData.actorId, message = dialogueData.text, cutscene = dialogueData.cutscene,
+                        cutsceneRef = dialogueData.cutsceneRef, speakerLeft = dialogueData.speakerLeft, speakerRight = dialogueData.speakerRight,
+                        currentSpeaker = dialogueData.currentSpeaker, choice = dialogueData.choice});
                 }
                 return messages.ToArray();
             }
-            return new Message[0]; // If no dialogue messages are found or CSV reader is not present
+            return null; // If no dialogue messages are found or CSV reader is not present
         }
 
         #endregion
