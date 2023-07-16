@@ -248,7 +248,12 @@ namespace Ithas
 
         private void ReadDialogueData()
         {
+#if UNITY_STANDALONE_WIN
+            string[] data = dialogueDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+#endif
+#if UNITY_STANDALONE_OSX
             string[] data = dialogueDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+#endif
 
             int tableSize = (data.Length) / 8 - 1; //noOfColumns - headerRow
             dialogueDataList.dialogueData = new DialogueData[tableSize]; //initialize dialogueDataList's dialogueData with an array of tableSize
@@ -270,7 +275,12 @@ namespace Ithas
 
         private void ReadActorData()
         {
+#if UNITY_STANDALONE_WIN
             string[] data = actorDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+#endif
+#if UNITY_STANDALONE_OSX
+            string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+#endif
 
             int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
             actorDataList.actorData = new ActorData[tableSize];

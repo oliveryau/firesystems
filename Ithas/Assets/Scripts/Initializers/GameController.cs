@@ -12,6 +12,7 @@ namespace Ithas
         [HideInInspector] public float currentPlayerHp;
         [HideInInspector] public float currentPlayerExp;
         [HideInInspector] public int currentEnemyNo;
+        [HideInInspector] public int enemiesKilled;
 
         [Header("Others")]
         public GameOverMenu gameOverMenu;
@@ -108,6 +109,7 @@ namespace Ithas
                 playerStats.hp -= damage; //-hp when damaged
                 playerStatsSO.hp = playerStats.hp; //set it to playerStatsSO
                 playerUi.SetHealthBar(playerStats.hp); //set hpBar value
+                playerStats.totalDamageTaken += damage; //playerStats or playerStatsSO //for damage!!!
             }
         }
 
@@ -147,6 +149,7 @@ namespace Ithas
                 playerStatsSO.currentExp = playerStats.currentExp; //set it to playerStatsSO
                 playerUi.SetExpBar(playerStats.currentExp); //set exp value of player
             }
+            enemiesKilled++; //here can?
         }
 
         #region Player Data CSV Retrieval

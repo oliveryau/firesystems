@@ -15,6 +15,8 @@ namespace Ithas
         public float movementSpeed;
         public float currentExp;
         public float maxExp;
+        public float totalDamageTaken; //can hide later on
+        public int totalExpGained;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;

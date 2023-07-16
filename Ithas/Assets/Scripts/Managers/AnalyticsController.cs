@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnalyticsController : MonoBehaviour
+namespace Ithas
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AnalyticsController : MonoBehaviour
     {
-        
-    }
+        public StartLevel levelId;
+        public PlayerStatsSO initialLevel;//idk i just add first
+        public PlayerStatsSO endLevel;
+        public CompletionBar completionRate;
+        public Timer timeTaken;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
