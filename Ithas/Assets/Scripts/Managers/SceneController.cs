@@ -9,6 +9,7 @@ namespace Ithas
     {
         public string currentScene;
         public string sceneToLoad;
+        public string endingScene;
 
         public float fadeDelay;
         public GameObject fadeInPanel;
@@ -19,6 +20,7 @@ namespace Ithas
 
         [Header("Others")]
         public GameObject inputHandler;
+
 
         private void Awake()
         {
@@ -33,7 +35,7 @@ namespace Ithas
         {
             if (collision.CompareTag("Player") && !collision.isTrigger)
             {
-                if (currentScene == "Level")
+                if (currentScene == "Level" || currentScene == "Level 2")
                 {
                     playerStatsSO.ResetToInitialStats();
                 }
@@ -53,6 +55,11 @@ namespace Ithas
         public void BackToOutdoor()
         {
             StartCoroutine(FadeCoroutine());
+        }
+
+        public void GoToEnding()
+        {
+            StartCoroutine(FadeCoroutineEnd());
         }
 
         public IEnumerator FadeCoroutine()
@@ -81,6 +88,22 @@ namespace Ithas
             }
             yield return new WaitForSeconds(fadeDelay);
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+        }
+
+        public IEnumerator FadeCoroutineEnd()
+        {
+            inputHandler.SetActive(true);
+            Time.timeScale = 1f;
+            if (fadeOutPanel != null)
+            {
+                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(fadeDelay);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(endingScene);
             while (!asyncOperation.isDone)
             {
                 yield return null;

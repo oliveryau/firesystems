@@ -18,6 +18,10 @@ namespace Ithas
             {
                 levelId = 1;
             }
+            else if (currentScene.name == "Level 2")
+            {
+                levelId = 2;
+            }
 
             GameObject enemyManager = new GameObject("EnemyManager");
             EnemyScript enemyScript = enemyManager.AddComponent<EnemyScript>();

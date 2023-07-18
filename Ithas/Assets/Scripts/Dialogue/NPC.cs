@@ -18,7 +18,7 @@ namespace Ithas
             {
                  
                 Message[] filteredMessages = trigger.FilterMessagesByActorId(actorId); 
-                Debug.Log(actorId);
+                //Debug.Log(actorId);
                 trigger.StartDialogue(filteredMessages);    
             }
         }

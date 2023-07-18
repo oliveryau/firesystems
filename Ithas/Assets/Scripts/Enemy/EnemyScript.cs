@@ -91,6 +91,10 @@ namespace Ithas
                     {
                         policeScript.enemyId = 2;
                     }
+                    else if (enemy is EnemyTypeFirefighter firefighterScript)
+                    {
+                        firefighterScript.enemyId = 3;
+                    }
                     else if (enemy is EnemyTypeObjectWeak weakObjectScript)
                     {
                         weakObjectScript.enemyId = 99;

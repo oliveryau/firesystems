@@ -26,3 +26,4 @@ levelId,enemyNo,enemyPrefabName,homePosition
 1,25,Police,16.5#16
 1,26,Police,6.5#16.5
 1,27,Police,11#18
+1,28,Firefighter,12.5#20
