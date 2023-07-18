@@ -16,11 +16,12 @@ namespace Ithas
         public float currentExp;
         public float maxExp;
         public float totalDamageTaken; //can hide later on
-        public int totalExpGained;
+        public float totalExpGained; //can hide later on
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
 
+        public CSVWriter csvWriter;
         private GameController gameController;
         private PlayerUi playerUi;
 

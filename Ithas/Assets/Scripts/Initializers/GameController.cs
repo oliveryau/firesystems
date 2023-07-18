@@ -12,10 +12,12 @@ namespace Ithas
         [HideInInspector] public float currentPlayerHp;
         [HideInInspector] public float currentPlayerExp;
         [HideInInspector] public int currentEnemyNo;
-        [HideInInspector] public int enemiesKilled;
+        //[HideInInspector]
+        public int enemiesKilled;
 
         [Header("Others")]
         public GameOverMenu gameOverMenu;
+        public CSVWriter csvWriter;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
@@ -109,7 +111,7 @@ namespace Ithas
                 playerStats.hp -= damage; //-hp when damaged
                 playerStatsSO.hp = playerStats.hp; //set it to playerStatsSO
                 playerUi.SetHealthBar(playerStats.hp); //set hpBar value
-                playerStats.totalDamageTaken += damage; //playerStats or playerStatsSO //for damage!!!
+                playerStats.totalDamageTaken += damage; //for damage!!!
             }
         }
 
@@ -121,6 +123,7 @@ namespace Ithas
                 playerAnim.SetBool("Death", true);
                 inputHandler.RemoveInputReceiver(player.GetComponent<PlayerMovement>());
                 gameOverMenu.GameOver();
+                csvWriter.WriteCsv();
             }
 
             playerStatsSO.ResetToInitialStats();
@@ -148,6 +151,7 @@ namespace Ithas
                 playerStats.currentExp += enemyScript.exp; //add enemy's exp to player
                 playerStatsSO.currentExp = playerStats.currentExp; //set it to playerStatsSO
                 playerUi.SetExpBar(playerStats.currentExp); //set exp value of player
+                playerStats.totalExpGained += playerStats.currentExp;
             }
             enemiesKilled++; //here can?
         }

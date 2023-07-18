@@ -8,8 +8,10 @@ namespace Ithas
     public class Timer : MonoBehaviour
     {
         [HideInInspector] public float currentTime = 0f;
-        private float startingTime = 60f;
+        public float startingTime = 60f;
+        private bool hasWrittenData;
 
+        public CSVWriter csvWriter;
         public GameObject levelFailPopUp;
         [SerializeField] TextMeshProUGUI countdownText;
 
@@ -18,9 +20,11 @@ namespace Ithas
         private void Start()
         {
             currentTime = startingTime;
-        }
+            hasWrittenData = false;
 
-        private void Update()
+    }
+
+    private void Update()
         {
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = "Timer: " + currentTime.ToString("0");
@@ -30,11 +34,13 @@ namespace Ithas
                 countdownText.color = Color.red;
             }
 
-            if (currentTime <= 0f)
+            if (currentTime <= 0f && !hasWrittenData)
             {
                 currentTime = 0f;
                 levelFailPopUp.SetActive(true);
                 inputHandler.SetActive(false); //player input disabled when UI is shown
+                csvWriter.WriteCsv();
+                hasWrittenData = true;
             }
         }
     }

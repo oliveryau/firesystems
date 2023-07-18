@@ -22,6 +22,7 @@ namespace Ithas
         [Header("Others")]
         public GameObject inputHandler;
         public Timer timer;
+        public CSVWriter csvWriter;
 
         public void SetCompletionPercentage() // Only for starting
         {
@@ -50,6 +51,7 @@ namespace Ithas
             // Check if all game objects have been destroyed (100% completion)
             if (completionPercentage >= 100)
             {
+                csvWriter.WriteCsv();
                 Time.timeScale = 0f;
                 levelCompletionPopUp.SetActive(true);
                 inputHandler.SetActive(false); //player input disabled when UI is shown
