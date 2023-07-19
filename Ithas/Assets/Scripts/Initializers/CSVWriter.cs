@@ -34,7 +34,7 @@ namespace Ithas
 
         private void Start()
         {
-            filename = Application.dataPath + "/Analytics.csv";
+            filename = Application.persistentDataPath + "/Analytics.csv"; //AppData/LocalLow/DefaultCompany/Ithas
         }
 
         public void WriteCsv()

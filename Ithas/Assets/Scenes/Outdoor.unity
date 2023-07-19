@@ -8395,7 +8395,23 @@ PrefabInstance:
       objectReference: {fileID: 1527501165}
     - target: {fileID: 2485198052444951556, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485198052444951559, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 23.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485198052444951562, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485198052444951562, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485198052444951562, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6603774
       objectReference: {fileID: 0}
     - target: {fileID: 2485198052444951565, guid: 5a676404c26e9a640a52ed279609e5a4, type: 3}
       propertyPath: dialogueManager

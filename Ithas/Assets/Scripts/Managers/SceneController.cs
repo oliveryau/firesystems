@@ -9,7 +9,6 @@ namespace Ithas
     {
         public string currentScene;
         public string sceneToLoad;
-        public string endingScene;
 
         public float fadeDelay;
         public GameObject fadeInPanel;
@@ -57,11 +56,6 @@ namespace Ithas
             StartCoroutine(FadeCoroutine());
         }
 
-        public void GoToEnding()
-        {
-            StartCoroutine(FadeCoroutineEnd());
-        }
-
         public IEnumerator FadeCoroutine()
         {
             inputHandler.SetActive(true);
@@ -88,22 +82,6 @@ namespace Ithas
             }
             yield return new WaitForSeconds(fadeDelay);
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
-            while (!asyncOperation.isDone)
-            {
-                yield return null;
-            }
-        }
-
-        public IEnumerator FadeCoroutineEnd()
-        {
-            inputHandler.SetActive(true);
-            Time.timeScale = 1f;
-            if (fadeOutPanel != null)
-            {
-                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
-            }
-            yield return new WaitForSeconds(fadeDelay);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(endingScene);
             while (!asyncOperation.isDone)
             {
                 yield return null;

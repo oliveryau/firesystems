@@ -15576,7 +15576,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2618532477403114842}
         m_TargetAssemblyTypeName: Ithas.SceneController, Assembly-CSharp
-        m_MethodName: GoToEnding
+        m_MethodName: BackToOutdoor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
