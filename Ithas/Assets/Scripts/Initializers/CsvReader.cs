@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets;
 
 namespace Ithas
 {
@@ -16,6 +16,7 @@ namespace Ithas
         [SerializeField] private TextAsset levelEnemyDataCsv;
         [SerializeField] private TextAsset dialogueDataCsv;
         [SerializeField] private TextAsset actorDataCsv;
+        [SerializeField] private TextAsset itemDropDataCsv;
 
         #region PlayerData Classes
 
@@ -142,12 +143,33 @@ namespace Ithas
 
         #endregion
 
+        #region ItemDropData Classes
+
+        [System.Serializable]
+        public class ItemDropData
+        {
+            public int enemyId;
+            public string dropPrefabName;
+            public string dropType;
+            public float dropValue;
+            public float dropPercentage;
+        }
+        [System.Serializable]
+        public class ItemDropDataArray
+        {
+            public ItemDropData[] itemDropData;
+        }
+
+        #endregion
+
+
         public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
         public EnemyTypeDataArray enemyTypeDataList = new EnemyTypeDataArray(); //instance of enemyTypeDataArray
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public DialogueDataArray dialogueDataList = new DialogueDataArray(); //instance of dialogueDataArray
         public ActorDataArray actorDataList = new ActorDataArray(); //instance of ActorDataArray
+        public ItemDropDataArray itemDropDataList = new ItemDropDataArray(); //instance of ActorDataArray
 
 
         private void Awake()
@@ -158,6 +180,7 @@ namespace Ithas
             ReadLevelData();
             ReadDialogueData();
             ReadActorData();
+            ReadItemDropData();
         }
 
         private void ReadPlayerData()
@@ -290,6 +313,25 @@ namespace Ithas
 
                 string filePath = (data[3 * (i + 1) + 2]);
                 actorDataList.actorData[i].actorImg = Resources.Load<Sprite>(filePath);
+            }
+        }
+
+        private void ReadItemDropData()
+        {
+            string[] data = itemDropDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            int tableSize = (data.Length) / 5 - 1; //noOfColumns - headerRow
+            itemDropDataList.itemDropData = new ItemDropData[tableSize];
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                itemDropDataList.itemDropData[i] = new ItemDropData();
+
+                itemDropDataList.itemDropData[i].enemyId = int.Parse(data[5 * (i + 1)]);
+                itemDropDataList.itemDropData[i].dropPrefabName = (data[5 * (i + 1) + 1]);
+                itemDropDataList.itemDropData[i].dropType = (data[5 * (i + 1) + 2]);
+                itemDropDataList.itemDropData[i].dropValue = float.Parse(data[5 * (i + 1) + 3]);
+                itemDropDataList.itemDropData[i].dropPercentage = float.Parse(data[5 * (i + 1) + 4]);
             }
         }
     }

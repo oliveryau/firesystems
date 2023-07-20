@@ -10,24 +10,26 @@ namespace Ithas
 {
     public class DialogueManager : MonoBehaviour
     {
+        [Header("Dialogue Objects")]
         public Image actorLImage;
         public Image actorRImage;
         public TextMeshProUGUI actorName;
         public TextMeshProUGUI messageText;
         public Button firstOption;
         public Button secondOption;
-        public RectTransform backgroundBox;
+
+        [Header("Others")]
         public DialogueActivator trigger;
         public GameObject inputHandler;
-        private int nextCutscene; 
 
         Message[] currentMessages;
         Actor[] currentActors;
         int activeMessage = 0;
         public static bool isActive = false;
-
+        private int nextCutscene;
         public bool isTalking = false; //boolean check
         public bool hasChoice = false;
+
         private void Update()
         {
             if (Input.GetMouseButtonDown(0) && isActive == true && !hasChoice)
@@ -65,19 +67,19 @@ namespace Ithas
 
         public void DisplayMessage(int cutsceneToGo)
         {
-            foreach (Message message in currentMessages) //runs thru all messages
+            foreach (Message message in currentMessages) // runs thru all messages
             {
-                if (message.cutscene == cutsceneToGo) //
+                if (message.cutscene == cutsceneToGo) // find right cutscene to go to
                 {
                     isTalking = true;
                     hasChoice = false;
                     messageText.text = message.message;
 
-                    Actor actorToDisplayName = currentActors[message.currentSpeaker]; //name change
+                    Actor actorToDisplayName = currentActors[message.currentSpeaker]; // for name change
                     actorName.text = actorToDisplayName.name;
-                    Actor actorToDisplayLeft = currentActors[message.speakerLeft]; //to show on dialogue box
+                    Actor actorToDisplayLeft = currentActors[message.speakerLeft]; // to show on dialogue box
                     actorLImage.sprite = actorToDisplayLeft.sprite;
-                    Actor actorToDisplayRight = currentActors[message.speakerRight]; //to show on dialogue box
+                    Actor actorToDisplayRight = currentActors[message.speakerRight]; // to show on dialogue box
                     actorRImage.sprite = actorToDisplayRight.sprite;
 
                     if (message.currentSpeaker == message.speakerLeft)
@@ -95,9 +97,8 @@ namespace Ithas
                         Debug.Log("Current Speakers do not match left/right speakers!");
                     }
 
-                    isTalking = true;
                     nextCutscene = message.cutsceneRef;
-                    if (nextCutscene == -1) //to check if have choice
+                    if (nextCutscene == -1) // choice checker based on cutscene ref no
                     {
                         hasChoice = true;
                         Choice currentChoice = new Choice();
@@ -131,7 +132,7 @@ namespace Ithas
                 }
             }
             isActive = false;
-            trigger.EndDialogue();
+            trigger.EndDialogue(); // when dialogue finishes for one NPC, end dialogue
             isTalking = false;
             inputHandler.SetActive(true);
         }        

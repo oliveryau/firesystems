@@ -49,11 +49,13 @@ namespace Ithas
 
         public void RetryLevel() //when fail and retry button
         {
+            Time.timeScale = 1f;
             StartCoroutine(RetryFadeCoroutine());
         }
 
         public void BackToOutdoor()
         {
+            Time.timeScale = 1f;
             StartCoroutine(FadeCoroutine());
         }
 

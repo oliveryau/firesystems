@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Ithas.CsvReader;
 
 namespace Ithas
 {
@@ -13,8 +14,7 @@ namespace Ithas
         [HideInInspector] public float currentPlayerHp;
         [HideInInspector] public float currentPlayerExp;
         [HideInInspector] public int currentEnemyNo;
-        //[HideInInspector]
-        public int enemiesKilled;
+        [HideInInspector] public int enemiesKilled;
 
         [Header("Others")]
         public GameOverMenu gameOverMenu;
@@ -107,7 +107,7 @@ namespace Ithas
                 playerStats.hp -= damage; //-hp when damaged
                 playerStatsSO.hp = playerStats.hp; //set it to playerStatsSO
                 playerUi.SetHealthBar(playerStats.hp); //set hpBar value
-                playerStats.totalDamageTaken += damage; //for damage!!!
+                playerStats.totalDamageTaken += damage; //for damage analytics
             }
         }
 
@@ -138,7 +138,16 @@ namespace Ithas
 
         private void EnemyDie(EnemyScript enemyScript)
         {
+            Vector3 enemyPosition = enemyScript.transform.position; // get the enemy position before destroying it
             Destroy(enemyScript.gameObject); //destroy enemy when die
+
+            ItemDrop itemDrop = enemyScript.GetComponent<ItemDrop>();
+            if (itemDrop != null)
+            {
+                int enemyId = enemyScript.enemyId;
+                itemDrop.DropItems(enemyId, enemyPosition); // call the DropItems method from the ItemDrop script
+            }
+            Debug.Log(itemDrop);
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerUi playerUi = player.GetComponent<PlayerUi>();
@@ -149,7 +158,7 @@ namespace Ithas
                 playerUi.SetExpBar(playerStats.currentExp); //set exp value of player
                 playerStats.totalExpGained += playerStats.currentExp;
             }
-            enemiesKilled++; //here can?
+            enemiesKilled++;
         }
 
         #region Player Data CSV Retrieval
@@ -474,10 +483,9 @@ namespace Ithas
 
         #region Dialogue Data CSV Retrieval
 
-        public Message[] GetDialogueMessages()
+        public Message[] GetDialogueMessages() 
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
-            NPC npc = FindObjectOfType<NPC>();
             if (csvReader != null && csvReader.dialogueDataList.dialogueData.Length > 0)
             {
                 List<Message> messages = new List<Message>();
@@ -487,9 +495,9 @@ namespace Ithas
                         cutsceneRef = dialogueData.cutsceneRef, speakerLeft = dialogueData.speakerLeft, speakerRight = dialogueData.speakerRight,
                         currentSpeaker = dialogueData.currentSpeaker, choice = dialogueData.choice});
                 }
-                return messages.ToArray();
+                return messages.ToArray(); //get all messages
             }
-            return null; // If no dialogue messages are found or CSV reader is not present
+            return null; // if no dialogue messages are found or CSV reader is not present
         }
 
         #endregion
@@ -503,13 +511,13 @@ namespace Ithas
             {
                 foreach (var actorData in csvReader.actorDataList.actorData)
                 {
-                    if (actorData.actorId == actorId) //do i take id or name
+                    if (actorData.actorId == actorId)
                     {
-                        return actorData.actorName; //get name help
+                        return actorData.actorName; // get name
                     }
                 }
             }
-            return ""; //if nothing
+            return ""; // if nothing
         }
 
         public Sprite GetActorSprite(int actorId)
@@ -521,11 +529,33 @@ namespace Ithas
                 {
                     if (actorData.actorId == actorId)
                     {
-                        return actorData.actorImg;
+                        return actorData.actorImg; // get sprite
                     }
                 }
             }
-            return null; //if nothing
+            return null; // if nothing
+        }
+
+        #endregion
+
+        #region Item Drop Data CSV Retrieval
+        public ItemDropData[] GetItemDropData(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.itemDropDataList.itemDropData.Length > 0)
+            {
+                List<ItemDropData> dropDataList = new List<ItemDropData>();
+                foreach (var dropData in csvReader.itemDropDataList.itemDropData)
+                {
+                    if (dropData.enemyId == enemyScript.enemyId)
+                    {
+                        dropDataList.Add(new ItemDropData { enemyId = dropData.enemyId, dropPrefabName = dropData.dropPrefabName, dropType = dropData.dropType, 
+                            dropValue = dropData.dropValue, dropPercentage = dropData.dropPercentage});
+                    }
+                }
+                return dropDataList.ToArray(); // get all item drop data
+            }
+            return null; // if nothing
         }
 
         #endregion

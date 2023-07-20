@@ -579,10 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713679fa283c94269a7e9d4fc8960c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalObjects: 0
-  destroyedObjects: 0
   completionPercentage: 0
-  burnableObjects: []
   completionBar: {fileID: 90836207}
   levelCompletionPopUp: {fileID: 2139888192}
   completionText: {fileID: 22119073}
@@ -865,7 +862,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -938,12 +935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f660061eee9cd40b2b5081ab0300f626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLevel: {fileID: 2012104406}
-  playerStats: {fileID: 8797338796990005486}
-  playerStatsSO: {fileID: 11400000, guid: 19154d09151aa1241abe66530ca17977, type: 2}
-  completionBar: {fileID: 90836206}
-  timer: {fileID: 1639064138}
-  gameController: {fileID: 1826426781}
   levelId: 0
   startPlayerLevel: 0
   endPlayerLevel: 0
@@ -952,6 +943,12 @@ MonoBehaviour:
   damageTaken: 0
   totalExpGained: 0
   enemiesKilled: 0
+  startLevel: {fileID: 2012104406}
+  playerStats: {fileID: 8797338796990005486}
+  playerStatsSO: {fileID: 11400000, guid: 19154d09151aa1241abe66530ca17977, type: 2}
+  completionBar: {fileID: 90836206}
+  timer: {fileID: 1639064138}
+  gameController: {fileID: 1826426781}
 --- !u!4 &169052871
 Transform:
   m_ObjectHideFlags: 0
@@ -2135,7 +2132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.392}
+  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4850,7 +4847,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4985,7 +4982,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5188,7 +5185,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5720,7 +5717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.392}
+  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5782,8 +5779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -250}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -150, y: -250}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1021367989
 MonoBehaviour:
@@ -6255,7 +6252,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6443,7 +6440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123882290}
   m_Layer: 5
-  m_Name: Fail
+  m_Name: OutOfTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6563,7 +6560,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6934,7 +6931,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -7069,7 +7066,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -7309,7 +7306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.8627451}
+  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7796,7 +7793,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -7892,9 +7889,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTime: 0
   startingTime: 60
+  countdownText: {fileID: 2044621042}
   csvWriter: {fileID: 1820038870}
   levelFailPopUp: {fileID: 2098445537}
-  countdownText: {fileID: 2044621042}
   inputHandler: {fileID: 1669290323}
 --- !u!1 &1644524230
 GameObject:
@@ -7955,11 +7952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbaaa779856044766b908c3ad0df14bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsScreen: {fileID: 1041287483}
-  gameOverScreen: {fileID: 905634831}
-  levelCompleteScreen: {fileID: 2139888192}
-  analyticsController: {fileID: 169052870}
-  completionBar: {fileID: 90836206}
   levelId: {fileID: 569684242}
   startPlayerLevel: {fileID: 613056373}
   endPlayerLevel: {fileID: 1808953284}
@@ -7968,6 +7960,11 @@ MonoBehaviour:
   damageTaken: {fileID: 1191248579}
   totalExpGained: {fileID: 1580379877}
   enemiesKilled: {fileID: 1751647662}
+  statsScreen: {fileID: 1041287483}
+  gameOverScreen: {fileID: 905634831}
+  levelCompleteScreen: {fileID: 2139888192}
+  analyticsController: {fileID: 169052870}
+  completionBar: {fileID: 90836206}
 --- !u!1 &1653894654
 GameObject:
   m_ObjectHideFlags: 0
@@ -8509,7 +8506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.39215687}
+  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8625,7 +8622,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8760,7 +8757,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8895,7 +8892,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -13905,7 +13902,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -14076,7 +14073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 1}
+  m_Color: {r: 0.6117647, g: 0.5686275, b: 0.5686275, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15401,7 +15398,7 @@ GameObject:
   - component: {fileID: 2098445539}
   - component: {fileID: 2098445538}
   m_Layer: 5
-  m_Name: LevelFail Canvas
+  m_Name: OutOfTime Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,7 @@ namespace Ithas
     {
         private void Start()
         {
-            actorId = 1;
+            actorId = 1; // only nurse may
         }
     }
 }

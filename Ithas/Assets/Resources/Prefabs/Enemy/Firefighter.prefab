@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1497554490939562436}
   - component: {fileID: 5932725580748318305}
   - component: {fileID: 6348020007707412424}
+  - component: {fileID: -654454860375306216}
   m_Layer: 6
   m_Name: Firefighter
   m_TagString: Untagged
@@ -189,6 +190,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   currentState: 0
+--- !u!114 &-654454860375306216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006100547277897289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02be0d9cca60e148bcaec52ca2dcb99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
+  dropItems: []
+  enemyId: 0
+  dropPrefabName: 
+  dropType: 
+  dropValue: 0
+  dropPercentage: 0
 --- !u!1 &1238556109728592239
 GameObject:
   m_ObjectHideFlags: 0

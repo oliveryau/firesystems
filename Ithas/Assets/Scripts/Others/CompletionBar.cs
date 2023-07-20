@@ -10,29 +10,29 @@ namespace Ithas
     public class CompletionBar : MonoBehaviour
     {
         [Header("Values")]
-        public int totalObjects; // Total number of specific static game objects in the level
-        public int destroyedObjects; // Number of destroyed game objects
-        public float completionPercentage; // Completion percentage
-        public GameObject[] burnableObjects; // To store all burnable objects
+        private int totalObjects; // total number of specific static game objects in the level
+        private int destroyedObjects; // number of destroyed game objects
+        [HideInInspector] public float completionPercentage; // completion percentage
+        private GameObject[] burnableObjects; // to store all burnable objects
 
         [Header("UI")]
         public Slider completionBar;
-        public GameObject levelCompletionPopUp; // Finish Screen
-        [SerializeField] TextMeshProUGUI completionText; // Finish Text
+        public GameObject levelCompletionPopUp; // finish Screen
+        [SerializeField] TextMeshProUGUI completionText; // finish Text
 
         [Header("Others")]
         public GameObject inputHandler;
         public Timer timer;
         public CSVWriter csvWriter;
 
-        public void SetCompletionPercentage() // Only for starting
+        public void SetCompletionPercentage() // only for starting
         {
             burnableObjects = GameObject.FindGameObjectsWithTag("Burnables");
             totalObjects = burnableObjects.Length; // Set total amount of burnable objects
             UpdateCompletionPercentage();
         }
 
-        public void UpdateCompletionPercentage() // Actual value
+        public void UpdateCompletionPercentage() // actual value
         {
             completionPercentage = (float)destroyedObjects / totalObjects * 100f;
             SetCompletionBar();
@@ -49,13 +49,12 @@ namespace Ithas
             destroyedObjects++;
             UpdateCompletionPercentage();
 
-            // Check if all game objects have been destroyed (100% completion)
-            if (completionPercentage >= 100)
+            if (completionPercentage >= 100) // check if all game objects have been destroyed
             {
                 csvWriter.WriteCsv();
                 Time.timeScale = 0f;
                 levelCompletionPopUp.SetActive(true);
-                inputHandler.SetActive(false); //player input disabled when UI is shown
+                inputHandler.SetActive(false); // player input disabled when UI is shown
             }
         }
     }

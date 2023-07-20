@@ -7,22 +7,22 @@ namespace Ithas
 {
     public class AnalyticsController : MonoBehaviour
     {
+        [HideInInspector] public int levelId;
+        [HideInInspector] public int startPlayerLevel;
+        [HideInInspector] public int endPlayerLevel;
+        [HideInInspector] public float completionRate;
+        [HideInInspector] public float timeTaken;
+        [HideInInspector] public float damageTaken;
+        [HideInInspector] public float totalExpGained;
+        [HideInInspector] public int enemiesKilled;
+
+        [Header("Others")]
         public StartLevel startLevel;
         public PlayerStats playerStats;
         public PlayerStatsSO playerStatsSO;
         public CompletionBar completionBar;
         public Timer timer;
         public GameController gameController;
-
-        public int levelId;
-        public int startPlayerLevel;
-        public int endPlayerLevel;
-        public float completionRate;
-        public float timeTaken;
-        public float damageTaken;
-        public float totalExpGained;
-        public int enemiesKilled;
-
 
         public void DoAnalytics()
         {

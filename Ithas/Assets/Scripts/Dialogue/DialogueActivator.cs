@@ -8,7 +8,6 @@ namespace Ithas
 {
     public class DialogueActivator : MonoBehaviour
     {
-        private bool playerInRange;
         public GameObject dialogue;
         public Message[] messages;
         public Actor[] actors;
@@ -27,7 +26,7 @@ namespace Ithas
                 actors[i].sprite = gameController.GetActorSprite(i);
             }
 
-            int noOfLines = csvReader.dialogueDataList.dialogueData.Length;
+            int noOfLines = csvReader.dialogueDataList.dialogueData.Length; 
             messages = new Message[noOfLines];
 
             for (int i = 0; i < noOfLines; i++)

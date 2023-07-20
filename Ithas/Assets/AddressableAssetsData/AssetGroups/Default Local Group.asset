@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Address: PlayerData
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7c37247c40325354ab8c37ac90ff2861
+    m_Address: ItemDropData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a2221525da6148d39cf0a84f9b8418d, type: 2}
   m_SchemaSet:

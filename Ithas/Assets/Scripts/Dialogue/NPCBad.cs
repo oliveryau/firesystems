@@ -9,7 +9,7 @@ namespace Ithas
     {
         private void Start()
         {
-            actorId = 2;
+            actorId = 2; // only ithas demon
         }
     }
 }

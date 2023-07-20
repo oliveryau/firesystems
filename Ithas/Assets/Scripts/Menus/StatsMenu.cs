@@ -8,21 +8,24 @@ namespace Ithas
 {
     public class StatsMenu : MonoBehaviour
     {
+        [Header("Stats Objects")]
+        [SerializeField] TextMeshProUGUI levelId;
+        [SerializeField] TextMeshProUGUI startPlayerLevel;
+        [SerializeField] TextMeshProUGUI endPlayerLevel;
+        [SerializeField] TextMeshProUGUI completionRate;
+        [SerializeField] TextMeshProUGUI timeTaken;
+        [SerializeField] TextMeshProUGUI damageTaken;
+        [SerializeField] TextMeshProUGUI totalExpGained;
+        [SerializeField] TextMeshProUGUI enemiesKilled;
+
+        [Header("Others")]
         public GameObject statsScreen;
         public GameObject gameOverScreen;
         public GameObject levelCompleteScreen;
         public AnalyticsController analyticsController;
         public CompletionBar completionBar;
-        public TextMeshProUGUI levelId;
-        public TextMeshProUGUI startPlayerLevel;
-        public TextMeshProUGUI endPlayerLevel;
-        public TextMeshProUGUI completionRate;
-        public TextMeshProUGUI timeTaken;
-        public TextMeshProUGUI damageTaken;
-        public TextMeshProUGUI totalExpGained;
-        public TextMeshProUGUI enemiesKilled;
 
-        public void ShowStats()
+        public void ShowStats() // stats button press
         {
             levelId.text = "Level: " + analyticsController.levelId.ToString();
             startPlayerLevel.text = "Initial Player Level: " + analyticsController.startPlayerLevel.ToString();
@@ -37,14 +40,14 @@ namespace Ithas
             levelCompleteScreen.SetActive(false);
             statsScreen.SetActive(true);
         }
-        public void CloseStats()
+        public void CloseStats() // stats back button press
         {
             statsScreen.SetActive(false);
-            if (completionBar.completionPercentage < 100) //for gameover
+            if (completionBar.completionPercentage < 100) // for gameover
             {
                 gameOverScreen.SetActive(true);
             }
-            else //for level complete
+            else // for level complete
             {
                 levelCompleteScreen.SetActive(true);
             }
