@@ -1,3 +1,4 @@
+//celine
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,11 +73,6 @@ namespace Ithas
                                  data.endPlayerLevel + "," + data.completionRate + "," +
                                  data.timeTaken + "," + data.damageTaken + "," +
                                  data.totalExpGained + "," + data.enemiesKilled);
-
-                    Debug.Log(data.levelId + "," + data.startPlayerLevel + "," +
-                              data.endPlayerLevel + "," + data.completionRate + "," +
-                              data.timeTaken + "," + data.damageTaken + "," +
-                              data.totalExpGained + "," + data.enemiesKilled);
                 }
             }
         }

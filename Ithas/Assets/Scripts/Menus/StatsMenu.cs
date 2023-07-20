@@ -1,3 +1,4 @@
+//celine
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Ithas
             levelId.text = "Level: " + analyticsController.levelId.ToString();
             startPlayerLevel.text = "Initial Player Level: " + analyticsController.startPlayerLevel.ToString();
             endPlayerLevel.text = "End Player Level: " + analyticsController.endPlayerLevel.ToString();
-            completionRate.text = "Completion Rate: " + analyticsController.completionRate.ToString("0.00");
+            completionRate.text = "Completion Rate: " + analyticsController.completionRate.ToString("0.00") + "%";
             timeTaken.text = "Time Taken: " + analyticsController.timeTaken.ToString("0.00");
             damageTaken.text = "Damage Taken: " + analyticsController.damageTaken.ToString();
             totalExpGained.text = "Total EXP Gained: " + analyticsController.totalExpGained.ToString();

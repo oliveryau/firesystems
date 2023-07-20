@@ -1,3 +1,4 @@
+//oliver
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Ithas
         {
             if (collision.CompareTag("Player") && !collision.isTrigger)
             {
-                if (currentScene == "Level" || currentScene == "Level 2")
+                if (currentScene == "Level") //currentScene == "Level 2"
                 {
                     playerStatsSO.ResetToInitialStats();
                 }
@@ -56,22 +57,6 @@ namespace Ithas
             StartCoroutine(FadeCoroutine());
         }
 
-        public IEnumerator FadeCoroutine()
-        {
-            inputHandler.SetActive(true);
-            Time.timeScale = 1f;
-            if (fadeOutPanel != null)
-            {
-                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
-            }
-            yield return new WaitForSeconds(fadeDelay);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
-            while (!asyncOperation.isDone)
-            {
-                yield return null;
-            }
-        }
-
         public IEnumerator RetryFadeCoroutine() //when fail and retry button
         {
             playerStatsSO.ResetToInitialStats();
@@ -82,6 +67,22 @@ namespace Ithas
             }
             yield return new WaitForSeconds(fadeDelay);
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+        }
+
+        public IEnumerator FadeCoroutine()
+        {
+            inputHandler.SetActive(true);
+            Time.timeScale = 1f;
+            if (fadeOutPanel != null)
+            {
+                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(fadeDelay);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
             while (!asyncOperation.isDone)
             {
                 yield return null;

@@ -1,3 +1,4 @@
+//oliver
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class GameSaveManager : MonoBehaviour
         }
     }
 
-    public void SaveData(ScriptableObject scriptableObject)
+    public void SaveData(ScriptableObject scriptableObject) //scene to scene loading
     {
         string key = scriptableObject.GetType().ToString();
         if (savedObjects.ContainsKey(key))
@@ -47,19 +48,6 @@ public class GameSaveManager : MonoBehaviour
         else
         {
             savedObjects.Add(key, scriptableObject);
-        }
-    }
-
-    public T LoadData<T>() where T : ScriptableObject
-    {
-        string key = typeof(T).ToString();
-        if (savedObjects.TryGetValue(key, out ScriptableObject scriptableObject))
-        {
-            return scriptableObject as T;
-        }
-        else
-        {
-            return null;
         }
     }
 }

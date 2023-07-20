@@ -1,3 +1,4 @@
+//oliver
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,10 @@ namespace Ithas
             {
                 levelId = 1;
             }
-            else if (currentScene.name == "Level 2")
-            {
-                levelId = 2;
-            }
+            //else if (currentScene.name == "Level 2")
+            //{
+            //    levelId = 2;
+            //}
 
             GameObject enemyManager = new GameObject("EnemyManager");
             EnemyScript enemyScript = enemyManager.AddComponent<EnemyScript>();

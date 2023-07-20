@@ -1,3 +1,4 @@
+//oliver, celine
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,7 @@ namespace Ithas
         private void Update()
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
             if (currentPlayerLevel < 10) //max level is 10
             {
                 if (playerStats.currentExp >= playerStats.maxExp) //level up
@@ -67,16 +69,12 @@ namespace Ithas
                         playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
                     }
 
-                    PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
                     if (playerAttack != null)
                     {
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
                 }
-
-                #region Cheat Code
-
-                if (Input.GetKeyDown(KeyCode.F1)) //cheat code F1 to level up
+                else if (Input.GetKeyDown(KeyCode.F1)) //cheat code F1 to level up
                 {
                     currentPlayerLevel += 1; //+1 player level
                     currentPlayerExp = 0; //reset to 0
@@ -86,14 +84,12 @@ namespace Ithas
                         playerStats.UpdatePlayerStats(currentPlayerLevel); //update player stats when level up
                     }
 
-                    PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
                     if (playerAttack != null)
                     {
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
                 }
 
-                #endregion
             }
         }
 

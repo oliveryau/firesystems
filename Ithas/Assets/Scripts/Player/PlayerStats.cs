@@ -1,3 +1,4 @@
+//oliver
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,13 +16,14 @@ namespace Ithas
         public float movementSpeed;
         public float currentExp;
         public float maxExp;
-        public float totalDamageTaken; //can hide later on
-        public float totalExpGained; //can hide later on
+
+        [Header("Other Stats")]
+        public float totalDamageTaken;
+        public float totalExpGained;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
 
-        public CSVWriter csvWriter;
         private GameController gameController;
         private PlayerUi playerUi;
 
