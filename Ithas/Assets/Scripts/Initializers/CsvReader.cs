@@ -294,12 +294,12 @@ namespace Ithas
 
         private void ReadActorData()
         {
-#if UNITY_STANDALONE_WIN
+        #if UNITY_STANDALONE_WIN
             string[] data = actorDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-#endif
-#if UNITY_STANDALONE_OSX
+        #endif
+        #if UNITY_STANDALONE_OSX
             string[] data = actorDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-#endif
+        #endif
 
             int tableSize = (data.Length) / 3 - 1; //noOfColumns - headerRow
             actorDataList.actorData = new ActorData[tableSize];

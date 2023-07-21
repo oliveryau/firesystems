@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Ithas.CsvReader;
 
 namespace Ithas
 {
@@ -15,6 +14,7 @@ namespace Ithas
         [HideInInspector] public float currentPlayerExp;
         [HideInInspector] public int currentEnemyNo;
         [HideInInspector] public int enemiesKilled;
+        [HideInInspector] public Vector3 enemyPosition;
 
         [Header("Others")]
         public GameOverMenu gameOverMenu;
@@ -57,6 +57,8 @@ namespace Ithas
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+            PlayerUi playerUi = player.GetComponent<PlayerUi>();
+
             if (currentPlayerLevel < 10) //max level is 10
             {
                 if (playerStats.currentExp >= playerStats.maxExp) //level up
@@ -89,7 +91,6 @@ namespace Ithas
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
                 }
-
             }
         }
 
@@ -138,16 +139,14 @@ namespace Ithas
 
         private void EnemyDie(EnemyScript enemyScript)
         {
-            Vector3 enemyPosition = enemyScript.transform.position; // get the enemy position before destroying it
-            Destroy(enemyScript.gameObject); //destroy enemy when die
-
+            enemyPosition = enemyScript.transform.position; // get the enemy position before destroying it
             ItemDrop itemDrop = enemyScript.GetComponent<ItemDrop>();
             if (itemDrop != null)
             {
-                int enemyId = enemyScript.enemyId;
-                itemDrop.DropItems(enemyId, enemyPosition); // call the DropItems method from the ItemDrop script
+                itemDrop.SpawnDropItems(enemyScript.enemyId, enemyPosition);
             }
-            Debug.Log(itemDrop);
+
+            Destroy(enemyScript.gameObject); //destroy enemy when die
 
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerUi playerUi = player.GetComponent<PlayerUi>();
@@ -539,23 +538,68 @@ namespace Ithas
         #endregion
 
         #region Item Drop Data CSV Retrieval
-        public ItemDropData[] GetItemDropData(EnemyScript enemyScript)
+        public string GetItemDropPrefabName(EnemyScript enemyScript)
         {
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             if (csvReader != null && csvReader.itemDropDataList.itemDropData.Length > 0)
             {
-                List<ItemDropData> dropDataList = new List<ItemDropData>();
                 foreach (var dropData in csvReader.itemDropDataList.itemDropData)
                 {
                     if (dropData.enemyId == enemyScript.enemyId)
                     {
-                        dropDataList.Add(new ItemDropData { enemyId = dropData.enemyId, dropPrefabName = dropData.dropPrefabName, dropType = dropData.dropType, 
-                            dropValue = dropData.dropValue, dropPercentage = dropData.dropPercentage});
+                        return dropData.dropPrefabName;
                     }
                 }
-                return dropDataList.ToArray(); // get all item drop data
             }
             return null; // if nothing
+        }
+
+        public string GetItemDropType(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.itemDropDataList.itemDropData.Length > 0)
+            {
+                foreach (var dropData in csvReader.itemDropDataList.itemDropData)
+                {
+                    if (dropData.enemyId == enemyScript.enemyId)
+                    {
+                        return dropData.dropType;
+                    }
+                }
+            }
+            return null; // if nothing
+        }
+
+        public float GetItemDropValue(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.itemDropDataList.itemDropData.Length > 0)
+            {
+                foreach (var dropData in csvReader.itemDropDataList.itemDropData)
+                {
+                    if (dropData.enemyId == enemyScript.enemyId)
+                    {
+                        return dropData.dropValue;
+                    }
+                }
+            }
+            return 0; // if nothing
+        }
+
+        public float GetItemDropPercentage(EnemyScript enemyScript)
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.itemDropDataList.itemDropData.Length > 0)
+            {
+                foreach (var dropData in csvReader.itemDropDataList.itemDropData)
+                {
+                    if (dropData.enemyId == enemyScript.enemyId)
+                    {
+                        return dropData.dropPercentage;
+                    }
+                }
+            }
+            return 0; // if nothing
         }
 
         #endregion

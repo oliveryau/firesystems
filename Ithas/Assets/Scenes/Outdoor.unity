@@ -2760,6 +2760,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0070ca28432131e449ce151976577507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &527078175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8210367329042051980, guid: d4bcb8921881a6344a8c5dfe5e93ecab, type: 3}
+  m_PrefabInstance: {fileID: 1937630852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527078171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f6dfcab4f471749bd9c3ff60b17587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &596203241
 GameObject:
   m_ObjectHideFlags: 0
@@ -8293,6 +8304,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1565749906}
     - target: {fileID: 1270273210744087547, guid: 9039eb49c9ccf3f409065fe938aa6b56, type: 3}
+      propertyPath: playerUi
+      value: 
+      objectReference: {fileID: 527078175}
+    - target: {fileID: 1270273210744087547, guid: 9039eb49c9ccf3f409065fe938aa6b56, type: 3}
       propertyPath: actorName
       value: 
       objectReference: {fileID: 1544967573}
@@ -8324,6 +8339,10 @@ PrefabInstance:
       propertyPath: backgroundBox
       value: 
       objectReference: {fileID: 1820991792}
+    - target: {fileID: 1270273210744087547, guid: 9039eb49c9ccf3f409065fe938aa6b56, type: 3}
+      propertyPath: playerStatsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 19154d09151aa1241abe66530ca17977, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9039eb49c9ccf3f409065fe938aa6b56, type: 3}
 --- !u!1001 &2485198053904526273
@@ -8616,6 +8635,10 @@ PrefabInstance:
       value: Dialogue Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 5098271460747743740, guid: 8f3744ee988d5e04eb670d7c46368d3f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098271460871385463, guid: 8f3744ee988d5e04eb670d7c46368d3f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

@@ -20,6 +20,7 @@ namespace Ithas
 
         [Header("Others")]
         public GameObject inputHandler;
+        public GameObject runOutCanvas;
 
 
         private void Awake()
@@ -37,13 +38,15 @@ namespace Ithas
             {
                 if (currentScene == "Level") //currentScene == "Level 2"
                 {
-                    playerStatsSO.ResetToInitialStats();
+                    runOutCanvas.SetActive(true);
+                    Time.timeScale = 0f;
+                    inputHandler.SetActive(false);
                 }
                 else
                 {
                     GameSaveManager.Instance.SaveData(playerStatsSO); //save data into SO
+                    StartCoroutine(FadeCoroutine());
                 }
-                StartCoroutine(FadeCoroutine());
             }
         }
 
@@ -53,10 +56,24 @@ namespace Ithas
             StartCoroutine(RetryFadeCoroutine());
         }
 
-        public void BackToOutdoor()
+        public void BackToOutdoor() //when complete level and exit/fail level and exit
         {
             Time.timeScale = 1f;
             StartCoroutine(FadeCoroutine());
+        }
+
+        public void BackToOutdoorLoseStats() //when manually exit level
+        {
+            Time.timeScale = 1f;
+            playerStatsSO.ResetToInitialStats();
+            StartCoroutine(FadeCoroutine());
+        }
+
+        public void StayInLevel() //stay in level
+        {
+            Time.timeScale = 1f;
+            inputHandler.SetActive(true);
+            runOutCanvas.SetActive(false);
         }
 
         public IEnumerator RetryFadeCoroutine() //when fail and retry button

@@ -111,6 +111,12 @@ namespace Ithas
                     enemy.homePosition = homePosition;
                     enemy.enemyNo = enemyNo;
 
+                    if (enemy.enemyId != 99 && enemy.enemyId != 98) //only drop for actual enemies
+                    {
+                        ItemDrop itemDrop = enemy.GetComponent<ItemDrop>();
+                        itemDrop.SetDropItems(enemy.enemyId);
+                    }
+
                     enemyNo++;
                     gameController.currentEnemyNo++;
                 }

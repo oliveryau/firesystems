@@ -1,12 +1,12 @@
 actorId,cutscene,cutsceneRef,speakerLeft,speakerRight,currentSpeaker,text,choice
 1,10011,10012,0,1,1,Would you like to heal yourself? Free of charge.,
-1,10012,-1,0,1,0,,Yes#10013*No#10014
-1,10013,10015,0,1,1,Follow me into the building and I will heal you.,
-1,10014,0,0,1,1,Okay see you again.,
-1,10015,0,0,1,0,Thanks.,
+1,10012,-1,0,1,0,,Sure thing#10013*No sister#10014
+1,10013,10015,0,1,1,Follow me and I shall heal you.,
+1,10014,0,0,1,1,Don't talk to me for nothing then.,
+1,10015,0,0,1,0,Hurry up.,
 2,10021,10022,0,2,2,Burn everything!,
 2,10022,10023,0,2,0,...,
 2,10023,10024,0,2,2,You can't stop now.,
-2,10024,10025,0,2,0,Stop...,
+2,10024,10025,0,2,0,No...,
 2,10025,10026,0,2,2,This is who you are!,
-2,10026,0,0,2,0,Please stop!,
+2,10026,0,0,2,0,Argh no!,

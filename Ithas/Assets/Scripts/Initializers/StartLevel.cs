@@ -19,7 +19,7 @@ namespace Ithas
             {
                 levelId = 1;
             }
-            //else if (currentScene.name == "Level 2")
+            //else if (currentScene.name == "Level 2") //if there is a level 2
             //{
             //    levelId = 2;
             //}

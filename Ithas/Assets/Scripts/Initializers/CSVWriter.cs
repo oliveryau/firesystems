@@ -15,6 +15,7 @@ namespace Ithas
         [System.Serializable]
         public class Analytics
         {
+            public string currentDateTime;
             public int levelId;
             public int startPlayerLevel;
             public int endPlayerLevel;
@@ -44,6 +45,7 @@ namespace Ithas
 
             var newAnalytics = new Analytics
             {
+                currentDateTime = analyticsController.currentDateTime,
                 levelId = analyticsController.levelId,
                 startPlayerLevel = analyticsController.startPlayerLevel,
                 endPlayerLevel = analyticsController.endPlayerLevel,
@@ -64,15 +66,16 @@ namespace Ithas
             {
                 if (!fileExists)
                 {
-                    tw.WriteLine("levelId, startPlayerLevel, endPlayerLevel, completionRate, timeTaken, damageTaken, totalExpGained, enemiesKilled");
+                    tw.WriteLine("currentDateTime, levelId, startPlayerLevel, endPlayerLevel, completionRate, timeTaken, damageTaken, totalExpGained, enemiesKilled");
                 }
 
                 foreach (var data in analyticsList.analytics) // Append the data to the file
                 {
-                    tw.WriteLine(data.levelId + "," + data.startPlayerLevel + "," +
-                                 data.endPlayerLevel + "," + data.completionRate + "," +
-                                 data.timeTaken + "," + data.damageTaken + "," +
-                                 data.totalExpGained + "," + data.enemiesKilled);
+                    tw.WriteLine(data.currentDateTime + "," + data.levelId + "," + 
+                                 data.startPlayerLevel + "," + data.endPlayerLevel + "," + 
+                                 data.completionRate + "," + data.timeTaken + "," + 
+                                 data.damageTaken + "," + data.totalExpGained + "," + 
+                                 data.enemiesKilled);
                 }
             }
         }

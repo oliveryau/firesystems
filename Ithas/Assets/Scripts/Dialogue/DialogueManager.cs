@@ -30,6 +30,10 @@ namespace Ithas
         public bool isTalking = false; //boolean check
         public bool hasChoice = false;
 
+        [Header("Player Stats")]
+        public PlayerStatsSO playerStatsSO;
+        public PlayerUi playerUi;
+
         private void Update()
         {
             if (Input.GetMouseButtonDown(0) && isActive == true && !hasChoice)
@@ -118,6 +122,7 @@ namespace Ithas
                             choices.Add(choiceOption.Key);
                             cutsceneOptions.Add(choiceOption.Value);
                         }
+
                         firstOption.gameObject.GetComponent<TMP_Text>().text = choices[0];
                         secondOption.gameObject.GetComponent<TMP_Text>().text = choices[1];
                         firstOption.gameObject.GetComponent<ButtonSceneSelector>().sceneToLoad = cutsceneOptions[0];
@@ -128,6 +133,17 @@ namespace Ithas
                         firstOption.gameObject.SetActive(false);
                         secondOption.gameObject.SetActive(false);
                     }
+
+                    #region Specific choices
+
+                    if (cutsceneToGo == 10013)
+                    {
+                        playerStatsSO.hp = playerStatsSO.maxHp;
+                        playerUi.SetHealthBar(playerStatsSO.hp); // set ui
+                        playerStatsSO.initialHp = playerStatsSO.hp;
+                    }
+
+                    #endregion
                     return;
                 }
             }
