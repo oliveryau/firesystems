@@ -22,7 +22,6 @@ namespace Ithas
             achievementId.text = achievement.achievementId.ToString();
             achievementNameTexts.text = achievement.achievementName;
             achievementDescriptionTexts.text = achievement.achievementDescription;
-
             greyOut.enabled = !isUnlocked;
             tick.enabled = isUnlocked;
         }

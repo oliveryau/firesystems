@@ -20,6 +20,7 @@ namespace Ithas
         [Header("Others")]
         public GameOverMenu gameOverMenu;
         public CSVWriter csvWriter;
+        public AchievementsMenu achievementsMenu;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
@@ -159,6 +160,8 @@ namespace Ithas
                 playerStats.totalExpGained += playerStats.currentExp;
             }
             enemiesKilled++;
+            achievementsMenu.UpdateAchievements(achievementsMenu.achievements);
+            Debug.Log(achievementsMenu.achievements.Length);
         }
 
         #region Player Data CSV Retrieval

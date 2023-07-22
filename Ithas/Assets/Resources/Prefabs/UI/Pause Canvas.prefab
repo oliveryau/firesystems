@@ -92,11 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e128dc4c748406349af1366abcc07832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  achievementItemController: {fileID: 0}
+  achievements: []
   achievementItemPrefab: {fileID: 6634765278438216894, guid: 6778679d2f7041c4189feea70a510a8f, type: 3}
   content: {fileID: 4284179753566584608}
   achievementType: 
+  gameController: {fileID: 0}
+  achievementItemController: {fileID: 0}
+  achievementItemControllers: []
 --- !u!1 &729963367313574739
 GameObject:
   m_ObjectHideFlags: 0
