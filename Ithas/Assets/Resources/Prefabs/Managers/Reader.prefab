@@ -51,6 +51,7 @@ MonoBehaviour:
   dialogueDataCsv: {fileID: 4900000, guid: 320d4e6b3e10d4ba3a844b529af1578f, type: 3}
   actorDataCsv: {fileID: 4900000, guid: fb81fe3643935c04192a2fad5aa94765, type: 3}
   itemDropDataCsv: {fileID: 4900000, guid: 7c37247c40325354ab8c37ac90ff2861, type: 3}
+  achievementDataCsv: {fileID: 4900000, guid: 3a4e33affd45c64409a8f38f29cc3dc5, type: 3}
   playerDataList:
     playerData: []
   playerAttackDataList:
@@ -65,3 +66,5 @@ MonoBehaviour:
     actorData: []
   itemDropDataList:
     itemDropData: []
+  achievementDataList:
+    achievementData: []

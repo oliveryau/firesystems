@@ -3099,6 +3099,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1237089000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 13847876097846646, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
+  m_PrefabInstance: {fileID: 8936540220950759133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1470720143 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5098271460090377681, guid: 8f3744ee988d5e04eb670d7c46368d3f, type: 3}
@@ -8874,9 +8879,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8936540220809997918, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8936540221732917242, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
       propertyPath: inputHandler
       value: 
       objectReference: {fileID: 20076290}
+    - target: {fileID: 8936540221732917242, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
+      propertyPath: achievementsScreen
+      value: 
+      objectReference: {fileID: 1237089000}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}

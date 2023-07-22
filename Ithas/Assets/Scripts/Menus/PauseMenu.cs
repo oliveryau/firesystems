@@ -12,6 +12,7 @@ namespace Ithas
 
         public InputHandler inputHandler;
         public GameObject pauseScreen;
+        public GameObject achievementScreen;
         public string sceneToLoad;
 
         private void Start()
@@ -22,6 +23,7 @@ namespace Ithas
         public void PauseGame()
         {
             pauseScreen.SetActive(true);
+            achievementScreen.SetActive(false);
             Time.timeScale = 0f;
             isPaused = true;
         }
@@ -38,6 +40,11 @@ namespace Ithas
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene(sceneToLoad);
+        }
+
+        public void ShowAchievements()
+        {
+            achievementScreen.SetActive(true);
         }
 
         #region Input Handling

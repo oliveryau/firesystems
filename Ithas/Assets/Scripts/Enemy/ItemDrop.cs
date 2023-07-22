@@ -48,9 +48,7 @@ namespace Ithas
             int randomRoll = Random.Range(1, 101); //1 - 100
             if (randomRoll <= dropPercentage)
             {
-                Debug.Log("Roll number: " + randomRoll + " // Remove it after you see this");
                 GameObject droppedItem = Instantiate(Resources.Load<GameObject>("Prefabs/Items/" + dropPrefabName), enemyPosition, Quaternion.identity);
-                Debug.Log("Dropped item prefab: " + droppedItem + " // Remove it after you see this");
 
                 // set the values first
                 droppedItem.GetComponent<ItemDropManager>().dropType = dropType;

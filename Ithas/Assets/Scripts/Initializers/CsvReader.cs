@@ -17,6 +17,8 @@ namespace Ithas
         [SerializeField] private TextAsset dialogueDataCsv;
         [SerializeField] private TextAsset actorDataCsv;
         [SerializeField] private TextAsset itemDropDataCsv;
+        [SerializeField] private TextAsset achievementDataCsv;
+
 
         #region PlayerData Classes
 
@@ -162,6 +164,25 @@ namespace Ithas
 
         #endregion
 
+        #region Achievement Data Classes
+
+        [System.Serializable]
+        public class AchievementData
+        {
+            public int achievementId;
+            public string achievementName;
+            public string achievementType;
+            public int achievementValue;
+            public string achievementDescription;
+        }
+        [System.Serializable]
+        public class AchievementDataArray
+        {
+            public AchievementData[] achievementData;
+        }
+
+        #endregion
+
 
         public PlayerDataArray playerDataList = new PlayerDataArray(); //instance of playerDataArray
         public PlayerAttackDataArray playerAttackDataList = new PlayerAttackDataArray(); //instance of playerAttackDataArray
@@ -169,8 +190,8 @@ namespace Ithas
         public LevelDataArray levelDataList = new LevelDataArray(); //instance of levelDataArray
         public DialogueDataArray dialogueDataList = new DialogueDataArray(); //instance of dialogueDataArray
         public ActorDataArray actorDataList = new ActorDataArray(); //instance of ActorDataArray
-        public ItemDropDataArray itemDropDataList = new ItemDropDataArray(); //instance of ActorDataArray
-
+        public ItemDropDataArray itemDropDataList = new ItemDropDataArray(); //instance of ItemDropDataArray
+        public AchievementDataArray achievementDataList = new AchievementDataArray(); //instance of AchievementDataArray
 
         private void Awake()
         {
@@ -181,6 +202,7 @@ namespace Ithas
             ReadDialogueData();
             ReadActorData();
             ReadItemDropData();
+            ReadAchievementData();
         }
 
         private void ReadPlayerData()
@@ -333,6 +355,26 @@ namespace Ithas
                 itemDropDataList.itemDropData[i].dropValue = float.Parse(data[5 * (i + 1) + 3]);
                 itemDropDataList.itemDropData[i].dropPercentage = float.Parse(data[5 * (i + 1) + 4]);
             }
+        }
+
+        private void ReadAchievementData()
+        {
+            string[] data = achievementDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            int tableSize = (data.Length) / 5 - 1; //noOfColumns - headerRow
+            achievementDataList.achievementData = new AchievementData[tableSize];
+
+            for (int i = 0; i < tableSize; i++)
+            {
+                achievementDataList.achievementData[i] = new AchievementData();
+
+                achievementDataList.achievementData[i].achievementId = int.Parse(data[5 * (i + 1)]);
+                achievementDataList.achievementData[i].achievementName = (data[5 * (i + 1) + 1]);
+                achievementDataList.achievementData[i].achievementType = (data[5 * (i + 1) + 2]);
+                achievementDataList.achievementData[i].achievementValue = int.Parse(data[5 * (i + 1) + 3]);
+                achievementDataList.achievementData[i].achievementDescription = (data[5 * (i + 1) + 4]);
+
+            }
+
         }
     }
 }

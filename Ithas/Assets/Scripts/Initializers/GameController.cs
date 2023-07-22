@@ -1,6 +1,7 @@
 //oliver, celine
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Ithas
@@ -604,5 +605,31 @@ namespace Ithas
 
         #endregion
 
+        #region Achievement Data CSV Retrieval
+
+        public Achievement[] GetAchievement()
+        {
+            CsvReader csvReader = FindObjectOfType<CsvReader>();
+            if (csvReader != null && csvReader.achievementDataList.achievementData.Length > 0)
+            {
+                List<Achievement> achievements = new List<Achievement>();
+                foreach (var achievementData in csvReader.achievementDataList.achievementData)
+                {
+                    achievements.Add(new Achievement
+                    {
+                        achievementId = achievementData.achievementId,
+                        achievementName = achievementData.achievementName,
+                        achievementType = achievementData.achievementType,
+                        achievementValue = achievementData.achievementValue,
+                        achievementDescription = achievementData.achievementDescription
+                    });
+                }
+                return achievements.ToArray(); //get all achievements
+            }
+            return null; // if no achievement found or CSV reader is not present
+        }
+
+
+        #endregion
     }
 }

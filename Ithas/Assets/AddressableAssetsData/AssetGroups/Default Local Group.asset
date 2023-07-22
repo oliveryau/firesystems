@@ -45,6 +45,10 @@ MonoBehaviour:
     m_Address: ItemDropData
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 3a4e33affd45c64409a8f38f29cc3dc5
+    m_Address: AchievementData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a2221525da6148d39cf0a84f9b8418d, type: 2}
   m_SchemaSet:
