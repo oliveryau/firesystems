@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 667370608663915720}
   - component: {fileID: 6271533868377259401}
   - component: {fileID: 6627360854899961486}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 1656540284502255552}
   - component: {fileID: 5262011425641611131}
   - component: {fileID: 1357068827517975340}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Table
   m_TagString: Burnables
   m_Icon: {fileID: 0}

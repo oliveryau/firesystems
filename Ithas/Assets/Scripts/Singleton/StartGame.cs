@@ -45,6 +45,7 @@ namespace Ithas
         private void Start()
         {
             playerStatsSO.ResetStats(); //for resetting between game sessions in unity editor only
+            AchievementItemController.ResetAllUnlockedStatus();
 
             CsvReader csvReader = FindObjectOfType<CsvReader>();
             gameController = FindObjectOfType<GameController>();

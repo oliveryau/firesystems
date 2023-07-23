@@ -15,6 +15,7 @@ namespace Ithas
         [HideInInspector] public float currentPlayerExp;
         [HideInInspector] public int currentEnemyNo;
         [HideInInspector] public int enemiesKilled;
+        [HideInInspector] public int objectsDestroyed;
         [HideInInspector] public Vector3 enemyPosition;
 
         [Header("Others")]
@@ -53,13 +54,14 @@ namespace Ithas
             {
                 inputHandler.SetInputReceiver(player.GetComponent<PlayerMovement>());
             }
+
+            achievementsMenu.InitializeMenu();
         }
 
         private void Update()
         {
             PlayerStats playerStats = player.GetComponent<PlayerStats>();
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            PlayerUi playerUi = player.GetComponent<PlayerUi>();
 
             if (currentPlayerLevel < 10) //max level is 10
             {
@@ -77,6 +79,8 @@ namespace Ithas
                     {
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
+
+                    achievementsMenu.UpdateAchievements("Player");
                 }
                 else if (Input.GetKeyDown(KeyCode.F1)) //cheat code F1 to level up
                 {
@@ -92,6 +96,8 @@ namespace Ithas
                     {
                         playerAttack.UpdatePlayerAttackStats(); //update playerAttack stats when level up
                     }
+
+                    achievementsMenu.UpdateAchievements("Player");
                 }
             }
         }
@@ -160,8 +166,35 @@ namespace Ithas
                 playerStats.totalExpGained += playerStats.currentExp;
             }
             enemiesKilled++;
-            achievementsMenu.UpdateAchievements(achievementsMenu.achievements);
-            Debug.Log(achievementsMenu.achievements.Length);
+            achievementsMenu.UpdateAchievements("Kill");
+        }
+
+        public void DamageObject(EnemyScript enemyScript, float damage)
+        {
+            enemyScript.hp -= damage; //-hp when damaged
+            enemyScript.UpdateEnemyHpBar(damage); //ui
+
+            if (enemyScript.hp <= 0)
+            {
+                ObjectDie(enemyScript);
+            }
+        }
+
+        private void ObjectDie(EnemyScript enemyScript)
+        {
+            Destroy(enemyScript.gameObject); //destroy object when die
+
+            PlayerStats playerStats = player.GetComponent<PlayerStats>();
+            PlayerUi playerUi = player.GetComponent<PlayerUi>();
+            if (playerStats != null && currentPlayerLevel < 10)
+            {
+                playerStats.currentExp += enemyScript.exp; //add enemy's exp to player
+                playerStatsSO.currentExp = playerStats.currentExp; //set it to playerStatsSO
+                playerUi.SetExpBar(playerStats.currentExp); //set exp value of player
+                playerStats.totalExpGained += playerStats.currentExp;
+            }
+            objectsDestroyed++;
+            achievementsMenu.UpdateAchievements("Destroy");
         }
 
         #region Player Data CSV Retrieval

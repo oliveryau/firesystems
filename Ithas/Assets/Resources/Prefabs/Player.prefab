@@ -209,6 +209,8 @@ MonoBehaviour:
   movementSpeed: 0
   currentExp: 0
   maxExp: 0
+  totalDamageTaken: 0
+  totalExpGained: 0
   playerStatsSO: {fileID: 0}
 --- !u!114 &8797338797399346873
 MonoBehaviour:
@@ -243,7 +245,10 @@ MonoBehaviour:
   nextAttackTime: 0
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
+  objectLayers:
+    serializedVersion: 2
+    m_Bits: 128
   playerStatsSO: {fileID: 0}
 --- !u!114 &8210367329042051980
 MonoBehaviour:

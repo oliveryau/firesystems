@@ -3000,6 +3000,10 @@ PrefabInstance:
       propertyPath: playerStatsSO
       value: 
       objectReference: {fileID: 11400000, guid: 19154d09151aa1241abe66530ca17977, type: 2}
+    - target: {fileID: 472650325120236168, guid: 7af011f846fafbe4c94f727383a7ddc6, type: 3}
+      propertyPath: achievementsMenu
+      value: 
+      objectReference: {fileID: 1237089001}
     - target: {fileID: 472650325120236169, guid: 7af011f846fafbe4c94f727383a7ddc6, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3104,6 +3108,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 13847876097846646, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
   m_PrefabInstance: {fileID: 8936540220950759133}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1237089001 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8808314075498550604, guid: aadd0a1697416b044bd4293ffb2f9478, type: 3}
+  m_PrefabInstance: {fileID: 8936540220950759133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237089000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e128dc4c748406349af1366abcc07832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1470720143 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5098271460090377681, guid: 8f3744ee988d5e04eb670d7c46368d3f, type: 3}

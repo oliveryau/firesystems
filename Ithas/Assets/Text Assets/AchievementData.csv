@@ -1,9 +1,7 @@
 achievementId,name,type,value,description
-1,Startup,Time,1,Played for the first time.
-2,Addicted,Time,300,Played for 5 minutes.
-3,First Blood,Kill,1,Killed an enemy.
-4,Savage,Kill,8,Killed 10 enemies.
-5,Sabotage,Destroy,1,Destroyed an object.
-6,Destroyer,Destroy,10,Destroyed 10 objects.
-7,First Victory,Level,1,Cleared a level.
-8,Untouchable,Player,5,Reached Player Level 5.
+1,First Blood,Kill,1,Killed an enemy.
+2,Serial Killer,Kill,5,Killed 5 enemies.
+3,Wrecker,Destroy,1,Destroyed an object.
+4,Demolisher,Destroy,10,Destroyed 10 objects.
+5,Arsonist,Player,3,Reached Player Level 3.
+6,Pyromaniac,Player,5,Reached Player Level 5.

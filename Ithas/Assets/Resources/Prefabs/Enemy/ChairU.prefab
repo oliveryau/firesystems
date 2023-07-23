@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3134469955122148142}
   - component: {fileID: 5060798104382648879}
   - component: {fileID: 386029961803448406}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: ChairU
   m_TagString: Burnables
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 7101454097970078503}
   - component: {fileID: 5612955623789369907}
   - component: {fileID: 2741736984578175551}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

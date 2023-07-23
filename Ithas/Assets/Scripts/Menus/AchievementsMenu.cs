@@ -16,13 +16,16 @@ namespace Ithas
         public Transform content;
         public string achievementType;
 
-        public GameController gameController;
         public AchievementItemController achievementItemController;
         public List<AchievementItemController> achievementItemControllers = new List<AchievementItemController>();
 
-        private void Start()
+        [Header("Others")]
+        public GameController gameController;
+
+        public void InitializeMenu()
         {
             gameController = FindObjectOfType<GameController>();
+
             achievements = gameController.GetAchievement();
 
             for (int i = 0; i < achievements.Length; i++)
@@ -30,69 +33,59 @@ namespace Ithas
                 GameObject obj = Instantiate(achievementItemPrefab, content);   //spawn each achievement
                 achievementItemController = obj.GetComponent<AchievementItemController>();
                 achievementItemController.achievement = achievements[i];
+                achievementItemController.id = "Achievement_" + achievements[i].achievementId; // Set the id field based on achievementId
                 achievementItemController.ShowAchievements();
                 achievementItemControllers.Add(achievementItemController); // Add each controller to the list
-                Debug.Log(achievements.Length);
             }
         }
 
-        private void Update()
+        public void UpdateAchievements(string achievementType)
         {
-            //UpdateAchievements(achievements);
-        }
-
-        public void UpdateAchievements(Achievement[] achievement)
-        {
-            Debug.Log(achievement.Length);
-
-            if (achievement != null && achievement.Length > 0)
+            if (achievements != null && achievements.Length > 0)
             {
-                for (int i = 0; i < achievement.Length; i++)
+                for (int i = 0; i < achievements.Length; i++)
                 {
-                    switch (achievementItemControllers[i].achievement.achievementType)
+                    if (achievements[i].achievementType == achievementType)
                     {
-                        case "Time":
-                            {
-                                Debug.Log(achievementItemControllers[i].achievement.achievementType);
-                                break;
-                            }
-                        case "Kill":
-                            {
-                                Debug.Log(achievementItemControllers[i].achievement.achievementType);
-                                if (gameController.enemiesKilled >= 1)
+                        switch (achievementType)
+                        {
+                            case "Kill":
                                 {
-                                    achievementItemControllers[i].achievement.achievementIsUnlocked = true;
+                                    if (gameController.enemiesKilled >= achievements[i].achievementValue)
+                                    {
+                                        achievementItemControllers[i].isUnlocked = true;
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                        case "Destroy":
-                            {
-                                Debug.Log(achievementItemControllers[i].achievement.achievementType);
-                                break;
-
-                            }
-                        case "Level":
-                            {
-                                Debug.Log(achievementItemControllers[i].achievement.achievementType);
-                                break;
-                            }
-                        case "Player":
-                            {
-                                Debug.Log(achievementItemControllers[i].achievement.achievementType);
-                                if (gameController.currentPlayerLevel >= achievements[i].achievementValue)
+                            case "Destroy":
                                 {
-                                    achievementItemControllers[i].isUnlocked = true;
+                                    if (gameController.objectsDestroyed >= achievements[i].achievementValue)
+                                    {
+                                        achievementItemControllers[i].isUnlocked = true;
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
+                            case "Player":
+                                {
+                                    if (gameController.currentPlayerLevel >= achievements[i].achievementValue)
+                                    {
+                                        achievementItemControllers[i].isUnlocked = true;
+                                    }
+                                    break;
+                                }
+                            default:
+                                {
+                                    Debug.Log("No achievementType found");
+                                    break;
+                                }
+                        }
                     }
                 }
             }
             else
             {
-                Debug.Log("No achievements found!");
+                Debug.Log("No achievementType found!");
             }
-
         }
 
 

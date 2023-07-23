@@ -9,11 +9,12 @@ namespace Ithas
 {
     public class CompletionBar : MonoBehaviour
     {
+        private GameController gameController;
+
         [Header("Values")]
         private int totalObjects; // total number of specific static game objects in the level
-        private int destroyedObjects; // number of destroyed game objects
-        [HideInInspector] public float completionPercentage; // completion percentage
         private GameObject[] burnableObjects; // to store all burnable objects
+        public float completionPercentage; // completion percentage
 
         [Header("UI")]
         public Slider completionBar;
@@ -25,6 +26,11 @@ namespace Ithas
         public Timer timer;
         public CSVWriter csvWriter;
 
+        private void Start()
+        {
+            gameController = FindObjectOfType<GameController>();
+        }
+
         public void SetCompletionPercentage() // only for starting
         {
             burnableObjects = GameObject.FindGameObjectsWithTag("Burnables");
@@ -34,7 +40,7 @@ namespace Ithas
 
         public void UpdateCompletionPercentage() // actual value
         {
-            completionPercentage = (float)destroyedObjects / totalObjects * 100f;
+            completionPercentage = (float)gameController.objectsDestroyed / totalObjects * 100f;
             SetCompletionBar();
         }
 
@@ -46,7 +52,6 @@ namespace Ithas
 
         public void ObjectDestroyed()
         {
-            destroyedObjects++;
             UpdateCompletionPercentage();
 
             if (completionPercentage >= 100) // check if all game objects have been destroyed

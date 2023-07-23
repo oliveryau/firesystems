@@ -16,6 +16,7 @@ namespace Ithas
 
         [Header("Others")]
         [SerializeField] private LayerMask enemyLayers;
+        [SerializeField] private LayerMask objectLayers;
 
         [Header("SO")]
         public PlayerStatsSO playerStatsSO;
@@ -90,6 +91,22 @@ namespace Ithas
                     if (gameController != null)
                     {
                         gameController.DamageEnemy(enemyScript, damage);
+                    }
+                }
+            }
+
+            Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, attackRange, objectLayers); //detect objects in range
+
+            foreach (Collider2D enemy in hitObjects) //damage objects
+            {
+                EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+
+                if (enemyScript != null)
+                {
+                    GameController gameController = FindObjectOfType<GameController>();
+                    if (gameController != null)
+                    {
+                        gameController.DamageObject(enemyScript, damage);
                     }
                 }
             }
