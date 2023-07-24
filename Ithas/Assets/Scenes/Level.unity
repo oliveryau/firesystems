@@ -579,7 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713679fa283c94269a7e9d4fc8960c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedObjects: 0
   completionPercentage: 0
   completionBar: {fileID: 90836207}
   levelCompletionPopUp: {fileID: 2139888192}
@@ -587,7 +586,6 @@ MonoBehaviour:
   inputHandler: {fileID: 1669290323}
   timer: {fileID: 1639064138}
   csvWriter: {fileID: 1820038870}
-  achievementsMenu: {fileID: 1983509281}
 --- !u!114 &90836207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7308,7 +7306,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2618532477403114842}
         m_TargetAssemblyTypeName: Ithas.SceneController, Assembly-CSharp
-        m_MethodName: BackToOutdoor
+        m_MethodName: BackToOutdoorLoseStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9125,9 +9123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1919135806}
-        m_TargetAssemblyTypeName: Ithas.GameOverMenu, Assembly-CSharp
-        m_MethodName: ExitMenu
+      - m_Target: {fileID: 2618532477403114842}
+        m_TargetAssemblyTypeName: Ithas.SceneController, Assembly-CSharp
+        m_MethodName: BackToOutdoor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

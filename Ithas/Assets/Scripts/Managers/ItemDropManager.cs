@@ -31,10 +31,7 @@ namespace Ithas
                 {
                     case "EXP":
                         playerStats.currentExp += dropValue;
-                        if (playerStats.currentExp >= playerStats.maxExp)
-                        {
-                            playerStats.currentExp = 0; //set again to make sure it does not exceed
-                        }
+                        //dont set exp as logic is implemented in gameController already
 
                         playerStatsSO.currentExp = playerStats.currentExp; //set SO
                         playerUi.SetExpBar(playerStats.currentExp); //update ui

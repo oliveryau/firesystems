@@ -45,7 +45,8 @@ namespace Ithas
                 else
                 {
                     GameSaveManager.Instance.SaveData(playerStatsSO); //save data into SO
-                    StartCoroutine(FadeCoroutine());
+                    //StartCoroutine(FadeCoroutine());
+                    SceneManager.LoadScene(sceneToLoad);
                 }
             }
         }
@@ -53,20 +54,23 @@ namespace Ithas
         public void RetryLevel() //when fail and retry button
         {
             Time.timeScale = 1f;
-            StartCoroutine(RetryFadeCoroutine());
+            //StartCoroutine(RetryFadeCoroutine());
+            SceneManager.LoadScene(currentScene);
         }
 
         public void BackToOutdoor() //when complete level and exit/fail level and exit
         {
             Time.timeScale = 1f;
-            StartCoroutine(FadeCoroutine());
+            //StartCoroutine(FadeCoroutine());
+            SceneManager.LoadScene(sceneToLoad);
         }
 
         public void BackToOutdoorLoseStats() //when manually exit level
         {
             Time.timeScale = 1f;
             playerStatsSO.ResetToInitialStats();
-            StartCoroutine(FadeCoroutine());
+            //StartCoroutine(FadeCoroutine());
+            SceneManager.LoadScene(sceneToLoad);
         }
 
         public void StayInLevel() //stay in level
@@ -76,36 +80,36 @@ namespace Ithas
             runOutCanvas.SetActive(false);
         }
 
-        public IEnumerator RetryFadeCoroutine() //when fail and retry button
-        {
-            playerStatsSO.ResetToInitialStats();
-            inputHandler.SetActive(true);
-            if (fadeOutPanel != null)
-            {
-                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
-            }
-            yield return new WaitForSeconds(fadeDelay);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
-            while (!asyncOperation.isDone)
-            {
-                yield return null;
-            }
-        }
+        //public IEnumerator RetryFadeCoroutine() //when fail and retry button
+        //{
+        //    playerStatsSO.ResetToInitialStats();
+        //    inputHandler.SetActive(true);
+        //    if (fadeOutPanel != null)
+        //    {
+        //        Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+        //    }
+        //    yield return new WaitForSeconds(fadeDelay);
+        //    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(currentScene);
+        //    while (!asyncOperation.isDone)
+        //    {
+        //        yield return null;
+        //    }
+        //}
 
-        public IEnumerator FadeCoroutine()
-        {
-            inputHandler.SetActive(true);
-            Time.timeScale = 1f;
-            if (fadeOutPanel != null)
-            {
-                Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
-            }
-            yield return new WaitForSeconds(fadeDelay);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
-            while (!asyncOperation.isDone)
-            {
-                yield return null;
-            }
-        }
+        //public IEnumerator FadeCoroutine()
+        //{
+        //    inputHandler.SetActive(true);
+        //    //Time.timeScale = 1f;
+        //    if (fadeOutPanel != null)
+        //    {
+        //        Instantiate(fadeOutPanel, Vector3.zero, Quaternion.identity);
+        //    }
+        //    yield return new WaitForSeconds(fadeDelay);
+        //    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+        //    while (!asyncOperation.isDone)
+        //    {
+        //        yield return null;
+        //    }
+        //}
     }
 }
