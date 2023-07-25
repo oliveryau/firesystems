@@ -340,7 +340,12 @@ namespace Ithas
 
         private void ReadItemDropData()
         {
+#if UNITY_STANDALONE_WIN
             string[] data = itemDropDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+#endif
+#if UNITY_STANDALONE_OSX
+            string[] data = itemDropDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+#endif
 
             int tableSize = (data.Length) / 5 - 1; //noOfColumns - headerRow
             itemDropDataList.itemDropData = new ItemDropData[tableSize];
@@ -359,7 +364,13 @@ namespace Ithas
 
         private void ReadAchievementData()
         {
+#if UNITY_STANDALONE_WIN
             string[] data = achievementDataCsv.text.Split(new string[] { ",", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+#endif
+#if UNITY_STANDALONE_OSX
+            string[] data = achievementDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+#endif
+
             int tableSize = (data.Length) / 5 - 1; //noOfColumns - headerRow
             achievementDataList.achievementData = new AchievementData[tableSize];
 
