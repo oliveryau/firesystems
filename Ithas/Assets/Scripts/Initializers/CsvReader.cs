@@ -3,14 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Ithas
 {
     public class CsvReader : MonoBehaviour
     {
         [SerializeField] private TextAsset playerDataCsv;
-        //[SerializeField] private AssetReference playerDataCsvTest; //
         [SerializeField] private TextAsset playerAttackDataCsv;
         [SerializeField] private TextAsset enemyTypeDataCsv;
         [SerializeField] private TextAsset levelEnemyDataCsv;
@@ -207,9 +205,6 @@ namespace Ithas
 
         private void ReadPlayerData()
         {
-            //var test = playerDataCsvTest.LoadAsset<TextAsset>();
-            //var test2 = Addressables.LoadAsset<TextAsset>("PlayerData");
-            //string[] data = test2.Result.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
             string[] data = playerDataCsv.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
             int tableSize = (data.Length) / 4 - 1; //noOfColumns - headerRow

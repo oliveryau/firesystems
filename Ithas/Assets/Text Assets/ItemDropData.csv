@@ -1,4 +1,4 @@
 enemyId,dropPrefabName,dropType,dropValue,dropPercentage
-1,ExperienceDrop,EXP,5,30
-2,HpDrop,HP,7,30
-3,HpDrop,HP,20,20
+1,ExperienceDrop,EXP,5,20
+2,HpDrop,HP,5,30
+3,HpDrop,HP,10,20
