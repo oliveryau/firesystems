@@ -55,6 +55,7 @@ namespace Ithas
         {
             Time.timeScale = 1f;
             //StartCoroutine(RetryFadeCoroutine());
+            playerStatsSO.ResetToInitialStats();
             SceneManager.LoadScene(currentScene);
         }
 
