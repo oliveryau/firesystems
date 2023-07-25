@@ -13,6 +13,7 @@ namespace Ithas
         public TextMeshProUGUI hpText;
         public Slider expBar;
         public TextMeshProUGUI expText;
+        public TextMeshProUGUI levelText;
         public TextMeshProUGUI moveSpeedText;
         public TextMeshProUGUI damageText;
         public TextMeshProUGUI attackRangeText;
@@ -36,6 +37,8 @@ namespace Ithas
             expBar.maxValue = playerStatsSO.maxExp; //set expBar values
             SetExpBar(playerStatsSO.currentExp);
 
+            levelText.text = "Level: " + gameController.currentPlayerLevel.ToString(); //level ui
+
             moveSpeedText.text = "Speed: " + playerStatsSO.movementSpeed.ToString(); //movespeed ui
 
             damageText.text = "Damage: " + playerStatsSO.damage.ToString(); //attack ui
@@ -52,6 +55,8 @@ namespace Ithas
 
             expBar.maxValue = playerStats.maxExp; //expBar
             SetExpBar(playerStats.currentExp);
+
+            levelText.text = "Level: " + gameController.currentPlayerLevel.ToString(); //level ui
 
             moveSpeedText.text = "Speed: " + playerStats.movementSpeed.ToString(); //movespeed ui
         }

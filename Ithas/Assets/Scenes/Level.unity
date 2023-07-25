@@ -16842,6 +16842,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 630589904}
     - target: {fileID: 8210367329042051980, guid: d4bcb8921881a6344a8c5dfe5e93ecab, type: 3}
+      propertyPath: levelText
+      value: 
+      objectReference: {fileID: 9017627912162316715}
+    - target: {fileID: 8210367329042051980, guid: d4bcb8921881a6344a8c5dfe5e93ecab, type: 3}
       propertyPath: damageText
       value: 
       objectReference: {fileID: 713509582}
@@ -17116,6 +17120,17 @@ MonoBehaviour:
 --- !u!114 &9017627912162316714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7342275432071524333, guid: c4d5430ce6ff8d540aa79f878a36631c, type: 3}
+  m_PrefabInstance: {fileID: 9017627912162316712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9017627912162316715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7771907893385018681, guid: c4d5430ce6ff8d540aa79f878a36631c, type: 3}
   m_PrefabInstance: {fileID: 9017627912162316712}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
